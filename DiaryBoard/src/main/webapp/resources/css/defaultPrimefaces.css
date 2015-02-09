@@ -1,0 +1,12 @@
+.ui-datatable tbody td {
+    border-color: none !important;
+    
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+    border-style: none !important;
+    border-width: none !important;
+    overflow: none !important;
+    padding: none !important;
+}
+

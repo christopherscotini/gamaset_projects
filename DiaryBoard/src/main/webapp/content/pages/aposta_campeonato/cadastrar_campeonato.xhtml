@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> One </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Two </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Three </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Four </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	<h:form styleClass="form-horizontal no-margin" acceptcharset="ISO-8859-1" prependId="false">
+	
+		<div class="page-header">
+        	<div class="pull-left">
+              <h2>#{msgs['cadastrar_campeonato.lbl.titulotela.cadastrar']}</h2>
+            </div>
+            <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+        <div class="row-fluid">
+			<div class="widget">
+	        	<div class="widget-header">
+	              <div class="title">
+	                <span class="fs1" aria-hidden="true" data-icon="î…”"></span>#{msgs['generico.lbl.formulario']}
+	              </div>
+	            </div>
+	            <div class="widget-body">
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 Flag
+		               	</label>
+						<div class="controls controls-row">
+							<h:selectOneMenu value="#{campeonatoBean.campeonatoCadastrar.img}" converter="genericEntityConverter">
+								<f:selectItems value="#{campeonatoBean.flags}" var="f" itemValue="#{f}" itemLabel="#{f.nomeCompeticao}" />
+								<p:ajax event="change" update="input_descricao" />
+							</h:selectOneMenu>
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_campeonato.lbl.descricao']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:outputText id="input_descricao" value="#{campeonatoBean.campeonatoCadastrar.img.nomeCompeticao}"  />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_campeonato.lbl.sigla']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText value="#{campeonatoBean.campeonatoCadastrar.sigla}"  />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_campeonato.lbl.urlcampeonato']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText value="#{campeonatoBean.campeonatoCadastrar.urlCompeticao}"  />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_campeonato.lbl.flagacademia']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:selectBooleanCheckbox value="#{campeonatoBean.campeonatoCadastrar.habilitadoAcademia}"  />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_campeonato.lbl.flagprosoccer']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:selectBooleanCheckbox value="#{campeonatoBean.campeonatoCadastrar.habilitadoProsoccer}"  />
+						</div>
+           			</div>
+	           	</div>
+	           
+	           	<div class="form-actions no-margin">
+					<h:commandButton action="#{campeonatoBean.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-info pull-right" />
+		        	<div class="clearfix" />
+	        	</div>
+			</div>
+		</div>
+		
+    </h:form>         
+	</ui:define>
+</ui:composition>

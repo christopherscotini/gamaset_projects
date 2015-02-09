@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> One </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Two </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Three </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Four </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
+	<h:form>
+		
+		<div class="widget">
+			<div class="widget-header">
+				<div class="title">
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					#{msgs['consultar_categoriamovimentacao.lbl.legend.categoriamovimentacao']}
+				</div>
+			</div>
+			<div class="widget-body">
+				<p:dataTable id="tableCreditos" 
+					styleClass="table table-condensed table-bordered no-margin" 
+					value="#{categoriaMovimentacaoBean.data}" var="result" rows="10" 
+					paginator="true" paginatorPosition="bottom">
+					
+					<p:column headerText="#{msgs['generico.tabelacoluna.id']}" sortBy="#{result.id}" styleClass="center-align-text" width="5%">
+				        <h:outputText value="#{result.id}" />
+				    </p:column>
+
+					<p:column headerText="#{msgs['generico.tabelacoluna.descricao']}" sortBy="#{result.descricao}" >
+				        <h:outputText value="#{result.descricao}" />
+				    </p:column>
+				    
+				</p:dataTable>
+			</div>
+			
+			<div class="form-actions no-margin">
+				<h:commandButton action="#{categoriaMovimentacaoBean.navegarCadastrar()}" 
+					value="Cadastrar" styleClass="btn btn-info pull-right" />
+             <div class="clearfix" />
+           </div>
+		</div>
+		
+		
+
+	</h:form>
+	</ui:define>
+</ui:composition>
