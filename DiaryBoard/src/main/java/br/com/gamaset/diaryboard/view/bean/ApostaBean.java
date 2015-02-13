@@ -1,7 +1,8 @@
 package br.com.gamaset.diaryboard.view.bean;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
@@ -13,9 +14,8 @@ import br.com.gamaset.diaryboard.model.ApostaEntity;
 import br.com.gamaset.diaryboard.model.BetEntity;
 import br.com.gamaset.diaryboard.model.CampeonatoEntity;
 import br.com.gamaset.diaryboard.model.EventoEntity;
-import br.com.gamaset.diaryboard.model.FlagEntity;
 import br.com.gamaset.diaryboard.model.MercadoApostaEntity;
-import br.com.gamaset.diaryboard.model.ResultadoEntityEnum;
+import br.com.gamaset.diaryboard.model.TipsterEntity;
 
 
 @ManagedBean
@@ -27,9 +27,9 @@ public class ApostaBean extends BeanModel{
 	
 	private List<ApostaEntity>entities;
 	private ApostaEntity apostaCadastrar;
-	private List<FlagEntity>flags;
-	private List<MercadoApostaEntity> mercados;
-	
+	private List<CampeonatoEntity>campeonatoList;
+	private List<MercadoApostaEntity> mercadosList;
+	private List<TipsterEntity> tipsterList;
 	
 	public ApostaBean() {
 
@@ -38,11 +38,21 @@ public class ApostaBean extends BeanModel{
 	@Override
 	public String iniciarTela() {
 		
+		entities = apostaService.listarTodos();
+		
 		return TELA_APOSTA_LIST;
 	}
 	
 	public String navegarEditar(ApostaEntity selected){
 		apostaCadastrar = selected;
+		
+		campeonatoList = campeonatoService.listarTodos();
+		mercadosList = mercadoApostaService.listarTodos();
+		tipsterList = tipsterService.listarTodos();
+		apostaCadastrar.getBet().setCampeonato(apostaCadastrar.getBet().getCampeonato());
+		apostaCadastrar.getBet().getEvento().setMercado(apostaCadastrar.getBet().getEvento().getMercado());
+		apostaCadastrar.setTipster(apostaCadastrar.getTipster());
+		apostaCadastrar.setResultado(apostaCadastrar.getResultado());
 		
 		return TELA_APOSTA_EDIT;
 	}
@@ -54,10 +64,13 @@ public class ApostaBean extends BeanModel{
 	
 	public String navegarCadastrar(){
 		initApostaEntityObj();
-		flags = flagService.listarTodos();
-		mercados = mercadoApostaService.listarTodos();
-		apostaCadastrar.getBet().getCampeonato().setImg(flags.get(0));
-		apostaCadastrar.getBet().getEvento().setMercado(mercados.get(0));
+		campeonatoList = campeonatoService.listarTodos();
+		mercadosList = mercadoApostaService.listarTodos();
+		tipsterList = tipsterService.listarTodos();
+		apostaCadastrar.getBet().setCampeonato(campeonatoList.get(0));
+		apostaCadastrar.getBet().getEvento().setMercado(mercadosList.get(0));
+		apostaCadastrar.setTipster(tipsterList.get(0));
+		apostaCadastrar.setResultado(getResultadoApostaList().get(0));
 		
 		
 		return TELA_APOSTA_EDIT;
@@ -66,6 +79,7 @@ public class ApostaBean extends BeanModel{
 	public String salvar(){
 		try{
 			if(apostaCadastrar.getId() == null){
+				apostaCadastrar.setTicket(new Date().getTime()+"");
 				apostaService.adicionarEntidade(apostaCadastrar);
 			}else{
 				apostaService.editarEntidade(apostaCadastrar);
@@ -80,15 +94,31 @@ public class ApostaBean extends BeanModel{
 	private void initApostaEntityObj() {
 		apostaCadastrar = new ApostaEntity();
 		apostaCadastrar.setBet(new BetEntity());
-		apostaCadastrar.setDataBet(new Date());
+		apostaCadastrar.setTipster(new TipsterEntity());
+		apostaCadastrar.setDataAposta(new Date());
 		apostaCadastrar.setStatusResolvida(false);
-		apostaCadastrar.setValorAposta(BigDecimal.ZERO);
-		apostaCadastrar.setValorRetorno(BigDecimal.ZERO);
+		apostaCadastrar.setValorAposta(null);
+		apostaCadastrar.setValorRetorno(null);
+		apostaCadastrar.setResultado(null);
 		apostaCadastrar.getBet().setCampeonato(new CampeonatoEntity());
-		apostaCadastrar.getBet().getCampeonato().setImg(new FlagEntity());
 		apostaCadastrar.getBet().setEvento(new EventoEntity());
 		apostaCadastrar.getBet().getEvento().setMercado(new MercadoApostaEntity());
-		apostaCadastrar.getBet().getEvento().setResultado(null);
+//		apostaCadastrar.getBet().getEvento().setResultado(null);
+		apostaCadastrar.getBet().getEvento().setOdd(null);
+	}
+	
+	public void calculaValorRetornoPossivel(){
+//		if(!(apostaCadastrar.getBet().getEvento().getOdd() == null || apostaCadastrar.getBet().getEvento().getOdd().compareTo(BigDecimal.ZERO)==0)){
+//			apostaCadastrar.setValorRetorno(apostaCadastrar.getBet().getEvento().getOdd().setScale(3, RoundingMode.UP).multiply(apostaCadastrar.getValorAposta()));
+//		}
+	}
+	
+	public void calculaValorOdd(){
+		if((apostaCadastrar.getValorAposta() != null && apostaCadastrar.getValorAposta().compareTo(BigDecimal.ZERO) > 0) && apostaCadastrar.getValorRetorno() != null){
+			apostaCadastrar.getBet().getEvento().setOdd(apostaCadastrar.getValorRetorno().divide(apostaCadastrar.getValorAposta(), MathContext.DECIMAL128).setScale(3, RoundingMode.CEILING));
+		}else{
+			apostaCadastrar.getBet().getEvento().setOdd(null);
+		}
 	}
 	
 	/* -------------------------------------------------------- */	
@@ -108,21 +138,31 @@ public class ApostaBean extends BeanModel{
 		this.apostaCadastrar = apostaCadastrar;
 	}
 
-	public List<MercadoApostaEntity> getMercados() {
-		return mercados;
+	public List<MercadoApostaEntity> getMercadosList() {
+		return mercadosList;
 	}
 
-	public void setMercados(List<MercadoApostaEntity> mercados) {
-		this.mercados = mercados;
+	public void setMercadosList(List<MercadoApostaEntity> mercadosList) {
+		this.mercadosList = mercadosList;
 	}
 
-	public List<FlagEntity> getFlags() {
-		return flags;
+	public List<TipsterEntity> getTipsterList() {
+		return tipsterList;
 	}
 
-	public void setFlags(List<FlagEntity> flags) {
-		this.flags = flags;
+	public void setTipsterList(List<TipsterEntity> tipsterList) {
+		this.tipsterList = tipsterList;
 	}
+
+	public List<CampeonatoEntity> getCampeonatoList() {
+		return campeonatoList;
+	}
+
+	public void setCampeonatoList(List<CampeonatoEntity> campeonatoList) {
+		this.campeonatoList = campeonatoList;
+	}
+	
+	
 	
 	
 }

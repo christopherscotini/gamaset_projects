@@ -45,7 +45,7 @@ public class CampeonatoBean extends BeanModel{
 	public String navegarEditar(CampeonatoEntity selected){
 		campeonatoCadastrar = selected;
 		flags = flagService.listarTodos();
-		campeonatoCadastrar.setImg(campeonatoCadastrar.getImg());
+		campeonatoCadastrar.setFlag(campeonatoCadastrar.getFlag());
 		
 		return TELA_CADASTRAR_CAMPEONATOS;
 	}
@@ -59,7 +59,7 @@ public class CampeonatoBean extends BeanModel{
 	public String navegarCadastrar(){
 		campeonatoCadastrar = new CampeonatoEntity();
 		flags = flagService.listarTodos();
-		campeonatoCadastrar.setImg(flags.get(0));
+		campeonatoCadastrar.setFlag(flags.get(0));
 		
 //		try {
 //			listarFlags();

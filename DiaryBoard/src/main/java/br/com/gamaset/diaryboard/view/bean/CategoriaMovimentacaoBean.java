@@ -6,7 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import br.com.gamaset.diaryboard.model.CategoriaMovimentacaoEntity;
+import br.com.gamaset.diaryboard.model.financas.CategoriaMovimentacaoEntity;
 
 
 @ManagedBean

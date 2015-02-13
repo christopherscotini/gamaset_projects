@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.gamaset.diaryboard.Mock;
 import br.com.gamaset.diaryboard.dto.CreditoMensalDTO;
-import br.com.gamaset.diaryboard.model.MovimentacaoEntity;
+import br.com.gamaset.diaryboard.model.financas.MovimentacaoEntity;
 
 
 @ManagedBean

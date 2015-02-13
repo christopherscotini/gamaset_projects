@@ -1,4 +1,4 @@
-package br.com.gamaset.diaryboard.model;
+package br.com.gamaset.diaryboard.model.financas;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

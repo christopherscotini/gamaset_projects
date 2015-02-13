@@ -3,19 +3,18 @@ package br.com.gamaset.diaryboard.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 
 @Entity
@@ -25,15 +24,15 @@ public class ApostaEntity implements Serializable{
 	private static final long serialVersionUID = 521614763444294035L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "APOS_CD_ID_PK")
-	private String id;
+	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "BET_CD_ID_FK")
-	private BetEntity bet;
+	@Column(name = "APOS_CD_ID_TICKET", unique=true)
+	private String ticket;
 	
 	@Column(name = "APOS_DT_APOSTA")
-	private Date dataBet;
+	private Date dataAposta;
 
 	@Column(name = "APOS_FL_RESOLVIDA")
 	private boolean statusResolvida;
@@ -44,17 +43,34 @@ public class ApostaEntity implements Serializable{
 	@Column(name = "APOS_VL_APOSTA")
 	private BigDecimal valorAposta;
 	
-	@Column(name = "APOS_FL_MULTIPLA")
-	private boolean apostaMultipla;
+//	@Column(name = "APOS_FL_MULTIPLA")
+//	private boolean apostaMultipla;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "APOS_DS_RESULTADO")
+	private ResultadoEntityEnum resultado;
 
-	public String getId() {
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "BET_CD_ID_FK")
+	private BetEntity bet;
+
+	@ManyToOne
+	@JoinColumn(name = "TIPS_CD_ID_FK")
+	private TipsterEntity tipster;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "PLJI_CD_ID_FK")
+	private PlanoJogoItemEntity planoJogoItem;
+	
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 //	public List<BetEntity> getBets() {
 //		return bets;
 //	}
@@ -63,8 +79,16 @@ public class ApostaEntity implements Serializable{
 //		this.bets = bets;
 //	}
 
-	public Date getDataBet() {
-		return dataBet;
+	public String getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(String ticket) {
+		this.ticket = ticket;
+	}
+
+	public Date getDataAposta() {
+		return dataAposta;
 	}
 
 	public BetEntity getBet() {
@@ -75,8 +99,8 @@ public class ApostaEntity implements Serializable{
 		this.bet = bet;
 	}
 
-	public void setDataBet(Date dataBet) {
-		this.dataBet = dataBet;
+	public void setDataAposta(Date dataAposta) {
+		this.dataAposta = dataAposta;
 	}
 
 	public boolean isStatusResolvida() {
@@ -103,13 +127,38 @@ public class ApostaEntity implements Serializable{
 		this.valorAposta = valorAposta;
 	}
 
-	public boolean isApostaMultipla() {
-		return apostaMultipla;
+//	public boolean isApostaMultipla() {
+//		return apostaMultipla;
+//	}
+//
+//	public void setApostaMultipla(boolean apostaMultipla) {
+//		this.apostaMultipla = apostaMultipla;
+//	}
+
+	public TipsterEntity getTipster() {
+		return tipster;
 	}
 
-	public void setApostaMultipla(boolean apostaMultipla) {
-		this.apostaMultipla = apostaMultipla;
+	public void setTipster(TipsterEntity tipster) {
+		this.tipster = tipster;
 	}
+
+	public ResultadoEntityEnum getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(ResultadoEntityEnum resultado) {
+		this.resultado = resultado;
+	}
+
+	public PlanoJogoItemEntity getPlanoJogoItem() {
+		return planoJogoItem;
+	}
+
+	public void setPlanoJogoItem(PlanoJogoItemEntity planoJogoItem) {
+		this.planoJogoItem = planoJogoItem;
+	}
+
 	
 //	@Transient
 //	public CampeonatoEntity getCampeonatoAposta(){

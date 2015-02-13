@@ -2,6 +2,7 @@ package br.com.gamaset.diaryboard.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class BetEntity implements Serializable{
 	@Column(name = "BET_CD_ID_PK")
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "EVEN_CD_ID_FK", nullable = false)
 	private EventoEntity evento;
 	

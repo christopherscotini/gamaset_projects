@@ -8,7 +8,14 @@
 		<jta-data-source>java:jboss/datasources/diaryBoardDS</jta-data-source>
 		<non-jta-data-source>java:jboss/datasources/diaryBoardDS</non-jta-data-source>
 		
+		<class>br.com.gamaset.diaryboard.model.ApostaEntity</class>
+		<class>br.com.gamaset.diaryboard.model.BetEntity</class>
 		<class>br.com.gamaset.diaryboard.model.CampeonatoEntity</class>
+		<class>br.com.gamaset.diaryboard.model.EventoEntity</class>
+		<class>br.com.gamaset.diaryboard.model.FlagEntity</class>
+		<class>br.com.gamaset.diaryboard.model.MercadoApostaEntity</class>
+		<class>br.com.gamaset.diaryboard.model.MercadoApostaSelecaoEntity</class>
+		<class>br.com.gamaset.diaryboard.model.TipsterEntity</class>
 		
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" /> <!-- Cria uma tabela caso a mesma nao exista no banco de dados --> 

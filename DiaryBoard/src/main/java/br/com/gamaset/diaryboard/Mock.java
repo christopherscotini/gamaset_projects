@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Random;
 
-import br.com.gamaset.diaryboard.model.CategoriaMovimentacaoEntity;
-import br.com.gamaset.diaryboard.model.MovimentacaoEntity;
-import br.com.gamaset.diaryboard.model.TipoMovimentacaoEntity;
+import br.com.gamaset.diaryboard.model.financas.CategoriaMovimentacaoEntity;
+import br.com.gamaset.diaryboard.model.financas.MovimentacaoEntity;
+import br.com.gamaset.diaryboard.model.financas.TipoMovimentacaoEntity;
 
 public class Mock {
 	

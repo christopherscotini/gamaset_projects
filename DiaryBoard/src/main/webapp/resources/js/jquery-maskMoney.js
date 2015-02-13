@@ -11,3 +11,11 @@
 $(function() {
     $('.currency').maskMoney();
   })
+  
+  
+function loadMasksMoneyJQuery() {
+	$('.currency').maskMoney();
+}
+  
+  
+  

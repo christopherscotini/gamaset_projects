@@ -72,3 +72,11 @@ $(document).ready(function () {
 
 //Tiny Scrollbar
 $('#scrollbar-three').tinyscrollbar();
+
+function addClassDatatable(){
+	var table = $('table').filter('[role]');
+	table.addClass("table table-condensed table-striped table-bordered table-hover no-margin")
+}
+
+
+

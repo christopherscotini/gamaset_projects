@@ -42,14 +42,14 @@
 				    </p:column>
 					<p:column headerText="#{msgs['generico.tabelacoluna.bandeira']}" styleClass="center-align-text" width="10%">
 				        <a href="#{result.urlCompeticao}" >
-				        	<h:graphicImage value="#{result.img.urlImagem}" />
+				        	<h:graphicImage value="#{result.flag.urlImagem}" />
 				        </a>
 				    </p:column>
 					<p:column headerText="#{msgs['generico.tabelacoluna.sigla']}" sortBy="#{result.sigla}" styleClass="center-align-text" width="10%" >
 				        <h:outputText value="#{result.sigla}" />
 				    </p:column>
-					<p:column headerText="#{msgs['generico.tabelacoluna.descricao']}" sortBy="#{result.img.nomeCompeticao}"  width="50%" >
-				        <h:outputText value="#{result.img.nomeCompeticao}" />
+					<p:column headerText="#{msgs['generico.tabelacoluna.descricao']}" sortBy="#{result.flag.nomeCompeticao}"  width="50%" >
+				        <h:outputText value="#{result.flag.nomeCompeticao}" />
 				    </p:column>
 					<p:column headerText=""  width="10%" styleClass="center-align-text" >
 						<h:commandLink action="#{campeonatoBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
@@ -73,5 +73,10 @@
 		
 
 	</h:form>
+	
+	<script>
+		addClassDatatable();
+	</script>
+	
 	</ui:define>
 </ui:composition>

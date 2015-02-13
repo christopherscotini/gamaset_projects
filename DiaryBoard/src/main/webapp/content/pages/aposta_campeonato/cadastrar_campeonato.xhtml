@@ -35,7 +35,7 @@
 			<div class="widget">
 	        	<div class="widget-header">
 	              <div class="title">
-	                <span class="fs1" aria-hidden="true" data-icon="î…”"></span>#{msgs['generico.lbl.formulario']}
+	                <span class="fs1" aria-hidden="true" data-icon="Ã®â€¦â€�"></span>#{msgs['generico.lbl.formulario']}
 	              </div>
 	            </div>
 	            <div class="widget-body">
@@ -44,7 +44,7 @@
 		                 	 Flag
 		               	</label>
 						<div class="controls controls-row">
-							<h:selectOneMenu value="#{campeonatoBean.campeonatoCadastrar.img}" converter="genericEntityConverter">
+							<h:selectOneMenu value="#{campeonatoBean.campeonatoCadastrar.flag}" converter="genericEntityConverter">
 								<f:selectItems value="#{campeonatoBean.flags}" var="f" itemValue="#{f}" itemLabel="#{f.nomeCompeticao}" />
 								<p:ajax event="change" update="input_descricao" />
 							</h:selectOneMenu>
@@ -55,7 +55,7 @@
 		                 	 #{msgs['cadastrar_campeonato.lbl.descricao']}
 		               	</label>
 						<div class="controls controls-row">
-							<h:outputText id="input_descricao" value="#{campeonatoBean.campeonatoCadastrar.img.nomeCompeticao}"  />
+							<h:outputText id="input_descricao" value="#{campeonatoBean.campeonatoCadastrar.flag.nomeCompeticao}"  />
 						</div>
            			</div>
            			<div class="control-group">

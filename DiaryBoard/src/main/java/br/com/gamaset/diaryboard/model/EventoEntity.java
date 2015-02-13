@@ -1,6 +1,7 @@
 package br.com.gamaset.diaryboard.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class EventoEntity implements Serializable{
 	private Long id;
 	
 	@Column(name = "EVEN_DS_EVENTO")
-	private String eventoDescricao;
+	private String descricaoEvento;
 	
 	@Column(name = "EVEN_DS_TIMECASA")
 	private String descTimeCasa;
@@ -41,13 +42,13 @@ public class EventoEntity implements Serializable{
 	@Column(name = "EVEN_DT_EVENTO")
 	private Date dataEvento;
 	
-	@Column(name = "EVEN_NM_ODD")
-	private Double odd;
+	@Column(name = "EVEN_NM_ODD", scale=3)
+	private BigDecimal odd;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "EVEN_DS_RESULTADO")
-	private ResultadoEntityEnum resultado;
-	
+//	@Enumerated(EnumType.STRING)
+//	@Column(name = "EVEN_DS_RESULTADO")
+//	private ResultadoEntityEnum resultado;
+
 	@ManyToOne
 	@JoinColumn(name = "MEAP_CD_ID_FK")
 	private MercadoApostaEntity mercado;
@@ -61,13 +62,13 @@ public class EventoEntity implements Serializable{
 		this.id = id;
 	}
 
-	public String getEventoDescricao() {
-		return eventoDescricao;
+	public String getDescricaoEvento() {
+		return descricaoEvento;
 	}
 
-//	public void setEventoDescricao(String eventoDescricao) {
-//		this.eventoDescricao = eventoDescricao;
-//	}
+	public void setDescricaoEvento(String descricaoEvento) {
+		this.descricaoEvento = descricaoEvento;
+	}
 
 	public String getDescTimeCasa() {
 		return descTimeCasa;
@@ -101,21 +102,21 @@ public class EventoEntity implements Serializable{
 		this.dataEvento = dataEvento;
 	}
 
-	public Double getOdd() {
-		return odd;
+	public BigDecimal getOdd() {
+		return odd==null?odd:odd.setScale(3);
 	}
 
-	public void setOdd(Double odd) {
+	public void setOdd(BigDecimal odd) {
 		this.odd = odd;
 	}
 
-	public ResultadoEntityEnum getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(ResultadoEntityEnum resultado) {
-		this.resultado = resultado;
-	}
+//	public ResultadoEntityEnum getResultado() {
+//		return resultado;
+//	}
+//
+//	public void setResultado(ResultadoEntityEnum resultado) {
+//		this.resultado = resultado;
+//	}
 	
 	
 }

@@ -7,11 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BANDEIRAS")
+@Table(name = "BANDEIRA")
 public class FlagEntity implements Serializable{
 
 	private static final long serialVersionUID = -8863600219740303519L;

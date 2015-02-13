@@ -29,8 +29,8 @@ public class CampeonatoEntity implements Serializable{
 	private String urlCompeticao;
 	
 	@ManyToOne
-	@JoinColumn(name = "CAMP_DS_FLAG")
-	private FlagEntity img;
+	@JoinColumn(name = "BAND_DS_FLAG")
+	private FlagEntity flag;
 	
 	@Column(name = "CAMP_FL_ACADEMIA")
 	private boolean habilitadoAcademia;
@@ -66,12 +66,12 @@ public class CampeonatoEntity implements Serializable{
 		this.sigla = sigla;
 	}
 
-	public FlagEntity getImg() {
-		return img;
+	public FlagEntity getFlag() {
+		return flag;
 	}
 
-	public void setImg(FlagEntity img) {
-		this.img = img;
+	public void setFlag(FlagEntity flag) {
+		this.flag = flag;
 	}
 
 	public boolean isHabilitadoAcademia() {

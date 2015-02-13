@@ -6,16 +6,24 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="breadcrumb">
-		<li><a data-original-title="" href="#"> One </a></li>
-		<li><a data-original-title="" href="#"> Two </a></li>
-		<li><a data-original-title="" href="#"> Three </a></li>
-		<li><a data-original-title="" href="#"> Four </a></li>
+<!-- 		<li><a data-original-title="" href="#"> One </a></li> -->
+<!-- 		<li><a data-original-title="" href="#"> Two </a></li> -->
+<!-- 		<li><a data-original-title="" href="#"> Three </a></li> -->
+<!-- 		<li><a data-original-title="" href="#"> Four </a></li> -->
 	</ui:define>
 	
 	<ui:define name="content">
+	
 	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
 	<h:form id="formMain">
-		
+		<div class="page-header">
+        	<div class="pull-left">
+              <h2>#{msgs['aposta_list.lbl.legend.apostas']}</h2>
+            </div>
+            <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+        
 		<div class="widget">
 			<div class="widget-header">
 				<div class="title">
@@ -24,22 +32,40 @@
 				</div>
 			</div>
 			<div class="widget-body">
-				<p:dataTable id="tableCampeonatos" 
-					styleClass="table table-condensed table-bordered no-margin" 
-					value="#{apostaBean.entities}" var="result" rows="10" 
+				<p:dataTable id="tableCampeonatos" value="#{apostaBean.entities}" var="result" rows="10" 
 					paginator="true" paginatorPosition="bottom">
 					
-					<p:column headerText="#{msgs['generico.tabelacoluna.data']}" sortBy="#{result.id}" styleClass="sorting_asc center-align-text" width="5%">
-				        <h:outputText value="#{result.dataBet}" />
+					<p:column headerText="#{msgs['generico.tabelacoluna.data']}" sortBy="#{result.id}" styleClass="sorting_asc center-align-text" width="6%">
+				        <h:outputText value="#{result.dataAposta}" >
+				        	<f:convertDateTime pattern="dd-MM-yyyy"/>
+				        </h:outputText>
 				    </p:column>
-					<p:column headerText="#{msgs['generico.tabelacoluna.jogo']}" sortBy="#{result.id}" styleClass="center-align-text" width="10%" >
-				        <h:outputText value="#{result.bet.evento.eventoDescricao}" />
+					<p:column headerText="#{msgs['generico.tabelacoluna.jogo']}" sortBy="#{result.id}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="#{result.bet.evento.descricaoEvento}" />
 				    </p:column>
-					<p:column headerText="#{msgs['generico.tabelacoluna.competicao']}" sortBy="#{result.id}"  width="50%" >
-				        <h:outputText value="#{result.bet.campeonato.img.nomeCompeticao}" />
+					<p:column headerText="#{msgs['generico.tabelacoluna.competicao']}" sortBy="#{result.id}"  width="20%" >
+						<h:graphicImage value="#{result.bet.campeonato.flag.urlImagem}" />
+				        <h:outputText value="#{result.bet.campeonato.flag.nomeCompeticao}" style="margin-left: 5px;" />
 				    </p:column>
-					<p:column headerText="#{msgs['generico.tabelacoluna.mercado']}" sortBy="#{result.id}"  width="50%" >
-				        <h:outputText value="#{result.bet.evento.mercado.selecao.descricao}" />
+					<p:column headerText="#{msgs['generico.tabelacoluna.mercado']}" sortBy="#{result.id}"  width="15%" >
+				        <h:outputText value="#{result.bet.evento.mercado.selecao.descricao} - #{result.bet.evento.mercado.descricao}" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.tipster']}" sortBy="#{result.id}"  width="10%" >
+				        <h:outputText value="#{result.tipster.nome}" />
+				    </p:column>
+					<p:column headerText="#VL. APOSTA" sortBy="#{result.id}" width="8%" >
+						<h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.valorAposta}" converter="decimalConverter" />
+				    </p:column>
+					<p:column headerText="#ODD" sortBy="#{result.id}" width="5%" styleClass="center-align-text" >
+				        <h:outputText value="#{result.bet.evento.odd}" />
+				    </p:column>
+					<p:column headerText="#RETORNO" sortBy="#{result.id}" width="8%" >
+						<h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.valorRetorno}" converter="decimalConverter" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.resultado']}" sortBy="#{result.id}"  width="9%" styleClass="center-align-text" >
+				        <h:outputText value="#{result.resultado.label}" />
 				    </p:column>
 					<p:column headerText=""  width="10%" styleClass="center-align-text" >
 						<h:commandLink action="#{apostaBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
@@ -61,5 +87,10 @@
 		</div>
 
 	</h:form>
+	
+	<script>
+		addClassDatatable();
+	</script>
+	
 	</ui:define>
 </ui:composition>

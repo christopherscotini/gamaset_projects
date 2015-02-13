@@ -1,19 +1,19 @@
-package br.com.gamaset.diaryboard.model;
+package br.com.gamaset.diaryboard.model.financas;
 
 import java.io.Serializable;
 
-public class CategoriaMovimentacaoEntity implements Serializable{
-
-	private static final long serialVersionUID = -4875021027336152754L;
+public class TipoMovimentacaoEntity implements Serializable{
+	
+	private static final long serialVersionUID = 5473644984592016465L;
 	
 	private Long id;
 	private String descricao;
-	
-	public CategoriaMovimentacaoEntity() {
+
+	public TipoMovimentacaoEntity() {
 
 	}
 
-	public CategoriaMovimentacaoEntity(Long id, String descricao) {
+	public TipoMovimentacaoEntity(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
@@ -34,6 +34,5 @@ public class CategoriaMovimentacaoEntity implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
 	
 }

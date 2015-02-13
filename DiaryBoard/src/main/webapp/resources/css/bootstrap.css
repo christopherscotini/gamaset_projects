@@ -803,10 +803,10 @@ a.label:hover, a.badge:hover {
   top: 0; }
 
 table {
-  max-width: 100%;
-  background-color: transparent;
-  border-collapse: collapse;
-  border-spacing: 0; }
+  max-width: 100% !important;
+  background-color: transparent !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important; }
 
 .table {
   width: 100%;
@@ -843,87 +843,87 @@ table {
     border-right: none; }
 
 .table-condensed th, .table-condensed td {
-  padding: 4px 8px; }
+  padding: 4px 8px !important; }
 .table-condensed th {
-  padding: 8px; }
+  padding: 8px !important; }
 
 .table-bordered {
-  border: 1px solid #e0e0e0;
-  border-collapse: separate;
-  *border-collapse: collapse;
-  border-left: 0;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px; }
+  border: 1px solid #e0e0e0  !important;
+  border-collapse: separate  !important;
+  *border-collapse: collapse  !important;
+  border-left: 0  !important;
+  -webkit-border-radius: 2px  !important;
+  -moz-border-radius: 2px  !important;
+  border-radius: 2px  !important; }
   .table-bordered th, .table-bordered td {
-    border-left: 1px solid #e0e0e0; }
+    border-left: 1px solid #e0e0e0  !important; }
   .table-bordered caption + thead tr:first-child th {
-    border-top: 0; }
+    border-top: 0  !important; }
   .table-bordered caption + tbody tr:first-child th, .table-bordered caption + tbody tr:first-child td {
-    border-top: 0; }
+    border-top: 0  !important; }
   .table-bordered colgroup + thead tr:first-child th {
-    border-top: 0; }
+    border-top: 0 !important; }
   .table-bordered colgroup + tbody tr:first-child th, .table-bordered colgroup + tbody tr:first-child td {
-    border-top: 0; }
+    border-top: 0 !important; }
   .table-bordered thead:first-child tr:first-child th {
-    border-top: 0; }
+    border-top: 0 !important; }
   .table-bordered tbody:first-child tr:first-child th, .table-bordered tbody:first-child tr:first-child td {
-    border-top: 0; }
+    border-top: 0 !important; }
   .table-bordered thead:first-child tr:first-child > th:first-child, .table-bordered tbody:first-child tr:first-child > td:first-child {
-    -webkit-border-radius: 2px 0 0 0;
-    -moz-border-radius: 2px 0 0 0;
-    border-radius: 2px 0 0 0; }
+    -webkit-border-radius: 2px 0 0 0  !important;
+    -moz-border-radius: 2px 0 0 0  !important;
+    border-radius: 2px 0 0 0 !important; }
   .table-bordered thead:first-child tr:first-child > th:last-child, .table-bordered tbody:first-child tr:first-child > td:last-child {
-    -webkit-border-radius: 0 2px 0 0;
-    -moz-border-radius: 0 2px 0 0;
-    border-radius: 0 2px 0 0; }
+    -webkit-border-radius: 0 2px 0 0  !important;
+    -moz-border-radius: 0 2px 0 0  !important;
+    border-radius: 0 2px 0 0 !important; }
   .table-bordered thead:last-child tr:last-child > th:first-child, .table-bordered tbody:last-child tr:last-child > td:first-child, .table-bordered tfoot:last-child tr:last-child > td:first-child {
-    -webkit-border-radius: 0 0 0 2px;
-    -moz-border-radius: 0 0 0 2px;
-    border-radius: 0 0 0 2px; }
+    -webkit-border-radius: 0 0 0 2px  !important;
+    -moz-border-radius: 0 0 0 2px  !important;
+    border-radius: 0 0 0 2px !important; }
   .table-bordered thead:last-child tr:last-child > th:last-child, .table-bordered tbody:last-child tr:last-child > td:last-child {
-    -webkit-border-radius: 0 0 2px 0;
-    -moz-border-radius: 0 0 2px 0;
-    border-radius: 0 0 2px 0; }
+    -webkit-border-radius: 0 0 2px 0  !important ;
+    -moz-border-radius: 0 0 2px 0 !important;
+    border-radius: 0 0 2px 0 !important; }
   .table-bordered tfoot:last-child tr:last-child > td:last-child {
-    -webkit-border-radius: 0 0 2px 0;
-    -moz-border-radius: 0 0 2px 0;
-    border-radius: 0 0 2px 0; }
+    -webkit-border-radius: 0 0 2px 0  !important;
+    -moz-border-radius: 0 0 2px 0  !important;
+    border-radius: 0 0 2px 0 !important; }
   .table-bordered tfoot + tbody:last-child tr:last-child td:first-child {
-    -webkit-border-radius: 0 0 0 0;
-    -moz-border-radius: 0 0 0 0;
-    border-radius: 0 0 0 0; }
+    -webkit-border-radius: 0 0 0 0  !important;
+    -moz-border-radius: 0 0 0 0  !important;
+    border-radius: 0 0 0 0 !important; }
   .table-bordered tfoot + tbody:last-child tr:last-child td:last-child {
-    -webkit-border-radius: 0 0 2px 0;
-    -moz-border-radius: 0 0 2px 0;
-    border-radius: 0 0 2px 0; }
+    -webkit-border-radius: 0 0 2px 0  !important;
+    -moz-border-radius: 0 0 2px 0  !important;
+    border-radius: 0 0 2px 0 !important; }
   .table-bordered caption + thead tr:first-child th:first-child, .table-bordered caption + tbody tr:first-child td:first-child {
-    -webkit-border-radius: 2px 0 0 0;
-    -moz-border-radius: 2px 0 0 0;
-    border-radius: 2px 0 0 0; }
+    -webkit-border-radius: 2px 0 0 0  !important;
+    -moz-border-radius: 2px 0 0 0  !important;
+    border-radius: 2px 0 0 0 !important; }
   .table-bordered colgroup + thead tr:first-child th:first-child, .table-bordered colgroup + tbody tr:first-child td:first-child {
-    -webkit-border-radius: 2px 0 0 0;
-    -moz-border-radius: 2px 0 0 0;
-    border-radius: 2px 0 0 0; }
+    -webkit-border-radius: 2px 0 0 0  !important;
+    -moz-border-radius: 2px 0 0 0  !important;
+    border-radius: 2px 0 0 0 !important; }
   .table-bordered caption + thead tr:first-child th:last-child, .table-bordered caption + tbody tr:first-child td:last-child {
-    -webkit-border-radius: 0 2px 0 0;
-    -moz-border-radius: 0 2px 0 0;
-    border-radius: 0 2px 0 0; }
+    -webkit-border-radius: 0 2px 0 0  !important;
+    -moz-border-radius: 0 2px 0 0  !important;
+    border-radius: 0 2px 0 0 !important; }
   .table-bordered colgroup + thead tr:first-child th:last-child, .table-bordered colgroup + tbody tr:first-child td:last-child {
-    -webkit-border-radius: 0 2px 0 0;
-    -moz-border-radius: 0 2px 0 0;
-    border-radius: 0 2px 0 0; }
+    -webkit-border-radius: 0 2px 0 0  !important;
+    -moz-border-radius: 0 2px 0 0  !important;
+    border-radius: 0 2px 0 0  !important; }
 
 .table-striped tbody > tr:nth-child(odd) > td {
-  background-color: #fafafa; }
+  background-color: #fafafa  !important; }
 
 .table-hover tbody tr:hover td {
-  background-color: whitesmoke; }
+  background-color: whitesmoke  !important; }
 
 table td[class*="span"], table th[class*="span"] {
-  display: table-cell;
-  float: none;
-  margin-left: 0; }
+  display: table-cell  !important;
+  float: none  !important;
+  margin-left: 0  !important; }
 
 .row-fluid table td[class*="span"], .row-fluid table th[class*="span"] {
   display: table-cell;

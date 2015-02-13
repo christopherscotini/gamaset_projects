@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.gamaset.diaryboard.business.bo.CampeonatoService;
+import br.com.gamaset.diaryboard.business.exception.NonUniqueResultDataException;
 import br.com.gamaset.diaryboard.business.exception.ValidationFormAbstractException;
 import br.com.gamaset.diaryboard.model.CampeonatoEntity;
 import br.com.gamaset.diaryboard.repository.CampeonatoRepository;
@@ -41,7 +42,9 @@ public class CampeonatoServiceImpl implements CampeonatoService{
 
 	@Override
 	public void validateForm(CampeonatoEntity entidade) throws ValidationFormAbstractException {
-		
+		if(repo.isThere(entidade)){
+			throw new NonUniqueResultDataException("campeonato com a sigla ["+entidade.getSigla()+"]");
+		}
 	}
 
 }
