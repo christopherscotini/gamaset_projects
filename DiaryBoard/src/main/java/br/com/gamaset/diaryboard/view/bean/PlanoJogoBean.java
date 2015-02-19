@@ -17,7 +17,7 @@ public class PlanoJogoBean extends BeanModel{
 
 	private final String TELA_CONSULTAR_PLANOJOGO = "/content/pages/planojogo/planojogo-list.xhtml";
 	private final String TELA_CADASTRAR_PLANOJOGO= "/content/pages/planojogo/planojogo-edit.xhtml";
-	private final String TELA_CONSULTAR_ITEM_PLANOJOGO= "/content/pages/planojogo/item_planojogo-list.xhtml";
+	private final String TELA_CONSULTAR_ITEM_PLANOJOGO= "/content/pages/planojogo/planojogo-acompanhamento.xhtml";
 	
 	private PlanoJogoEntity planoJogoCadastrar;
 	private List<PlanoJogoEntity> entities;
@@ -44,7 +44,9 @@ public class PlanoJogoBean extends BeanModel{
 	}
 	
 	public String navegarCadastrar(){
-
+		planoJogoCadastrar = new PlanoJogoEntity();
+		
+		
 		return TELA_CADASTRAR_PLANOJOGO;
 	}
 	
@@ -66,6 +68,8 @@ public class PlanoJogoBean extends BeanModel{
 	
 	public String navegarVisualizarPlanoJogo(PlanoJogoEntity selected){
 		planoJogoCadastrar = selected;
+		
+		planoJogoCadastrar.setApostas(planoJogoItemService.buscarPorPlanoJogoId(selected));
 		
 		return TELA_CONSULTAR_ITEM_PLANOJOGO;
 	}

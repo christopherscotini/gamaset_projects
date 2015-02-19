@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,6 +40,9 @@ public class PlanoJogoEntity {
 
 	@Column(name = "PLJO_DT_CRIACAO")
 	private Date dataCriacao;
+
+	@Column(name = "PLJO_FL_ATIVO")
+	private boolean ativo;
 
 	@OneToMany(mappedBy = "planoJogo", fetch = FetchType.LAZY)
 	private List<PlanoJogoItemEntity>apostas;
@@ -99,6 +103,22 @@ public class PlanoJogoEntity {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<PlanoJogoItemEntity> getApostas() {
+		return apostas;
+	}
+
+	public void setApostas(List<PlanoJogoItemEntity> apostas) {
+		this.apostas = apostas;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

@@ -1,5 +1,9 @@
 package br.com.gamaset.diaryboard.business.bo.impl;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,8 +11,11 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.gamaset.diaryboard.business.bo.PlanoJogoService;
+import br.com.gamaset.diaryboard.business.exception.NonUniqueResultDataException;
 import br.com.gamaset.diaryboard.business.exception.ValidationFormAbstractException;
 import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
+import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
+import br.com.gamaset.diaryboard.repository.PlanoJogoItemRepository;
 import br.com.gamaset.diaryboard.repository.PlanoJogoRepository;
 
 @Stateless
@@ -16,6 +23,8 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 
 	@Inject
 	private PlanoJogoRepository repo = null;
+	@Inject
+	private PlanoJogoItemRepository repoItem= null;
 
 	@Override
 	public List<PlanoJogoEntity> listarTodos() {
@@ -25,7 +34,47 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 	@Override
 	public PlanoJogoEntity adicionarEntidade(PlanoJogoEntity entidade) {
 		validateForm(entidade);
-		return repo.insert(entidade);
+		entidade.setAtivo(true);
+		entidade = repo.insert(entidade);
+		generateItensPlanoJogo(entidade);
+		
+		for (int i = 0; i < entidade.getApostas().size(); i++) {
+			repoItem.insert(entidade.getApostas().get(i));
+		}
+		return entidade;
+	}
+
+	private void generateItensPlanoJogo(PlanoJogoEntity entidade) {
+		entidade.setApostas(new ArrayList<PlanoJogoItemEntity>());
+		for (int i = 0; i < entidade.getNumDiasPlano(); i++) {
+			PlanoJogoItemEntity e = new PlanoJogoItemEntity();
+			e.setPlanoJogo(entidade);
+			e.setDescricao("DIA "+(i+1));
+			if(i==0){
+				e.setVlrInicialDiaObjetivo(entidade.getValorInvestimentoInicial());//OBJETIVO
+				e.setVlrInicialDia(entidade.getValorInvestimentoInicial());
+				e.setVlrFinalDia(entidade.getValorInvestimentoInicial());
+			}else{
+				e.setVlrInicialDiaObjetivo(entidade.getApostas().get(i-1).getVlrFinalDiaObjetivo());//OBJETIVO
+				e.setVlrInicialDia(entidade.getValorInvestimentoInicial());
+				e.setVlrFinalDia(entidade.getApostas().get(i-1).getVlrFinalDia());
+			}
+			//OBJETIVO
+			BigDecimal vlrFinalAux = (e.getVlrInicialDiaObjetivo().multiply(entidade.getPercentualLucroMontanteDia())).divide(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN);
+			e.setVlrFinalDiaObjetivo(e.getVlrInicialDiaObjetivo().add(vlrFinalAux));
+			e.setVlrLucroDiaObjetivo((e.getVlrFinalDiaObjetivo().subtract(e.getVlrInicialDiaObjetivo())).setScale(2, RoundingMode.HALF_EVEN));
+			e.setVlrBetDiaObjetivo((e.getVlrInicialDiaObjetivo().multiply(entidade.getPercentualApostaMontanteDia())).divide(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN));
+			e.setVlrBetDia(e.getVlrBetDiaObjetivo());
+
+			e.setVlrLucroDia(BigDecimal.ZERO);
+			e.setPercObjetivoConcluidoDia(e.getVlrFinalDia().divide(e.getVlrFinalDiaObjetivo(), MathContext.DECIMAL128).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN));
+//			e.setPercLucroDia(percLucroDia);
+//			e.setPercLucroMeta(percLucroMeta);
+//			e.setVlrTotalGanhoDia(vlrTotalGanhoDia);
+//			e.setVlrTotalPerdidoDia(vlrTotalPerdidoDia);
+			entidade.getApostas().add(e);
+		}
+		
 	}
 
 	@Override
@@ -36,7 +85,6 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 	
 	@Override
 	public void excluirEntidade(PlanoJogoEntity entidade) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -47,6 +95,11 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 		if(entidade.getId() == null && entidade.getDataCriacao() == null){
 			entidade.setDataCriacao(new Date());
 		}
+		
+		if(repo.isThere(entidade)){
+			throw new NonUniqueResultDataException("plano de jogo ["+entidade.getDescricao()+"]");
+		}
+		
 		
 	}
 	

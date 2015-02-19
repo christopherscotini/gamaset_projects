@@ -15,6 +15,8 @@ import br.com.gamaset.diaryboard.model.BetEntity;
 import br.com.gamaset.diaryboard.model.CampeonatoEntity;
 import br.com.gamaset.diaryboard.model.EventoEntity;
 import br.com.gamaset.diaryboard.model.MercadoApostaEntity;
+import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
+import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
 import br.com.gamaset.diaryboard.model.TipsterEntity;
 
 
@@ -30,6 +32,9 @@ public class ApostaBean extends BeanModel{
 	private List<CampeonatoEntity>campeonatoList;
 	private List<MercadoApostaEntity> mercadosList;
 	private List<TipsterEntity> tipsterList;
+	private List<PlanoJogoEntity> planoJogoList;
+	private PlanoJogoEntity planoJogoSelecionado;
+	private List<PlanoJogoItemEntity> planoJogoItemList;
 	
 	public ApostaBean() {
 
@@ -67,11 +72,14 @@ public class ApostaBean extends BeanModel{
 		campeonatoList = campeonatoService.listarTodos();
 		mercadosList = mercadoApostaService.listarTodos();
 		tipsterList = tipsterService.listarTodos();
+		planoJogoList = planoJogoService.listarTodos();
+		planoJogoSelecionado = planoJogoList.get(0);
+		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado);
 		apostaCadastrar.getBet().setCampeonato(campeonatoList.get(0));
 		apostaCadastrar.getBet().getEvento().setMercado(mercadosList.get(0));
 		apostaCadastrar.setTipster(tipsterList.get(0));
 		apostaCadastrar.setResultado(getResultadoApostaList().get(0));
-		
+		apostaCadastrar.setPlanoJogoItem(planoJogoItemList.get(0));
 		
 		return TELA_APOSTA_EDIT;
 	}
@@ -121,6 +129,11 @@ public class ApostaBean extends BeanModel{
 		}
 	}
 	
+	public void onchangePlanojogoCombo(){
+		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado);
+		apostaCadastrar.setPlanoJogoItem(planoJogoItemList.get(0));
+	}
+	
 	/* -------------------------------------------------------- */	
 	public List<ApostaEntity> getEntities() {
 		return entities;
@@ -161,8 +174,30 @@ public class ApostaBean extends BeanModel{
 	public void setCampeonatoList(List<CampeonatoEntity> campeonatoList) {
 		this.campeonatoList = campeonatoList;
 	}
-	
-	
+
+	public List<PlanoJogoEntity> getPlanoJogoList() {
+		return planoJogoList;
+	}
+
+	public void setPlanoJogoList(List<PlanoJogoEntity> planoJogoList) {
+		this.planoJogoList = planoJogoList;
+	}
+
+	public List<PlanoJogoItemEntity> getPlanoJogoItemList() {
+		return planoJogoItemList;
+	}
+
+	public void setPlanoJogoItemList(List<PlanoJogoItemEntity> planoJogoItemList) {
+		this.planoJogoItemList = planoJogoItemList;
+	}
+
+	public PlanoJogoEntity getPlanoJogoSelecionado() {
+		return planoJogoSelecionado;
+	}
+
+	public void setPlanoJogoSelecionado(PlanoJogoEntity planoJogoSelecionado) {
+		this.planoJogoSelecionado = planoJogoSelecionado;
+	}
 	
 	
 }

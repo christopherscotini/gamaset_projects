@@ -42,6 +42,22 @@
 <!--            			</div> -->
            			<div class="control-group">
 		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.tipster']}
+		               	</label>
+		               	<div class="controls controls-row">
+							<h:selectOneMenu value="#{apostaBean.planoJogoSelecionado}" converter="genericEntityConverter" >
+								<f:selectItems value="#{apostaBean.planoJogoList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+								<p:ajax event="change" listener="#{apostaBean.onchangePlanojogoCombo()}" update="combo_planojogo" />
+							</h:selectOneMenu>
+						</div>
+		               	<div class="controls controls-row">
+							<h:selectOneMenu id="combo_planojogo" value="#{apostaBean.apostaCadastrar.planoJogoItem}" converter="genericEntityConverter" >
+								<f:selectItems value="#{apostaBean.planoJogoItemList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+							</h:selectOneMenu>
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
 		                 	 #{msgs['aposta_edit.lbl.evento']}
 		               	</label>
 						<div class="controls controls-row">

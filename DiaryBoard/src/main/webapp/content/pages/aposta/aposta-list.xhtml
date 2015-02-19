@@ -67,7 +67,7 @@
 					<p:column headerText="#{msgs['generico.tabelacoluna.resultado']}" sortBy="#{result.id}"  width="9%" styleClass="center-align-text" >
 				        <h:outputText value="#{result.resultado.label}" />
 				    </p:column>
-					<p:column headerText=""  width="10%" styleClass="center-align-text" >
+					<p:column headerText="#{msgs['generico.tabelacoluna.acoes']}"  width="10%" styleClass="center-align-text" >
 						<h:commandLink action="#{apostaBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
 							<span data-icon=""></span>
 						</h:commandLink>

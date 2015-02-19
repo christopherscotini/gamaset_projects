@@ -18,7 +18,7 @@
 	<h:form id="formMain">
 		<div class="page-header">
         	<div class="pull-left">
-              <h2>#{msgs['planojogo_list.lbl.titulotela.planojogo']</h2>
+              <h2>#{msgs['planojogo_list.lbl.titulotela.planojogo']}</h2>
             </div>
             <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
         	<div class="clearfix"></div>
@@ -27,34 +27,47 @@
 		<div class="widget">
 			<div class="widget-header">
 				<div class="title">
-					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
 					#{msgs['planojogo_list.lbl.legend.planojogo']}
 				</div>
 			</div>
 			<div class="widget-body">
-				<p:dataTable id="tablePlanosJogo" value="#{planoJogoBean.entities}" var="result" rows="10" 
-					paginator="true" paginatorPosition="bottom">
+				<p:dataTable id="tablePlanosJogo" value="#{planoJogoBean.entities}" var="result" >
 					
 					<p:column headerText="#{msgs['generico.tabelacoluna.data']}" sortBy="#{result.dataCriacao}" styleClass="sorting_asc center-align-text" width="6%">
 				        <h:outputText value="#{result.dataCriacao}" >
 				        	<f:convertDateTime pattern="dd-MM-yyyy"/>
 				        </h:outputText>
 				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.descricao']}" sortBy="#{result.descricao}" styleClass="center-align-text" width="10%" >
+				        <h:outputText value="#{result.descricao}" style="margin-right:2px;" />
+				    </p:column>
 				    <p:column headerText="#{msgs['generico.tabelacoluna.valorinicial']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="15%" >
 				        <h:outputText value="R$" style="margin-right:2px;" />
 				        <h:outputText value="#{result.valorInvestimentoInicial}" converter="decimalConverter" />
 				    </p:column>
-				    <p:column headerText="#{msgs['generico.tabelacoluna.apostasegura']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="15%" >
-				        <h:outputText value="#{result.percentualLucroMontanteDia}" converter="percentConverter" />
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentualapostasegura']}" sortBy="#{result.percentualLucroMontanteDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="#{result.percentualApostaMontanteDia}" converter="percentConverter" />
 				    </p:column>
-				    <p:column headerText="#{msgs['generico.tabelacoluna.lucrodia']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="15%" >
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentuallucrodia']}" sortBy="#{result.percentualLucroMontanteDia}" styleClass="center-align-text" width="15%" >
 				        <h:outputText value="#{result.percentualLucroMontanteDia}" converter="percentConverter"/>
 				    </p:column>
-				    <p:column headerText="#{msgs['generico.tabelacoluna.montanteatual']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="15%" >
-				        <h:outputText value="R$" style="margin-right:2px;" />
-				        <h:outputText value="#{result.valorInvestimentoInicial}" converter="decimalConverter" />
+				    <p:column headerText="#{msgs['generico.tabelacoluna.montanteacumulado']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="?????" converter="decimalConverter" />
 				    </p:column>
-				    
+				    <p:column headerText="#{msgs['generico.tabelacoluna.status']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="5%" >
+				        <ui:fragment rendered="#{result.ativo}">
+					        <span class="badge badge-success">Ativo</span>
+				        </ui:fragment>
+				        <ui:fragment rendered="#{!result.ativo}">
+					        <span class="badge badge-inverse">Encerrado</span>
+				        </ui:fragment>
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.acoes']}"  width="10%" styleClass="center-align-text" >
+						<h:commandLink action="#{planoJogoBean.navegarVisualizarPlanoJogo(result)}" value="" style="margin-right:10px;" >
+							<span data-icon=""></span>
+						</h:commandLink>
+				    </p:column>
 				    
 				</p:dataTable>
 			</div>

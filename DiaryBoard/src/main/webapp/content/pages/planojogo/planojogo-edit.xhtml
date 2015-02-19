@@ -32,110 +32,61 @@
 	              </div>
 	            </div>
 	            <div class="widget-body">
-<!--            			<div class="control-group"> -->
-<!-- 		              	<label class="control-label"> -->
-<!-- 		                 	 #{msgs['aposta_edit.lbl.ticket']} -->
-<!-- 		               	</label> -->
-<!-- 						<div class="controls controls-row"> -->
-<!-- 							<h:inputText id="input_ticket" value="#{apostaBean.apostaCadastrar.ticket}" /> -->
-<!-- 						</div> -->
-<!--            			</div> -->
            			<div class="control-group">
 		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.evento']}
+		                 	 #{msgs['planojogo_edit.lbl.descricao']}
 		               	</label>
 						<div class="controls controls-row">
-							<h:inputText id="input_hometeam" value="#{apostaBean.apostaCadastrar.bet.evento.descTimeCasa}"  />
-							<h:outputText id="input_versus" value=" VS "  />
-							<h:inputText id="input_awayteam" value="#{apostaBean.apostaCadastrar.bet.evento.descTimeVisitante}"  />
+							<h:inputText id="input_descricao" value="#{planoJogoBean.planoJogoCadastrar.descricao}" />
 						</div>
            			</div>
            			<div class="control-group">
 		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.tipster']}
-		               	</label>
-		               	<div class="controls controls-row">
-							<h:selectOneMenu value="#{apostaBean.apostaCadastrar.tipster}" converter="genericEntityConverter">
-								<f:selectItems value="#{apostaBean.tipsterList}" var="f" itemValue="#{f}" itemLabel="#{f.nome}" />
-							</h:selectOneMenu>
-						</div>
-           			</div>
-           			<div class="control-group">
-		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.mercado']}
-		               	</label>
-		               	<div class="controls controls-row">
-							<h:selectOneMenu value="#{apostaBean.apostaCadastrar.bet.evento.mercado}" converter="genericEntityConverter">
-								<f:selectItems value="#{apostaBean.mercadosList}" var="f" itemValue="#{f}" itemLabel="#{f.selecao.descricao} - #{f.descricao}" />
-							</h:selectOneMenu>
-						</div>
-           			</div>
-           			<div class="control-group">
-		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.competicao']}
-		               	</label>
-		               	<div class="controls controls-row">
-							<h:selectOneMenu value="#{apostaBean.apostaCadastrar.bet.campeonato}" converter="genericEntityConverter">
-								<f:selectItems value="#{apostaBean.campeonatoList}" var="f" itemValue="#{f}" itemLabel="#{f.flag.nomeCompeticao}" />
-							</h:selectOneMenu>
-						</div>
-           			</div>
-           			<div class="control-group">
-		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.data']}
+		                 	 #{msgs['planojogo_edit.lbl.valorinvestimentoinicial']}
 		               	</label>
 						<div class="controls controls-row">
-							<h:inputText value="#{apostaBean.apostaCadastrar.dataAposta}" type="date" >
+							<h:inputText id="input_valorinvestimentoinicial" value="#{planoJogoBean.planoJogoCadastrar.valorInvestimentoInicial}" styleClass="currency"  converter="decimalConverter" />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['planojogo_edit.lbl.numerodias']}
+		               	</label>
+		               	<div class="controls controls-row">
+							<h:inputText id="input_numerodias" value="#{planoJogoBean.planoJogoCadastrar.numDiasPlano}"  />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['planojogo_edit.lbl.percentuallucromontantedia']}
+		               	</label>
+		               	<div class="controls controls-row">
+							<h:inputText id="input_percentuallucromontantedia" value="#{planoJogoBean.planoJogoCadastrar.percentualLucroMontanteDia}" styleClass="float"  converter="decimalConverter" />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['planojogo_edit.lbl.percentualmontateapostadia']}
+		               	</label>
+		               	<div class="controls controls-row">
+							<h:inputText id="input_percentualmontateapostadia" value="#{planoJogoBean.planoJogoCadastrar.percentualApostaMontanteDia}" styleClass="float"  converter="decimalConverter" />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['planojogo_edit.lbl.data']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText value="#{planoJogoBean.planoJogoCadastrar.dataCriacao}" type="date" >
 								<f:convertDateTime pattern="yyyy-MM-dd" />
 							</h:inputText>
-						</div>
-           			</div>
-           			<div class="control-group">
-		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.valoraposta']}
-		               	</label>
-						<div class="controls controls-row">
-							<h:inputText id="input_valoraposta" value="#{apostaBean.apostaCadastrar.valorAposta}"  styleClass="currency" converter="decimalConverter" >
-								<p:ajax event="blur" listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
-								<p:ajax event="focus"  listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
-							</h:inputText>
-						</div>
-           			</div>
-           			<div class="control-group">
-		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.odd']}
-		               	</label>
-						<div class="controls controls-row">
-							<h:inputText id="input_odd" value="#{apostaBean.apostaCadastrar.bet.evento.odd}" styleClass="float" disabled="true" >
-							</h:inputText>
-						</div>
-           			</div>
-           			<div class="control-group">
-		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.retornopossivel']}
-		               	</label>
-						<div class="controls controls-row">
-							<h:inputText id="input_retornopossivel" value="#{apostaBean.apostaCadastrar.valorRetorno}" styleClass="currency"  converter="decimalConverter" >
-								<p:ajax event="blur" listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
-								<p:ajax event="focus"  listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
-							</h:inputText>
-						</div>
-           			</div>
-           			<div class="control-group">
-		              	<label class="control-label">
-		                 	 #{msgs['aposta_edit.lbl.statusaposta']}
-		               	</label>
-						<div class="controls controls-row">
-							<h:selectOneMenu value="#{apostaBean.apostaCadastrar.resultado}" >
-								<f:selectItems value="#{apostaBean.resultadoApostaList}" var="f" itemValue="#{f}" itemLabel="#{f.label}" />
-							</h:selectOneMenu>
 						</div>
            			</div>
 	           	</div>
 	           
 	           	<div class="form-actions no-margin">
-					<h:commandButton action="#{apostaBean.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-info pull-right" style="margin-left:5px;"/>
-					<h:commandButton action="#{apostaBean.iniciarTela()}" value="#{msgs['generico.btn_voltar']}" styleClass="btn btn-info pull-right" />
+					<h:commandButton action="#{planoJogoBean.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-info pull-right" style="margin-left:5px;"/>
+					<h:commandButton action="#{planoJogoBean.iniciarTela()}" value="#{msgs['generico.btn_voltar']}" styleClass="btn btn-info pull-right" />
 		        	<div class="clearfix" />
 	        	</div>
 			</div>

@@ -46,9 +46,9 @@ public class PlanoJogoItemServiceImpl implements PlanoJogoItemService{
 	}
 	
 	@Override
-	public PlanoJogoItemEntity buscarPorPlanoJogoId(PlanoJogoEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PlanoJogoItemEntity> buscarPorPlanoJogoId(PlanoJogoEntity entity) {
+		
+		return repo.findByPlanoJogoId(entity);
 	}
 
 }
