@@ -26,9 +26,19 @@ public class PlanoJogoItemEntity implements Serializable {
 	@Column(name = "PLJI_CD_ID_PK")
 	private Long id;
 
+	/*** VALORES ESTATICOS ***/
 	@Column(name = "PLJI_DS_DESCRICAO")
 	private String descricao;
-
+	@Column(name = "PLJI_VL_BET_DIA_OBJETIVO")
+	private BigDecimal vlrBetDiaObjetivo;
+	@Column(name = "PLJI_VL_INICIAL_DIA_OBJETIVO")
+	private BigDecimal vlrInicialDiaObjetivo;
+	@Column(name = "PLJI_VL_FINAL_DIA_OBJETIVO")
+	private BigDecimal vlrFinalDiaObjetivo;
+	@Column(name = "PLJI_VL_LUCRO_DIA_OBJETIVO")
+	private BigDecimal vlrLucroDiaObjetivo;
+	
+	
 	@Column(name = "PLJI_VL_BET_DIA")
 	private BigDecimal vlrBetDia;
 	@Column(name = "PLJI_VL_INICIAL_DIA")
@@ -58,6 +68,9 @@ public class PlanoJogoItemEntity implements Serializable {
 
 	@OneToMany(mappedBy = "planoJogoItem", fetch = FetchType.LAZY)
 	private List<ApostaEntity> apostas;
+	
+	@Column(name = "PLJI_FL_FINALIZADO")
+	private boolean finalizado;
 
 	public Long getId() {
 		return id;
@@ -162,4 +175,45 @@ public class PlanoJogoItemEntity implements Serializable {
 	public void setApostas(List<ApostaEntity> apostas) {
 		this.apostas = apostas;
 	}
+
+	public BigDecimal getVlrBetDiaObjetivo() {
+		return vlrBetDiaObjetivo;
+	}
+
+	public void setVlrBetDiaObjetivo(BigDecimal vlrBetDiaObjetivo) {
+		this.vlrBetDiaObjetivo = vlrBetDiaObjetivo;
+	}
+
+	public BigDecimal getVlrInicialDiaObjetivo() {
+		return vlrInicialDiaObjetivo;
+	}
+
+	public void setVlrInicialDiaObjetivo(BigDecimal vlrInicialDiaObjetivo) {
+		this.vlrInicialDiaObjetivo = vlrInicialDiaObjetivo;
+	}
+
+	public BigDecimal getVlrFinalDiaObjetivo() {
+		return vlrFinalDiaObjetivo;
+	}
+
+	public void setVlrFinalDiaObjetivo(BigDecimal vlrFinalDiaObjetivo) {
+		this.vlrFinalDiaObjetivo = vlrFinalDiaObjetivo;
+	}
+
+	public BigDecimal getVlrLucroDiaObjetivo() {
+		return vlrLucroDiaObjetivo;
+	}
+
+	public void setVlrLucroDiaObjetivo(BigDecimal vlrLucroDiaObjetivo) {
+		this.vlrLucroDiaObjetivo = vlrLucroDiaObjetivo;
+	}
+
+	public boolean isFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+	
 }

@@ -3,7 +3,10 @@ package br.com.gamaset.diaryboard.view.bean;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.com.gamaset.diaryboard.business.bo.ApostaService;
@@ -40,5 +43,17 @@ public abstract class BeanModel {
 		return new ArrayList<ResultadoEntityEnum>(
 				Arrays.asList(ResultadoEntityEnum.values()));
 	} 
+	
+	public static String getMsgs(String messageId) {    
+        FacesContext facesContext = FacesContext.getCurrentInstance();    
+        String msg = "";    
+        Locale locale = facesContext.getViewRoot().getLocale();    
+        ResourceBundle bundle = ResourceBundle.getBundle("br.com.gamaset.diaryboard.view.bundle.Messages", locale);    
+        try {    
+            msg = bundle.getString(messageId);    
+        } catch (Exception e) {    
+        }    
+        return msg;    
+    }  
 	
 }

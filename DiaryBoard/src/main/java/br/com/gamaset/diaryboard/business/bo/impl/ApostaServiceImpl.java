@@ -29,7 +29,11 @@ public class ApostaServiceImpl implements ApostaService{
 	public ApostaEntity adicionarEntidade(ApostaEntity entidade) {
 		validateForm(entidade);
 		//colocar as validações
-		return repo.insert(entidade);
+		entidade = repo.insert(entidade);
+		
+		
+		
+		return entidade;
 	}
 
 	@Override

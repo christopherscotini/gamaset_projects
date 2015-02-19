@@ -5,6 +5,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import br.com.gamaset.diaryboard.dto.PlanoJogoDetalheDTO;
 import br.com.gamaset.diaryboard.exception.BusinessException;
 import br.com.gamaset.diaryboard.model.CampeonatoEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
@@ -15,13 +16,15 @@ import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
 @SessionScoped
 public class PlanoJogoBean extends BeanModel{
 
-	private final String TELA_CONSULTAR_PLANOJOGO = "/content/pages/planojogo/planojogo-list.xhtml";
-	private final String TELA_CADASTRAR_PLANOJOGO= "/content/pages/planojogo/planojogo-edit.xhtml";
-	private final String TELA_CONSULTAR_ITEM_PLANOJOGO= "/content/pages/planojogo/item_planojogo-list.xhtml";
+	private final String TELA_PLANOJOGO_LIST = "/content/pages/planojogo/planojogo-list.xhtml";
+	private final String TELA_PLANOJOGO_EDIT= "/content/pages/planojogo/planojogo-edit.xhtml";
+	private final String TELA_PLANOJOGO_ACOMPANHAMENTO= "/content/pages/planojogo/planojogo-acompanhamento.xhtml";
+	private final String TELA_PLANOJOGO_DETALHE= "/content/pages/planojogo/planojogo-detalhe.xhtml";
 	
 	private PlanoJogoEntity planoJogoCadastrar;
 	private List<PlanoJogoEntity> entities;
 	private PlanoJogoItemEntity planoJogoItem;
+	private PlanoJogoDetalheDTO planoJogoDetalheDto;
 	
 	public PlanoJogoBean() {
 
@@ -29,13 +32,14 @@ public class PlanoJogoBean extends BeanModel{
 	
 	@Override
 	public String iniciarTela() {
-		entities = planoJogoService.listarTodos();
-		return TELA_CONSULTAR_PLANOJOGO;
+		try{entities = planoJogoService.listarTodos();}catch(BusinessException ignore){}
+		
+		return TELA_PLANOJOGO_LIST;
 	}
 	
 	public String navegarEditar(CampeonatoEntity selected){
 		
-		return TELA_CADASTRAR_PLANOJOGO;
+		return TELA_PLANOJOGO_EDIT;
 	}
 
 	public void navegarExcluir(CampeonatoEntity selected){
@@ -44,8 +48,10 @@ public class PlanoJogoBean extends BeanModel{
 	}
 	
 	public String navegarCadastrar(){
-
-		return TELA_CADASTRAR_PLANOJOGO;
+		planoJogoCadastrar = new PlanoJogoEntity();
+		
+		
+		return TELA_PLANOJOGO_EDIT;
 	}
 	
 	public String salvar(){
@@ -63,11 +69,20 @@ public class PlanoJogoBean extends BeanModel{
 		return iniciarTela();
 	}
 	
-	
-	public String navegarVisualizarPlanoJogo(PlanoJogoEntity selected){
+	public String navegarPlanoJogoDetalhe(PlanoJogoEntity selected){
 		planoJogoCadastrar = selected;
+		planoJogoDetalheDto = planoJogoService.detalharPlanoJogo(planoJogoCadastrar);
 		
-		return TELA_CONSULTAR_ITEM_PLANOJOGO;
+		
+		return TELA_PLANOJOGO_DETALHE;
+	}	
+	
+	
+	public String navegarPlanoJogoAcompanhamento(){
+		
+		planoJogoCadastrar.setApostas(planoJogoItemService.buscarPorPlanoJogoId(planoJogoCadastrar));
+		
+		return TELA_PLANOJOGO_ACOMPANHAMENTO;
 	}
 	
 	
@@ -95,6 +110,14 @@ public class PlanoJogoBean extends BeanModel{
 
 	public void setPlanoJogoItem(PlanoJogoItemEntity planoJogoItem) {
 		this.planoJogoItem = planoJogoItem;
+	}
+
+	public PlanoJogoDetalheDTO getPlanoJogoDetalheDto() {
+		return planoJogoDetalheDto;
+	}
+
+	public void setPlanoJogoDetalheDto(PlanoJogoDetalheDTO planoJogoDetalheDto) {
+		this.planoJogoDetalheDto = planoJogoDetalheDto;
 	}
 	
 	

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-02-13 12:11:56
+Date: 2015-02-19 16:57:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,6 +34,8 @@ CREATE TABLE `aposta` (
   UNIQUE KEY `UK_fap55olwleejj1se3lq1qqeta` (`APOS_CD_ID_TICKET`),
   KEY `FK_knppmr53ll4rtr1ycjb8f0dqw` (`BET_CD_ID_FK`),
   KEY `FK_htmftqag1t0iub80cdyrt1y2` (`TIPS_CD_ID_FK`),
+  KEY `FK_h8yd2yr3s604gglcgmhuoxpws` (`PLJI_CD_ID_FK`),
+  CONSTRAINT `FK_h8yd2yr3s604gglcgmhuoxpws` FOREIGN KEY (`PLJI_CD_ID_FK`) REFERENCES `plano_jogo_item` (`PLJI_CD_ID_PK`),
   CONSTRAINT `FK_htmftqag1t0iub80cdyrt1y2` FOREIGN KEY (`TIPS_CD_ID_FK`) REFERENCES `tipster` (`TIPS_CD_ID_PK`),
   CONSTRAINT `FK_knppmr53ll4rtr1ycjb8f0dqw` FOREIGN KEY (`BET_CD_ID_FK`) REFERENCES `bet` (`BET_CD_ID_PK`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
@@ -41,24 +43,24 @@ CREATE TABLE `aposta` (
 -- ----------------------------
 -- Records of aposta
 -- ----------------------------
-INSERT INTO `aposta` VALUES ('1', '2015-02-05 22:00:00', 'GANHOU', '\0', '1423763782791', '100.00', '288.00', '1', '2', '0');
-INSERT INTO `aposta` VALUES ('2', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423766767201', '100.00', '167.00', '2', '1', '0');
-INSERT INTO `aposta` VALUES ('3', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768032625', '100.00', '170.00', '3', '2', '0');
-INSERT INTO `aposta` VALUES ('4', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768084626', '100.00', '144.00', '4', '2', '0');
-INSERT INTO `aposta` VALUES ('5', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768132202', '100.00', '238.00', '5', '2', '0');
-INSERT INTO `aposta` VALUES ('6', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768182530', '100.00', '157.00', '6', '2', '0');
-INSERT INTO `aposta` VALUES ('7', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768228547', '100.00', '190.00', '7', '2', '0');
-INSERT INTO `aposta` VALUES ('8', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768309718', '100.00', '195.00', '8', '2', '0');
-INSERT INTO `aposta` VALUES ('9', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768395104', '100.00', '167.00', '9', '1', '0');
-INSERT INTO `aposta` VALUES ('10', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768462547', '100.00', '238.00', '10', '1', '0');
-INSERT INTO `aposta` VALUES ('11', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768495411', '100.00', '167.00', '11', '1', '0');
-INSERT INTO `aposta` VALUES ('12', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768531047', '100.00', '144.00', '12', '2', '0');
-INSERT INTO `aposta` VALUES ('13', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768567387', '100.00', '150.00', '13', '1', '0');
-INSERT INTO `aposta` VALUES ('14', '2015-02-09 22:00:00', 'GANHOU', '\0', '1423768627801', '100.00', '153.00', '14', '1', '0');
-INSERT INTO `aposta` VALUES ('15', '2015-02-09 22:00:00', 'GANHOU', '\0', '1423768696306', '100.00', '191.00', '15', '2', '0');
-INSERT INTO `aposta` VALUES ('16', '2015-02-09 22:00:00', 'GANHOU', '\0', '1423768733621', '100.00', '170.00', '16', '1', '0');
-INSERT INTO `aposta` VALUES ('17', '2015-02-10 22:00:00', 'GANHOU', '\0', '1423768773391', '100.00', '208.00', '17', '1', '0');
-INSERT INTO `aposta` VALUES ('18', '2015-02-10 22:00:00', 'GANHOU', '\0', '1423768803908', '100.00', '167.00', '18', '2', '0');
+INSERT INTO `aposta` VALUES ('1', '2015-02-05 22:00:00', 'GANHOU', '\0', '1423763782791', '100.00', '288.00', '1', '2', '91');
+INSERT INTO `aposta` VALUES ('2', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423766767201', '100.00', '167.00', '2', '1', '91');
+INSERT INTO `aposta` VALUES ('3', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768032625', '100.00', '170.00', '3', '2', '91');
+INSERT INTO `aposta` VALUES ('4', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768084626', '100.00', '144.00', '4', '2', '91');
+INSERT INTO `aposta` VALUES ('5', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768132202', '100.00', '238.00', '5', '2', '91');
+INSERT INTO `aposta` VALUES ('6', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768182530', '100.00', '157.00', '6', '2', '91');
+INSERT INTO `aposta` VALUES ('7', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768228547', '100.00', '190.00', '7', '2', '91');
+INSERT INTO `aposta` VALUES ('8', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768309718', '100.00', '195.00', '8', '2', '91');
+INSERT INTO `aposta` VALUES ('9', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768395104', '100.00', '167.00', '9', '1', '91');
+INSERT INTO `aposta` VALUES ('10', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768462547', '100.00', '238.00', '10', '1', '91');
+INSERT INTO `aposta` VALUES ('11', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768495411', '100.00', '167.00', '11', '1', '91');
+INSERT INTO `aposta` VALUES ('12', '2015-02-06 22:00:00', 'PERDEU', '\0', '1423768531047', '100.00', '144.00', '12', '2', '91');
+INSERT INTO `aposta` VALUES ('13', '2015-02-06 22:00:00', 'GANHOU', '\0', '1423768567387', '100.00', '150.00', '13', '1', '91');
+INSERT INTO `aposta` VALUES ('14', '2015-02-09 22:00:00', 'GANHOU', '\0', '1423768627801', '100.00', '153.00', '14', '1', '91');
+INSERT INTO `aposta` VALUES ('15', '2015-02-09 22:00:00', 'GANHOU', '\0', '1423768696306', '100.00', '191.00', '15', '2', '91');
+INSERT INTO `aposta` VALUES ('16', '2015-02-09 22:00:00', 'GANHOU', '\0', '1423768733621', '100.00', '170.00', '16', '1', '91');
+INSERT INTO `aposta` VALUES ('17', '2015-02-10 22:00:00', 'GANHOU', '\0', '1423768773391', '100.00', '208.00', '17', '1', '91');
+INSERT INTO `aposta` VALUES ('18', '2015-02-10 22:00:00', 'GANHOU', '\0', '1423768803908', '100.00', '167.00', '18', '2', '91');
 
 -- ----------------------------
 -- Table structure for bandeira
@@ -286,12 +288,15 @@ CREATE TABLE `plano_jogo` (
   `PLJO_PC_APOSTA_DIA` decimal(19,2) DEFAULT NULL,
   `PLJO_PC_LUCRO_DIA` decimal(19,2) DEFAULT NULL,
   `PLJO_VL_INVESTIMENTO_INICIAL` decimal(19,2) DEFAULT NULL,
+  `PLJO_FL_ATIVO` bit(1) DEFAULT NULL,
   PRIMARY KEY (`PLJO_CD_ID_PK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of plano_jogo
 -- ----------------------------
+INSERT INTO `plano_jogo` VALUES ('4', '2015-01-31 22:00:00', 'TESTE_1', '30', '20.00', '30.00', '1000.00', '');
+INSERT INTO `plano_jogo` VALUES ('5', '2015-01-31 22:00:00', 'TESTE_2', '30', '100.00', '30.00', '10.00', '\0');
 
 -- ----------------------------
 -- Table structure for plano_jogo_item
@@ -304,20 +309,84 @@ CREATE TABLE `plano_jogo_item` (
   `PLJI_PC_LUCRO_META` decimal(19,2) DEFAULT NULL,
   `PLJI_PC_OBJETIVO_CONCLUIDO` decimal(19,2) DEFAULT NULL,
   `PLJI_VL_BET_DIA` decimal(19,2) DEFAULT NULL,
+  `PLJI_VL_BET_DIA_OBJETIVO` decimal(19,2) DEFAULT NULL,
   `PLJI_VL_FINAL_DIA` decimal(19,2) DEFAULT NULL,
+  `PLJI_VL_FINAL_DIA_OBJETIVO` decimal(19,2) DEFAULT NULL,
   `PLJI_VL_INICIAL_DIA` decimal(19,2) DEFAULT NULL,
+  `PLJI_VL_INICIAL_DIA_OBJETIVO` decimal(19,2) DEFAULT NULL,
   `PLJI_VL_LUCRO_DIA` decimal(19,2) DEFAULT NULL,
+  `PLJI_VL_LUCRO_DIA_OBJETIVO` decimal(19,2) DEFAULT NULL,
   `PLJI_VL_TOTAL_GANHO_DIA` decimal(19,2) DEFAULT NULL,
   `PLJI_VL_TOTAL_PERDIDO_DIA` decimal(19,2) DEFAULT NULL,
   `PLJO_CD_ID_FK` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`PLJI_CD_ID_PK`),
   KEY `FK_mdwg3xy6wqlv7htra4a80qn67` (`PLJO_CD_ID_FK`),
   CONSTRAINT `FK_mdwg3xy6wqlv7htra4a80qn67` FOREIGN KEY (`PLJO_CD_ID_FK`) REFERENCES `plano_jogo` (`PLJO_CD_ID_PK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of plano_jogo_item
 -- ----------------------------
+INSERT INTO `plano_jogo_item` VALUES ('91', 'DIA 1', null, null, '76.92', '200.00', '200.00', '1000.00', '1300.00', '1000.00', '1000.00', '0.00', '300.00', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('92', 'DIA 2', null, null, '59.17', '260.00', '260.00', '1000.00', '1690.00', '1000.00', '1300.00', '0.00', '390.00', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('93', 'DIA 3', null, null, '45.52', '338.00', '338.00', '1000.00', '2197.00', '1000.00', '1690.00', '0.00', '507.00', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('94', 'DIA 4', null, null, '35.01', '439.40', '439.40', '1000.00', '2856.10', '1000.00', '2197.00', '0.00', '659.10', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('95', 'DIA 5', null, null, '26.93', '571.22', '571.22', '1000.00', '3712.93', '1000.00', '2856.10', '0.00', '856.83', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('96', 'DIA 6', null, null, '20.72', '742.59', '742.59', '1000.00', '4826.81', '1000.00', '3712.93', '0.00', '1113.88', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('97', 'DIA 7', null, null, '15.94', '965.36', '965.36', '1000.00', '6274.85', '1000.00', '4826.81', '0.00', '1448.04', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('98', 'DIA 8', null, null, '12.26', '1254.97', '1254.97', '1000.00', '8157.31', '1000.00', '6274.85', '0.00', '1882.46', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('99', 'DIA 9', null, null, '9.43', '1631.46', '1631.46', '1000.00', '10604.50', '1000.00', '8157.31', '0.00', '2447.19', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('100', 'DIA 10', null, null, '7.25', '2120.90', '2120.90', '1000.00', '13785.85', '1000.00', '10604.50', '0.00', '3181.35', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('101', 'DIA 11', null, null, '5.58', '2757.17', '2757.17', '1000.00', '17921.61', '1000.00', '13785.85', '0.00', '4135.76', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('102', 'DIA 12', null, null, '4.29', '3584.32', '3584.32', '1000.00', '23298.09', '1000.00', '17921.61', '0.00', '5376.48', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('103', 'DIA 13', null, null, '3.30', '4659.62', '4659.62', '1000.00', '30287.52', '1000.00', '23298.09', '0.00', '6989.43', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('104', 'DIA 14', null, null, '2.54', '6057.50', '6057.50', '1000.00', '39373.78', '1000.00', '30287.52', '0.00', '9086.26', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('105', 'DIA 15', null, null, '1.95', '7874.76', '7874.76', '1000.00', '51185.91', '1000.00', '39373.78', '0.00', '11812.13', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('106', 'DIA 16', null, null, '1.50', '10237.18', '10237.18', '1000.00', '66541.68', '1000.00', '51185.91', '0.00', '15355.77', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('107', 'DIA 17', null, null, '1.16', '13308.34', '13308.34', '1000.00', '86504.18', '1000.00', '66541.68', '0.00', '19962.50', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('108', 'DIA 18', null, null, '0.89', '17300.84', '17300.84', '1000.00', '112455.43', '1000.00', '86504.18', '0.00', '25951.25', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('109', 'DIA 19', null, null, '0.68', '22491.09', '22491.09', '1000.00', '146192.06', '1000.00', '112455.43', '0.00', '33736.63', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('110', 'DIA 20', null, null, '0.53', '29238.41', '29238.41', '1000.00', '190049.68', '1000.00', '146192.06', '0.00', '43857.62', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('111', 'DIA 21', null, null, '0.40', '38009.94', '38009.94', '1000.00', '247064.58', '1000.00', '190049.68', '0.00', '57014.90', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('112', 'DIA 22', null, null, '0.31', '49412.92', '49412.92', '1000.00', '321183.95', '1000.00', '247064.58', '0.00', '74119.37', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('113', 'DIA 23', null, null, '0.24', '64236.79', '64236.79', '1000.00', '417539.13', '1000.00', '321183.95', '0.00', '96355.18', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('114', 'DIA 24', null, null, '0.18', '83507.83', '83507.83', '1000.00', '542800.87', '1000.00', '417539.13', '0.00', '125261.74', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('115', 'DIA 25', null, null, '0.14', '108560.17', '108560.17', '1000.00', '705641.13', '1000.00', '542800.87', '0.00', '162840.26', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('116', 'DIA 26', null, null, '0.11', '141128.23', '141128.23', '1000.00', '917333.47', '1000.00', '705641.13', '0.00', '211692.34', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('117', 'DIA 27', null, null, '0.08', '183466.69', '183466.69', '1000.00', '1192533.51', '1000.00', '917333.47', '0.00', '275200.04', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('118', 'DIA 28', null, null, '0.06', '238506.70', '238506.70', '1000.00', '1550293.56', '1000.00', '1192533.51', '0.00', '357760.05', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('119', 'DIA 29', null, null, '0.05', '310058.71', '310058.71', '1000.00', '2015381.63', '1000.00', '1550293.56', '0.00', '465088.07', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('120', 'DIA 30', null, null, '0.04', '403076.33', '403076.33', '1000.00', '2619996.12', '1000.00', '2015381.63', '0.00', '604614.49', null, null, '4');
+INSERT INTO `plano_jogo_item` VALUES ('121', 'DIA 1', null, null, '76.92', '10.00', '10.00', '10.00', '13.00', '10.00', '10.00', '0.00', '3.00', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('122', 'DIA 2', null, null, '59.17', '13.00', '13.00', '10.00', '16.90', '10.00', '13.00', '0.00', '3.90', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('123', 'DIA 3', null, null, '45.52', '16.90', '16.90', '10.00', '21.97', '10.00', '16.90', '0.00', '5.07', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('124', 'DIA 4', null, null, '35.01', '21.97', '21.97', '10.00', '28.56', '10.00', '21.97', '0.00', '6.59', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('125', 'DIA 5', null, null, '26.93', '28.56', '28.56', '10.00', '37.13', '10.00', '28.56', '0.00', '8.57', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('126', 'DIA 6', null, null, '20.72', '37.13', '37.13', '10.00', '48.27', '10.00', '37.13', '0.00', '11.14', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('127', 'DIA 7', null, null, '15.94', '48.27', '48.27', '10.00', '62.75', '10.00', '48.27', '0.00', '14.48', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('128', 'DIA 8', null, null, '12.26', '62.75', '62.75', '10.00', '81.57', '10.00', '62.75', '0.00', '18.82', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('129', 'DIA 9', null, null, '9.43', '81.57', '81.57', '10.00', '106.04', '10.00', '81.57', '0.00', '24.47', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('130', 'DIA 10', null, null, '7.25', '106.04', '106.04', '10.00', '137.85', '10.00', '106.04', '0.00', '31.81', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('131', 'DIA 11', null, null, '5.58', '137.85', '137.85', '10.00', '179.21', '10.00', '137.85', '0.00', '41.36', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('132', 'DIA 12', null, null, '4.29', '179.21', '179.21', '10.00', '232.97', '10.00', '179.21', '0.00', '53.76', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('133', 'DIA 13', null, null, '3.30', '232.97', '232.97', '10.00', '302.86', '10.00', '232.97', '0.00', '69.89', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('134', 'DIA 14', null, null, '2.54', '302.86', '302.86', '10.00', '393.72', '10.00', '302.86', '0.00', '90.86', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('135', 'DIA 15', null, null, '1.95', '393.72', '393.72', '10.00', '511.84', '10.00', '393.72', '0.00', '118.12', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('136', 'DIA 16', null, null, '1.50', '511.84', '511.84', '10.00', '665.39', '10.00', '511.84', '0.00', '153.55', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('137', 'DIA 17', null, null, '1.16', '665.39', '665.39', '10.00', '865.01', '10.00', '665.39', '0.00', '199.62', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('138', 'DIA 18', null, null, '0.89', '865.01', '865.01', '10.00', '1124.51', '10.00', '865.01', '0.00', '259.50', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('139', 'DIA 19', null, null, '0.68', '1124.51', '1124.51', '10.00', '1461.86', '10.00', '1124.51', '0.00', '337.35', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('140', 'DIA 20', null, null, '0.53', '1461.86', '1461.86', '10.00', '1900.42', '10.00', '1461.86', '0.00', '438.56', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('141', 'DIA 21', null, null, '0.40', '1900.42', '1900.42', '10.00', '2470.55', '10.00', '1900.42', '0.00', '570.13', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('142', 'DIA 22', null, null, '0.31', '2470.55', '2470.55', '10.00', '3211.71', '10.00', '2470.55', '0.00', '741.16', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('143', 'DIA 23', null, null, '0.24', '3211.71', '3211.71', '10.00', '4175.22', '10.00', '3211.71', '0.00', '963.51', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('144', 'DIA 24', null, null, '0.18', '4175.22', '4175.22', '10.00', '5427.79', '10.00', '4175.22', '0.00', '1252.57', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('145', 'DIA 25', null, null, '0.14', '5427.79', '5427.79', '10.00', '7056.13', '10.00', '5427.79', '0.00', '1628.34', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('146', 'DIA 26', null, null, '0.11', '7056.13', '7056.13', '10.00', '9172.97', '10.00', '7056.13', '0.00', '2116.84', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('147', 'DIA 27', null, null, '0.08', '9172.97', '9172.97', '10.00', '11924.86', '10.00', '9172.97', '0.00', '2751.89', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('148', 'DIA 28', null, null, '0.06', '11924.86', '11924.86', '10.00', '15502.32', '10.00', '11924.86', '0.00', '3577.46', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('149', 'DIA 29', null, null, '0.05', '15502.32', '15502.32', '10.00', '20153.02', '10.00', '15502.32', '0.00', '4650.70', null, null, '5');
+INSERT INTO `plano_jogo_item` VALUES ('150', 'DIA 30', null, null, '0.04', '20153.02', '20153.02', '10.00', '26198.93', '10.00', '20153.02', '0.00', '6045.91', null, null, '5');
 
 -- ----------------------------
 -- Table structure for tipster

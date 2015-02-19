@@ -16,6 +16,9 @@
 	
 	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
 	<h:form id="formMain">
+	
+		<p:messages id="messagesGlobal" globalOnly="true" escape="true"/>
+		
 		<div class="page-header">
         	<div class="pull-left">
               <h2>#{msgs['aposta_list.lbl.legend.apostas']}</h2>
@@ -67,7 +70,7 @@
 					<p:column headerText="#{msgs['generico.tabelacoluna.resultado']}" sortBy="#{result.id}"  width="9%" styleClass="center-align-text" >
 				        <h:outputText value="#{result.resultado.label}" />
 				    </p:column>
-					<p:column headerText=""  width="10%" styleClass="center-align-text" >
+					<p:column headerText="#{msgs['generico.tabelacoluna.acoes']}"  width="10%" styleClass="center-align-text" >
 						<h:commandLink action="#{apostaBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
 							<span data-icon=""></span>
 						</h:commandLink>
