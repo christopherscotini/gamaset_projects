@@ -87,6 +87,7 @@ public class ApostaBean extends BeanModel{
 		apostaCadastrar.setResultado(getResultadoApostaList().get(0));
 		apostaCadastrar.setPlanoJogoItem(planoJogoItemList.get(0));
 		onchangePlanojogoItemCombo();
+		
 		return TELA_APOSTA_EDIT;
 	}
 	
@@ -143,9 +144,6 @@ public class ApostaBean extends BeanModel{
 	public void onchangePlanojogoItemCombo(){
 		apostaCadastrar.setValorAposta(apostaCadastrar.getPlanoJogoItem().getVlrBetDia());
 	}
-	
-	
-	
 	
 	/* -------------------------------------------------------- */	
 	public List<ApostaEntity> getEntities() {

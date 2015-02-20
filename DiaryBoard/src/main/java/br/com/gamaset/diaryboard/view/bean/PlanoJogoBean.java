@@ -50,7 +50,6 @@ public class PlanoJogoBean extends BeanModel{
 	public String navegarCadastrar(){
 		planoJogoCadastrar = new PlanoJogoEntity();
 		
-		
 		return TELA_PLANOJOGO_EDIT;
 	}
 	
@@ -72,7 +71,6 @@ public class PlanoJogoBean extends BeanModel{
 	public String navegarPlanoJogoDetalhe(PlanoJogoEntity selected){
 		planoJogoCadastrar = selected;
 		planoJogoDetalheDto = planoJogoService.detalharPlanoJogo(planoJogoCadastrar);
-		
 		
 		return TELA_PLANOJOGO_DETALHE;
 	}	
