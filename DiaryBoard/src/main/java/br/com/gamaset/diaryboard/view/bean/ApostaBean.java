@@ -55,6 +55,16 @@ public class ApostaBean extends BeanModel{
 		campeonatoList = campeonatoService.listarTodos();
 		mercadosList = mercadoApostaService.listarTodos();
 		tipsterList = tipsterService.listarTodos();
+		try{
+			planoJogoList = planoJogoService.listarTodos();
+		}catch(BusinessException b){
+			FacesUtils.addErrorMessage(b.getMessage());
+			return "";
+		}
+		planoJogoSelecionado = apostaCadastrar.getPlanoJogoItem().getPlanoJogo();
+		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado);
+		apostaCadastrar.setPlanoJogoItem(apostaCadastrar.getPlanoJogoItem());
+		
 		apostaCadastrar.getBet().setCampeonato(apostaCadastrar.getBet().getCampeonato());
 		apostaCadastrar.getBet().getEvento().setMercado(apostaCadastrar.getBet().getEvento().getMercado());
 		apostaCadastrar.setTipster(apostaCadastrar.getTipster());

@@ -10,7 +10,9 @@ import br.com.gamaset.diaryboard.business.bo.ApostaService;
 import br.com.gamaset.diaryboard.business.exception.NonUniqueResultDataException;
 import br.com.gamaset.diaryboard.business.exception.ValidationFormAbstractException;
 import br.com.gamaset.diaryboard.model.ApostaEntity;
+import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
 import br.com.gamaset.diaryboard.repository.ApostaRepository;
+import br.com.gamaset.diaryboard.repository.PlanoJogoItemRepository;
 import br.com.gamaset.diaryboard.utils.ProjectUtils;
 import br.com.gamaset.diaryboard.utils.StringUtils;
 
@@ -19,6 +21,8 @@ public class ApostaServiceImpl implements ApostaService{
 
 	@Inject
 	private ApostaRepository repo = null;
+	@Inject
+	private PlanoJogoItemRepository repoPlanoJogoItem = null;
 
 	@Override
 	public List<ApostaEntity> listarTodos() {
@@ -40,6 +44,9 @@ public class ApostaServiceImpl implements ApostaService{
 	public ApostaEntity editarEntidade(ApostaEntity entidade) {
 		validateForm(entidade);
 		//colocar as validações
+		
+		calcularSaldoPlanoJogo(entidade);
+		
 		return repo.update(entidade);
 	}
 	
@@ -65,4 +72,8 @@ public class ApostaServiceImpl implements ApostaService{
 	
 	}
 
+	
+	private void calcularSaldoPlanoJogo(ApostaEntity entidade){
+		repoPlanoJogoItem.atualizarPlanoJogoAcompanhamento(entidade);
+	}
 }
