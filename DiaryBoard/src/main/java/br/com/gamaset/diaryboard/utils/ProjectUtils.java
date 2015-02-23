@@ -5,6 +5,8 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 import br.com.gamaset.diaryboard.model.EventoEntity;
+import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
+import br.com.gamaset.diaryboard.model.ResultadoEntityEnum;
 
 public class ProjectUtils {
 
@@ -12,9 +14,18 @@ public class ProjectUtils {
 		return evento.getDescTimeCasa()+" vs "+evento.getDescTimeVisitante();
 	}
 	
-	public static void calcularValoresAcompanhamento(){
+	public static void calcularValoresAcompanhamento(PlanoJogoItemEntity p, ResultadoEntityEnum resultadoEntityEnum){
+		if(resultadoEntityEnum.equals(ResultadoEntityEnum.AINDA_POR_ACONTECER)){
+			p.setVlrFinalDia(p.getVlrFinalDia().subtract(p.getVlrBetDia()));
+			p.setPercObjetivoConcluidoDia(p.getVlrFinalDia().divide(p.getVlrFinalDiaObjetivo(), MathContext.DECIMAL128).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN));
+		}else{
+			if(resultadoEntityEnum.equals(ResultadoEntityEnum.PERDEU)){
+				
+			}else{
+				//soma
+			}
+		}
 //		e.setVlrLucroDia(BigDecimal.ZERO);
-//		e.setPercObjetivoConcluidoDia(e.getVlrFinalDia().divide(e.getVlrFinalDiaObjetivo(), MathContext.DECIMAL128).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN));
 //		e.setPercLucroDia(percLucroDia);
 //		e.setPercLucroMeta(percLucroMeta);
 //		e.setVlrTotalGanhoDia(vlrTotalGanhoDia);

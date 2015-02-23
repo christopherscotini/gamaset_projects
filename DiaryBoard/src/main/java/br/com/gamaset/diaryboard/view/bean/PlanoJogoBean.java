@@ -76,8 +76,8 @@ public class PlanoJogoBean extends BeanModel{
 	}	
 	
 	
-	public String navegarPlanoJogoAcompanhamento(){
-		
+	public String navegarPlanoJogoAcompanhamento(PlanoJogoEntity selected){
+		planoJogoCadastrar = selected;
 		planoJogoCadastrar.setApostas(planoJogoItemService.buscarPorPlanoJogoId(planoJogoCadastrar));
 		
 		return TELA_PLANOJOGO_ACOMPANHAMENTO;

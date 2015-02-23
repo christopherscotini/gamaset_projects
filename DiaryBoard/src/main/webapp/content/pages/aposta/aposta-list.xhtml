@@ -56,6 +56,9 @@
 					<p:column headerText="#{msgs['generico.tabelacoluna.tipster']}" sortBy="#{result.id}"  width="10%" >
 				        <h:outputText value="#{result.tipster.nome}" />
 				    </p:column>
+					<p:column headerText="#PLANO" sortBy="#{result.id}"  width="10%" >
+				        <h:outputText value="#{result.planoJogoItem.planoJogo.descricao} - #{result.planoJogoItem.descricao}" />
+				    </p:column>
 					<p:column headerText="#VL. APOSTA" sortBy="#{result.id}" width="8%" >
 						<h:outputText value="R$" style="margin-right:2px;" />
 				        <h:outputText value="#{result.valorAposta}" converter="decimalConverter" />

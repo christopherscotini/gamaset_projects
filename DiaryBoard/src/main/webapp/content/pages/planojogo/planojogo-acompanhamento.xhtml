@@ -50,9 +50,27 @@
 				        <h:outputText value="R$" style="margin-right:2px;" />
 				        <h:outputText value="#{result.vlrFinalDia}" converter="decimalConverter"/>
 				    </p:column>
-				    <p:column headerText="#{msgs['generico.tabelacoluna.montanteatual']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentualobjetivo']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
 				        <h:outputText value="#{result.percObjetivoConcluidoDia}" converter="percentConverter" />
 				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.lucrodia']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.vlrLucroDia}" converter="decimalConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentuallucrodia']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="#{result.percLucroDia}" converter="percentConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentuallucrometa']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="#{result.percLucroMeta}" converter="percentConverter" />
+				    </p:column>
+<!-- 				    <p:column headerText="#{msgs['generico.tabelacoluna.totalganho']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" > -->
+<!-- 				        <h:outputText value="R$" style="margin-right:2px;" /> -->
+<!-- 				        <h:outputText value="#{result.vlrTotalGanhoDia}" converter="decimalConverter" /> -->
+<!-- 				    </p:column> -->
+<!-- 				    <p:column headerText="#{msgs['generico.tabelacoluna.totalperdido']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" > -->
+<!-- 				        <h:outputText value="R$" style="margin-right:2px;" /> -->
+<!-- 				        <h:outputText value="#{result.vlrTotalPerdidoDia}" converter="decimalConverter" /> -->
+<!-- 				    </p:column> -->
 				    
 				</p:dataTable>
 			</div>

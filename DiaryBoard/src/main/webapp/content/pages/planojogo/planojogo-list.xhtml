@@ -64,8 +64,11 @@
 				        </ui:fragment>
 				    </p:column>
 				    <p:column headerText="#{msgs['generico.tabelacoluna.acoes']}"  width="10%" styleClass="center-align-text" >
-						<h:commandLink action="#{planoJogoBean.navegarPlanoJogoDetalhe(result)}" value="" style="margin-right:10px;" data-original-title="Detalhar" >
-							<span data-icon="" ></span>
+<!-- 						<h:commandLink action="#{planoJogoBean.navegarPlanoJogoDetalhe(result)}" value="" style="margin-right:10px;" data-original-title="Detalhar" > -->
+<!-- 							<span data-icon="" ></span> -->
+<!-- 						</h:commandLink> -->
+						<h:commandLink action="#{planoJogoBean.navegarPlanoJogoAcompanhamento(result)}" value="" style="margin-right:10px;" data-original-title="Expandir" >
+							<span data-icon="" ></span>
 						</h:commandLink>
 				    </p:column>
 				    
