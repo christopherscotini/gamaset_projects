@@ -23,8 +23,8 @@ import br.com.gamaset.diaryboard.model.FlagEntity;
 @SessionScoped
 public class CampeonatoBean extends BeanModel{
 
-	private final String TELA_CONSULTAR_CAMPEONATOS= "/content/pages/aposta_campeonato/consultar_campeonato.xhtml";
-	private final String TELA_CADASTRAR_CAMPEONATOS= "/content/pages/aposta_campeonato/cadastrar_campeonato.xhtml";
+	private final String TELA_CONSULTAR_CAMPEONATOS= "/content/pages/aposta_campeonato/campeonato-list.xhtml";
+	private final String TELA_CADASTRAR_CAMPEONATOS= "/content/pages/aposta_campeonato/campeonato-edit.xhtml";
 	
 	private List<CampeonatoEntity>entities;
 	private CampeonatoEntity campeonatoCadastrar;

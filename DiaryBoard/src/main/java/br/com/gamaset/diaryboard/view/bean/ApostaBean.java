@@ -37,6 +37,8 @@ public class ApostaBean extends BeanModel{
 	private PlanoJogoEntity planoJogoSelecionado;
 	private List<PlanoJogoItemEntity> planoJogoItemList;
 	
+	private BigDecimal valorApostaSugerido;
+	
 	public ApostaBean() {
 
 	}
@@ -56,14 +58,14 @@ public class ApostaBean extends BeanModel{
 		mercadosList = mercadoApostaService.listarTodos();
 		tipsterList = tipsterService.listarTodos();
 		try{
-			planoJogoList = planoJogoService.listarTodos();
+			planoJogoList = planoJogoService.listarTodosAtivos();
 		}catch(BusinessException b){
 			FacesUtils.addErrorMessage(b.getMessage());
 			return "";
 		}
+		
 		planoJogoSelecionado = apostaCadastrar.getPlanoJogoItem().getPlanoJogo();
-		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado);
-		apostaCadastrar.setPlanoJogoItem(apostaCadastrar.getPlanoJogoItem());
+		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado.getId());
 		
 		apostaCadastrar.getBet().setCampeonato(apostaCadastrar.getBet().getCampeonato());
 		apostaCadastrar.getBet().getEvento().setMercado(apostaCadastrar.getBet().getEvento().getMercado());
@@ -90,13 +92,12 @@ public class ApostaBean extends BeanModel{
 			return "";
 		}
 		planoJogoSelecionado = planoJogoList.get(0);
-		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado);
 		apostaCadastrar.getBet().setCampeonato(campeonatoList.get(0));
 		apostaCadastrar.getBet().getEvento().setMercado(mercadosList.get(0));
 		apostaCadastrar.setTipster(tipsterList.get(0));
 		apostaCadastrar.setResultado(getResultadoApostaList().get(0));
-		apostaCadastrar.setPlanoJogoItem(planoJogoItemList.get(0));
-		onchangePlanojogoItemCombo();
+		onchangePlanojogoCombo();
+		
 		
 		return TELA_APOSTA_EDIT;
 	}
@@ -147,12 +148,21 @@ public class ApostaBean extends BeanModel{
 	}
 	
 	public void onchangePlanojogoCombo(){
-		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado);
-		apostaCadastrar.setPlanoJogoItem(planoJogoItemList.get(0));
+		planoJogoItemList = planoJogoItemService.buscarPorPlanoJogoId(planoJogoSelecionado.getId());
+		for (int i = 0; i < planoJogoItemList.size(); i++) {
+			if(!planoJogoItemList.get(i).isFinalizado()){
+				apostaCadastrar.setPlanoJogoItem(planoJogoItemList.get(i));
+				break;
+			}else{
+				apostaCadastrar.setPlanoJogoItem(planoJogoItemList.get(planoJogoItemList.size()-1));
+			}
+		}
+		
+		onchangePlanojogoItemCombo();
 	}
 
 	public void onchangePlanojogoItemCombo(){
-		apostaCadastrar.setValorAposta(apostaCadastrar.getPlanoJogoItem().getVlrBetDia());
+		valorApostaSugerido = apostaCadastrar.getPlanoJogoItem().getVlrBetDia();
 	}
 	
 	/* -------------------------------------------------------- */	
@@ -219,6 +229,15 @@ public class ApostaBean extends BeanModel{
 	public void setPlanoJogoSelecionado(PlanoJogoEntity planoJogoSelecionado) {
 		this.planoJogoSelecionado = planoJogoSelecionado;
 	}
+
+	public BigDecimal getValorApostaSugerido() {
+		return valorApostaSugerido;
+	}
+
+	public void setValorApostaSugerido(BigDecimal valorApostaSugerido) {
+		this.valorApostaSugerido = valorApostaSugerido;
+	}
+
 	
 	
 }

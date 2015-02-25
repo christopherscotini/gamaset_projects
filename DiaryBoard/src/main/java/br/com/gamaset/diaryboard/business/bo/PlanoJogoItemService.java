@@ -8,6 +8,8 @@ import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
 
 public interface PlanoJogoItemService extends ServiceModel<PlanoJogoItemEntity>{
 	
-	List<PlanoJogoItemEntity> buscarPorPlanoJogoId(PlanoJogoEntity entity);
+	List<PlanoJogoItemEntity> buscarPorPlanoJogoId(Long id);
+
+	PlanoJogoItemEntity busarPorId(Long id);
 
 }

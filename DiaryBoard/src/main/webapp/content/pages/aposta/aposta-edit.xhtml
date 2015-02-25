@@ -8,10 +8,25 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 	<ui:define name="breadcrumb">
-<!-- 		<li><a data-original-title="" href="#"> One </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Two </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Three </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Four </a></li> -->
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['aposta_list.lbl.titulotela.apostas']} </a>
+		</li>
+		<ui:fragment rendered="#{apostaBean.apostaCadastrar.id == null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['aposta_edit.lbl.titulotela.efetuaraposta']} </a>
+			</li>
+		</ui:fragment>
+		<ui:fragment rendered="#{apostaBean.apostaCadastrar.id != null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['aposta_edit.lbl.titulotela.alterar']} </a>
+			</li>
+		</ui:fragment>
 	</ui:define>
 	
 	<ui:define name="content">
@@ -19,7 +34,12 @@
 		<h:messages showDetail="true" showSummary="true"/>
 		<div class="page-header">
         	<div class="pull-left">
-              <h2>#{msgs['aposta_edit.lbl.titulo.alterar']}</h2>
+        		<ui:fragment rendered="#{apostaBean.apostaCadastrar.id == null}">
+					<h2>#{msgs['aposta_edit.lbl.titulotela.efetuaraposta']}</h2>
+				</ui:fragment>
+				<ui:fragment rendered="#{apostaBean.apostaCadastrar.id != null}">
+					<h2>#{msgs['aposta_edit.lbl.titulotela.alterar']}</h2>
+				</ui:fragment>
             </div>
             <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
         	<div class="clearfix"></div>
@@ -45,15 +65,15 @@
 		                 	 #{msgs['aposta_edit.lbl.planojogo']}
 		               	</label>
 		               	<div class="controls controls-row">
-							<h:selectOneMenu value="#{apostaBean.planoJogoSelecionado}" converter="genericEntityConverter" >
+							<h:selectOneMenu value="#{apostaBean.planoJogoSelecionado}" converter="genericEntityConverter"  >
 								<f:selectItems value="#{apostaBean.planoJogoList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
-								<p:ajax event="change" listener="#{apostaBean.onchangePlanojogoCombo()}" update="combo_planojogo" />
+								<p:ajax event="change" listener="#{apostaBean.onchangePlanojogoCombo()}" update="combo_planojogoitem" />
 							</h:selectOneMenu>
 						</div>
 		               	<div class="controls controls-row">
-							<h:selectOneMenu id="combo_planojogo" value="#{apostaBean.apostaCadastrar.planoJogoItem}" converter="genericEntityConverter" >
-								<f:selectItems value="#{apostaBean.planoJogoItemList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
-								<p:ajax event="change" listener="#{apostaBean.onchangePlanojogoItemCombo()}" update="input_valoraposta" />
+							<h:selectOneMenu id="combo_planojogoitem" value="#{apostaBean.apostaCadastrar.planoJogoItem}" converter="genericEntityConverter"  >
+								<f:selectItems value="#{apostaBean.planoJogoItemList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao} - #{f.descStatus}" />
+								<p:ajax event="change" listener="#{apostaBean.onchangePlanojogoItemCombo()}" update="output_valorapostasugerido" />
 							</h:selectOneMenu>
 						</div>
            			</div>
@@ -116,6 +136,8 @@
 								<p:ajax event="blur" listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
 								<p:ajax event="focus"  listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
 							</h:inputText>
+							<h:outputText value="Valor de Aposta Sugerido: R$" style="margin-left: 5px;" />
+							<h:outputText id="output_valorapostasugerido" value="#{apostaBean.valorApostaSugerido}" style="margin-left: 5px;" converter="decimalConverter" />
 						</div>
            			</div>
            			<div class="control-group">
@@ -157,6 +179,10 @@
 	        	</div>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_apostas');
+		</script>
 		
     </h:form>         
 	</ui:define>

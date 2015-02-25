@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.caixa']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['caixaapostas_list.lbl.titulotela.resumocaixa']} </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
+	<h:form id="formMain">
+		
+		<div class="page-header">
+        	<div class="pull-left">
+              <h2>#{msgs['caixaapostas_list.lbl.titulotela.resumocaixa']}</h2>
+            </div>
+            <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+		
+		<div class="widget">
+			
+			<div class="widget-header">
+				<div class="title">
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					#{msgs['caixaapostas_list.lbl.legend.resumocaixa']}
+				</div>
+			</div>
+			<div class="widget-body">
+				<p:dataTable id="tableCaixa" 
+					styleClass="table table-condensed table-bordered no-margin" 
+					value="#{caixaApostasBean.entities}" var="result" rows="10" 
+					paginator="true" paginatorPosition="bottom">
+					
+					<p:column headerText="#{msgs['generico.tabelacoluna.id']}" sortBy="#{result.id}" styleClass="sorting_asc center-align-text" width="5%">
+				        <h:outputText value="#{result.id}" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.bandeira']}" styleClass="center-align-text" width="10%">
+				        <h:outputText value="#{result.tipoMovimentacaoEnum.label}" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.sigla']}" sortBy="#{result.valorMovimentacao}" styleClass="center-align-text" width="10%" >
+				        <h:outputText value="R$" />
+				        <h:outputText value="#{result.valorMovimentacao}" converter="decimalConverter" />
+				    </p:column>
+				    
+				</p:dataTable>
+			</div>
+			
+			<div class="form-actions no-margin">
+				<h:commandButton action="#{caixaApostasBean.navegarCadastrar()}" value="#{msgs['generico.btn_cadastrar']}" styleClass="btn btn-info pull-right" />
+             <div class="clearfix" />
+           </div>
+		</div>
+		
+		
+
+	</h:form>
+	
+	<script>
+		addClassDatatable();
+		addClassSelectedMenu('menu_apostas');
+	</script>
+	
+	</ui:define>
+</ui:composition>

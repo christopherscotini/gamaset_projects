@@ -1,3 +1,6 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'master' of https\://github.com/christopherscotini/gamaset_projects.git
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
@@ -5,11 +8,11 @@ encoding//src/main/webapp/content/navbar/financaspessoais/categoriamovimentacao/
 encoding//src/main/webapp/content/navbar/financaspessoais/categoriamovimentacao/consultar_categoriamovimentacao.xhtml=UTF-8
 encoding//src/main/webapp/content/navbar/financaspessoais/creditosmovimentacao/consultar_creditomovimentacao.xhtml=UTF-8
 encoding//src/main/webapp/content/pages/aposta/aposta-edit.xhtml=UTF-8
-encoding//src/main/webapp/content/pages/aposta_campeonato/cadastrar_campeonato.xhtml=UTF-8
-<<<<<<< HEAD
+encoding//src/main/webapp/content/pages/aposta/aposta-list.xhtml=UTF-8
+encoding//src/main/webapp/content/pages/aposta_campeonato/campeonato-edit.xhtml=UTF-8
+encoding//src/main/webapp/content/pages/aposta_campeonato/campeonato-list.xhtml=UTF-8
+encoding//src/main/webapp/content/pages/caixa_apostas/caixaapostas-edit.xhtml=UTF-8
 encoding//src/main/webapp/content/pages/planojogo/planojogo-detalhe.xhtml=UTF-8
-=======
->>>>>>> branch 'master' of https://github.com/christopherscotini/gamaset_projects.git
 encoding//src/main/webapp/content/pages/planojogo/planojogo-list.xhtml=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

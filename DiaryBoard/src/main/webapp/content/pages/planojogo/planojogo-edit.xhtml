@@ -8,10 +8,25 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 	<ui:define name="breadcrumb">
-<!-- 		<li><a data-original-title="" href="#"> One </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Two </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Three </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Four </a></li> -->
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.planojogo']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['planojogo_list.lbl.titulotela.planojogo']} </a>
+		</li>
+		<ui:fragment rendered="#{planoJogoBean.planoJogoCadastrar.id == null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['planojogo_edit.lbl.titulotela.cadastrar']} </a>
+			</li>
+		</ui:fragment>
+		<ui:fragment rendered="#{planoJogoBean.planoJogoCadastrar.id != null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['planojogo_edit.lbl.titulotela.alterar']} </a>
+			</li>
+		</ui:fragment>
 	</ui:define>
 	
 	<ui:define name="content">
@@ -19,7 +34,12 @@
 		<h:messages showDetail="true" showSummary="true"/>
 		<div class="page-header">
         	<div class="pull-left">
-              <h2>#{msgs['planojogo_edit.lbl.titulo.alterar']}</h2>
+        		<ui:fragment rendered="#{planoJogoBean.planoJogoCadastrar.id == null}">
+					<h2>#{msgs['planojogo_edit.lbl.titulotela.cadastrar']}</h2>
+				</ui:fragment>
+				<ui:fragment rendered="#{planoJogoBean.planoJogoCadastrar.id != null}">
+					<h2>#{msgs['planojogo_edit.lbl.titulotela.alterar']}</h2>
+				</ui:fragment>
             </div>
             <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
         	<div class="clearfix"></div>
@@ -91,6 +111,10 @@
 	        	</div>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_apostas');
+		</script>
 		
     </h:form>         
 	</ui:define>

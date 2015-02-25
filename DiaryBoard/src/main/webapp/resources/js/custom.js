@@ -78,5 +78,17 @@ function addClassDatatable(){
 	table.addClass("table table-condensed table-striped table-bordered table-hover no-margin")
 }
 
+function addClassSelectedMenu(element){
+	var a = $('a').filter('[class*=selected]');
+	a.removeClass("selected")
+	
+	element = '[id*='+element+']';
+	var menu = $('a').filter(element);
+	menu.addClass('selected');
+//	a.addClass("table table-condensed table-striped table-bordered table-hover no-margin")
+}
+
+
+
 
 

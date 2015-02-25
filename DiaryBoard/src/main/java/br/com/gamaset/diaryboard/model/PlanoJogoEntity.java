@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PLANO_JOGO")
@@ -44,7 +45,7 @@ public class PlanoJogoEntity {
 	@Column(name = "PLJO_FL_ATIVO")
 	private boolean ativo;
 
-	@OneToMany(mappedBy = "planoJogo", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "planoJogo", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<PlanoJogoItemEntity>apostas;
 	
 	
@@ -119,6 +120,41 @@ public class PlanoJogoEntity {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PlanoJogoEntity other = (PlanoJogoEntity) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
+	@Transient
+	private BigDecimal montanteAtual;
+	public BigDecimal getMontanteAtual(){
+		return montanteAtual;
+	}
+	public void setMontanteAtual(BigDecimal val){
+		this.montanteAtual = val;
 	}
 	
 }

@@ -35,7 +35,7 @@ public class ApostaServiceImpl implements ApostaService{
 		//colocar as validações
 		try{
 			entidade = repo.insert(entidade);
-			calcularSaldoPlanoJogo(entidade);
+			repoPlanoJogoItem.atualizarPlanoJogoAcompanhamento(entidade, false);
 		}catch(Exception e){
 			
 		}
@@ -48,8 +48,7 @@ public class ApostaServiceImpl implements ApostaService{
 		validateForm(entidade);
 		//colocar as validações
 		try{
-			 entidade = repo.update(entidade);
-			 calcularSaldoPlanoJogo(entidade);
+			repoPlanoJogoItem.atualizarPlanoJogoAcompanhamento(entidade, true);
 		}catch (Exception e) {
 		
 		}
@@ -59,8 +58,8 @@ public class ApostaServiceImpl implements ApostaService{
 	
 	@Override
 	public void excluirEntidade(ApostaEntity entidade) {
-		repoPlanoJogoItem.atualizarPlanoJogoAcompanhamentoExclusao(entidade);
 		repo.delete(entidade);
+		repoPlanoJogoItem.atualizarPlanoJogoAcompanhamento(entidade, false);
 	}
 
 	@Override
@@ -80,8 +79,4 @@ public class ApostaServiceImpl implements ApostaService{
 	
 	}
 
-	
-	private void calcularSaldoPlanoJogo(ApostaEntity entidade){
-		repoPlanoJogoItem.atualizarPlanoJogoAcompanhamento(entidade);
-	}
 }

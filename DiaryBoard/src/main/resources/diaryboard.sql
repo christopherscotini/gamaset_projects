@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-02-20 17:02:56
+Date: 2015-02-25 18:10:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,12 +38,11 @@ CREATE TABLE `aposta` (
   CONSTRAINT `FK_h8yd2yr3s604gglcgmhuoxpws` FOREIGN KEY (`PLJI_CD_ID_FK`) REFERENCES `plano_jogo_item` (`PLJI_CD_ID_PK`),
   CONSTRAINT `FK_htmftqag1t0iub80cdyrt1y2` FOREIGN KEY (`TIPS_CD_ID_FK`) REFERENCES `tipster` (`TIPS_CD_ID_PK`),
   CONSTRAINT `FK_knppmr53ll4rtr1ycjb8f0dqw` FOREIGN KEY (`BET_CD_ID_FK`) REFERENCES `bet` (`BET_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aposta
 -- ----------------------------
-INSERT INTO `aposta` VALUES ('1', '2015-02-19 22:00:00', 'AINDA_POR_ACONTECER', '\0', '1424439752253', '200.00', '500.00', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for bandeira
@@ -121,12 +120,27 @@ CREATE TABLE `bet` (
   KEY `FK_f3p6wnpve0jlsl30ya2631grh` (`EVEN_CD_ID_FK`),
   CONSTRAINT `FK_6rxfauff7jxdkfmvi4gdqyqat` FOREIGN KEY (`CAMP_CD_ID_FK`) REFERENCES `campeonato` (`CAMP_CD_ID_PK`),
   CONSTRAINT `FK_f3p6wnpve0jlsl30ya2631grh` FOREIGN KEY (`EVEN_CD_ID_FK`) REFERENCES `evento` (`EVEN_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bet
 -- ----------------------------
-INSERT INTO `bet` VALUES ('1', '15', '1');
+
+-- ----------------------------
+-- Table structure for caixa_aposta
+-- ----------------------------
+DROP TABLE IF EXISTS `caixa_aposta`;
+CREATE TABLE `caixa_aposta` (
+  `CAAP_CD_ID_PK` bigint(20) NOT NULL AUTO_INCREMENT,
+  `CAAP_DT_MOVIMENTACAO` datetime DEFAULT NULL,
+  `CAAP_DS_MOVIMENTACAO` varchar(255) DEFAULT NULL,
+  `CAAP_VL_MOVIMENTACAO` decimal(19,2) DEFAULT NULL,
+  PRIMARY KEY (`CAAP_CD_ID_PK`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of caixa_aposta
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for campeonato
@@ -179,12 +193,11 @@ CREATE TABLE `evento` (
   PRIMARY KEY (`EVEN_CD_ID_PK`),
   KEY `FK_i1l7vtu49vpc7p5f5eb6sk67e` (`MEAP_CD_ID_FK`),
   CONSTRAINT `FK_i1l7vtu49vpc7p5f5eb6sk67e` FOREIGN KEY (`MEAP_CD_ID_FK`) REFERENCES `mercado_aposta` (`MEAP_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of evento
 -- ----------------------------
-INSERT INTO `evento` VALUES ('1', null, 'T1', 'T2', 'T1 vs T2', '2.50', '1');
 
 -- ----------------------------
 -- Table structure for mercado_aposta
@@ -239,12 +252,11 @@ CREATE TABLE `plano_jogo` (
   `PLJO_PC_LUCRO_DIA` decimal(19,2) DEFAULT NULL,
   `PLJO_VL_INVESTIMENTO_INICIAL` decimal(19,2) DEFAULT NULL,
   PRIMARY KEY (`PLJO_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of plano_jogo
 -- ----------------------------
-INSERT INTO `plano_jogo` VALUES ('1', '', '2015-01-31 22:00:00', 'TIPS_FEV2015 - MILAGRE TEAM', '5', '20.00', '30.00', '1000.00');
 
 -- ----------------------------
 -- Table structure for plano_jogo_item
@@ -271,16 +283,11 @@ CREATE TABLE `plano_jogo_item` (
   PRIMARY KEY (`PLJI_CD_ID_PK`),
   KEY `FK_mdwg3xy6wqlv7htra4a80qn67` (`PLJO_CD_ID_FK`),
   CONSTRAINT `FK_mdwg3xy6wqlv7htra4a80qn67` FOREIGN KEY (`PLJO_CD_ID_FK`) REFERENCES `plano_jogo` (`PLJO_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of plano_jogo_item
 -- ----------------------------
-INSERT INTO `plano_jogo_item` VALUES ('1', 'DIA 1', '\0', null, null, '76.92', '200.00', '200.00', '1000.00', '1300.00', '1000.00', '1000.00', '0.00', '300.00', null, null, '1');
-INSERT INTO `plano_jogo_item` VALUES ('2', 'DIA 2', '\0', null, null, '59.17', '260.00', '260.00', '1000.00', '1690.00', '1000.00', '1300.00', '0.00', '390.00', null, null, '1');
-INSERT INTO `plano_jogo_item` VALUES ('3', 'DIA 3', '\0', null, null, '45.52', '338.00', '338.00', '1000.00', '2197.00', '1000.00', '1690.00', '0.00', '507.00', null, null, '1');
-INSERT INTO `plano_jogo_item` VALUES ('4', 'DIA 4', '\0', null, null, '35.01', '439.40', '439.40', '1000.00', '2856.10', '1000.00', '2197.00', '0.00', '659.10', null, null, '1');
-INSERT INTO `plano_jogo_item` VALUES ('5', 'DIA 5', '\0', null, null, '26.93', '571.22', '571.22', '1000.00', '3712.93', '1000.00', '2856.10', '0.00', '856.83', null, null, '1');
 
 -- ----------------------------
 -- Table structure for tipster

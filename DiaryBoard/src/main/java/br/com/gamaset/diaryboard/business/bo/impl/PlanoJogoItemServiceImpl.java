@@ -38,6 +38,11 @@ public class PlanoJogoItemServiceImpl implements PlanoJogoItemService{
 	public void excluirEntidade(PlanoJogoItemEntity entidade) {
 		
 	}
+	
+	@Override
+	public PlanoJogoItemEntity busarPorId(Long id) {
+		return repo.findById(id);
+	}
 
 	@Override
 	public void validateForm(PlanoJogoItemEntity entidade) throws ValidationFormAbstractException {
@@ -46,9 +51,9 @@ public class PlanoJogoItemServiceImpl implements PlanoJogoItemService{
 	}
 	
 	@Override
-	public List<PlanoJogoItemEntity> buscarPorPlanoJogoId(PlanoJogoEntity entity) {
+	public List<PlanoJogoItemEntity> buscarPorPlanoJogoId(Long id) {
 		
-		return repo.findByPlanoJogoId(entity);
+		return repo.findByPlanoJogoId(id);
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.gamaset.diaryboard.view.bean;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,13 +11,15 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.com.gamaset.diaryboard.business.bo.ApostaService;
+import br.com.gamaset.diaryboard.business.bo.CaixaApostasService;
 import br.com.gamaset.diaryboard.business.bo.CampeonatoService;
 import br.com.gamaset.diaryboard.business.bo.FlagService;
 import br.com.gamaset.diaryboard.business.bo.MercadoApostaService;
 import br.com.gamaset.diaryboard.business.bo.PlanoJogoItemService;
 import br.com.gamaset.diaryboard.business.bo.PlanoJogoService;
 import br.com.gamaset.diaryboard.business.bo.TipsterService;
-import br.com.gamaset.diaryboard.model.ResultadoEntityEnum;
+import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
+import br.com.gamaset.diaryboard.model.ApostaResultadoEnum;
 
 public abstract class BeanModel {
 	
@@ -36,12 +39,14 @@ public abstract class BeanModel {
 	protected PlanoJogoService planoJogoService = null;
 	@Inject
 	protected PlanoJogoItemService planoJogoItemService = null;
+	@Inject
+	protected CaixaApostasService caixaApostasService = null;
 
 	
 	
-	public List<ResultadoEntityEnum> getResultadoApostaList() {
-		return new ArrayList<ResultadoEntityEnum>(
-				Arrays.asList(ResultadoEntityEnum.values()));
+	public List<ApostaResultadoEnum> getResultadoApostaList() {
+		return new ArrayList<ApostaResultadoEnum>(
+				Arrays.asList(ApostaResultadoEnum.values()));
 	} 
 	
 	public static String getMsgs(String messageId) {    
@@ -55,5 +60,14 @@ public abstract class BeanModel {
         }    
         return msg;    
     }  
+	
+	
+	public BigDecimal getSaldoGeral(){
+		BigDecimal ret = BigDecimal.ZERO;
+//		List<PlanoJogoEntity>planos = planoJogoService.listarTodos();
+		
+		
+		return null;
+	}
 	
 }

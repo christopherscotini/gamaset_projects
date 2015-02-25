@@ -6,10 +6,15 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="breadcrumb">
-<!-- 		<li><a data-original-title="" href="#"> One </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Two </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Three </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Four </a></li> -->
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.planojogo']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['planojogo_list.lbl.titulotela.planojogo']} </a>
+		</li>
 	</ui:define>
 	
 	<ui:define name="content">
@@ -53,7 +58,7 @@
 				        <h:outputText value="#{result.percentualLucroMontanteDia}" converter="percentConverter"/>
 				    </p:column>
 				    <p:column headerText="#{msgs['generico.tabelacoluna.montanteacumulado']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="15%" >
-				        <h:outputText value="?????" converter="decimalConverter" />
+				        <h:outputText value="#{result.montanteAtual}" converter="decimalConverter" />
 				    </p:column>
 				    <p:column headerText="#{msgs['generico.tabelacoluna.status']}" sortBy="#{result.valorInvestimentoInicial}" styleClass="center-align-text" width="5%" >
 				        <ui:fragment rendered="#{result.ativo}">
@@ -70,6 +75,11 @@
 						<h:commandLink action="#{planoJogoBean.navegarPlanoJogoAcompanhamento(result)}" value="" style="margin-right:10px;" data-original-title="Expandir" >
 							<span data-icon="" ></span>
 						</h:commandLink>
+						
+						<h:commandLink action="#{planoJogoBean.navegarExcluir(result)}" style="margin-left:10px;" onclick="return confirm('Deseja realmente excluir esse campeonato?')" value="" >
+							<span data-icon=""></span>
+							<p:ajax update="@form" />
+						</h:commandLink>
 				    </p:column>
 				    
 				</p:dataTable>
@@ -85,6 +95,7 @@
 	
 	<script>
 		addClassDatatable();
+		addClassSelectedMenu('menu_apostas');
 	</script>
 	
 	</ui:define>

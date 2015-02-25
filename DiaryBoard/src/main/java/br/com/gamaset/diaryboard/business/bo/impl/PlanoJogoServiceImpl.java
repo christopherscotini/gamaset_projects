@@ -15,8 +15,10 @@ import br.com.gamaset.diaryboard.business.exception.NoDataFoundException;
 import br.com.gamaset.diaryboard.business.exception.NonUniqueResultDataException;
 import br.com.gamaset.diaryboard.business.exception.ValidationFormAbstractException;
 import br.com.gamaset.diaryboard.dto.PlanoJogoDetalheDTO;
+import br.com.gamaset.diaryboard.model.ApostaEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
+import br.com.gamaset.diaryboard.repository.ApostaRepository;
 import br.com.gamaset.diaryboard.repository.PlanoJogoItemRepository;
 import br.com.gamaset.diaryboard.repository.PlanoJogoRepository;
 
@@ -27,12 +29,29 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 	private PlanoJogoRepository repo = null;
 	@Inject
 	private PlanoJogoItemRepository repoItem= null;
+	@Inject
+	private ApostaRepository repoAposta= null;
 
 	@Override
 	public List<PlanoJogoEntity> listarTodos() {
 		List<PlanoJogoEntity> returnzz = repo.findAll();
 		if(returnzz.size() == 0 || returnzz == null){
 			throw new NoDataFoundException("Planos de Jogo Cadastrados");
+		}
+		for (int i = 0; i < returnzz.size(); i++) {
+			returnzz.get(i).setMontanteAtual(returnzz.get(i).getApostas().get(returnzz.get(i).getApostas().size()-1).getVlrFinalDia());
+		}
+		return returnzz;
+	}
+
+	@Override
+	public List<PlanoJogoEntity> listarTodosAtivos() {
+		List<PlanoJogoEntity> returnzz = repo.findAllAtivos();
+		if(returnzz.size() == 0 || returnzz == null){
+			throw new NoDataFoundException("Planos de Jogo Ativos Cadastrados");
+		}
+		for (int i = 0; i < returnzz.size(); i++) {
+			returnzz.get(i).setMontanteAtual(returnzz.get(i).getApostas().get(returnzz.get(i).getApostas().size()-1).getVlrFinalDia());
 		}
 		return returnzz;
 	}
@@ -91,7 +110,19 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 	
 	@Override
 	public void excluirEntidade(PlanoJogoEntity entidade) {
-		
+		List<PlanoJogoItemEntity> itensPlano = null;
+		try{
+			itensPlano = repo.findById(entidade.getId()).getApostas();
+			for (int i = 0; i < itensPlano.size(); i++) {
+				List<ApostaEntity>apostasItem = repoAposta.buscarApostaPorPlanoItem(itensPlano.get(i));
+				if(apostasItem.size() > 0){
+					for (int j = 0; j < apostasItem.size(); j++) {
+						repoAposta.delete(apostasItem.get(j));
+					}
+				}
+			}
+		}catch(NullPointerException n){}
+		repo.delete(entidade);
 	}
 
 	@Override

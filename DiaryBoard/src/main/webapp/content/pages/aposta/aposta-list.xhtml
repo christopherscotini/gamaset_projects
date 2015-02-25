@@ -6,10 +6,15 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="breadcrumb">
-<!-- 		<li><a data-original-title="" href="#"> One </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Two </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Three </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Four </a></li> -->
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['aposta_list.lbl.titulotela.apostas']} </a>
+		</li>
 	</ui:define>
 	
 	<ui:define name="content">
@@ -21,7 +26,7 @@
 		
 		<div class="page-header">
         	<div class="pull-left">
-              <h2>#{msgs['aposta_list.lbl.legend.apostas']}</h2>
+              <h2>#{msgs['aposta_list.lbl.titulotela.apostas']}</h2>
             </div>
             <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
         	<div class="clearfix"></div>
@@ -30,7 +35,7 @@
 		<div class="widget">
 			<div class="widget-header">
 				<div class="title">
-					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
 					#{msgs['aposta_list.lbl.legend.apostas']}
 				</div>
 			</div>
@@ -77,7 +82,7 @@
 						<h:commandLink action="#{apostaBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
 							<span data-icon=""></span>
 						</h:commandLink>
-						<h:commandLink action="#{apostaBean.navegarExcluir(result)}" style="margin-left:10px;" onclick="return confirm('Deseja realmente excluir esse campeonato?')" value="" >
+						<h:commandLink action="#{apostaBean.navegarExcluir(result)}" style="margin-left:10px;" onclick="return confirm('Deseja realmente excluir essa aposta?')" value="" >
 							<span data-icon=""></span>
 							<p:ajax update="@form" />
 						</h:commandLink>
@@ -96,6 +101,7 @@
 	
 	<script>
 		addClassDatatable();
+		addClassSelectedMenu('menu_apostas');
 	</script>
 	
 	</ui:define>

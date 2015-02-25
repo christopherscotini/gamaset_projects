@@ -6,10 +6,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="breadcrumb">
-<!-- 		<li><a data-original-title="" href="#"> One </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Two </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Three </a></li> -->
-<!-- 		<li><a data-original-title="" href="#"> Four </a></li> -->
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.planojogo']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['planojogo_list.lbl.titulotela.planojogo']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['planojogo_acompanhamento.lbl.titulotela.metaplanojogo']} </a>
+		</li>
 	</ui:define>
 	
 	<ui:define name="content">
@@ -18,7 +26,7 @@
 	<h:form id="formMain">
 		<div class="page-header">
         	<div class="pull-left">
-              <h2>#{msgs['planojogo_acompanhamento.lbl.titulotela.acompanhamento']}</h2>
+              <h2>#{msgs['planojogo_acompanhamento.lbl.titulotela.metaplanojogo']} - #{planoJogoBean.planoJogoCadastrar.descricao}</h2>
             </div>
             <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
         	<div class="clearfix"></div>
@@ -28,7 +36,7 @@
 			<div class="widget-header">
 				<div class="title">
 					<span class="fs1" data-icon="" aria-hidden="true"></span>
-					#{msgs['planojogo_acompanhamento.lbl.legend.acompanhamento']}
+					#{msgs['planojogo_acompanhamento.lbl.legend.metas']}
 				</div>
 			</div>
 			<div class="widget-body">
@@ -85,6 +93,7 @@
 	
 	<script>
 		addClassDatatable();
+		addClassSelectedMenu('menu_apostas');
 	</script>
 	
 	</ui:define>

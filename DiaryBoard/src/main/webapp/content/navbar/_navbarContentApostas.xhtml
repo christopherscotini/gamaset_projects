@@ -11,10 +11,13 @@
 	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
 	
        <li>
-         <a href="#" class="">
+         <a id="menu_apostas" href="#" class="">
            <span class="fs1" aria-hidden="true" data-icon="&#xe0b8;"></span> #{msgs['navbar.lbl.apostas']}
          </a>
          <ul>
+           <li>
+             <h:commandLink action="#{caixaApostasBean.iniciarTela()}" >#{msgs['navbar.lbl.apostas.caixa']}</h:commandLink>
+           </li>
            <li>
              <h:commandLink action="#{campeonatoBean.iniciarTela()}" >#{msgs['navbar.lbl.apostas.campeonato']}</h:commandLink>
            </li>

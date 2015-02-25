@@ -7,16 +7,13 @@
 
 	<ui:define name="breadcrumb">
 		<li>
-			<a data-original-title="" href="#"> One </a>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
 		</li>
 		<li>
-			<a data-original-title="" href="#"> Two </a>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.campeonato']} </a>
 		</li>
 		<li>
-			<a data-original-title="" href="#"> Three </a>
-		</li>
-		<li>
-			<a data-original-title="" href="#"> Four </a>
+			<a data-original-title="" href="#"> #{msgs['campeonato-list.lbl.titulotela.campeonato']} </a>
 		</li>
 	</ui:define>
 	
@@ -24,11 +21,20 @@
 	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
 	<h:form id="formMain">
 		
+		<div class="page-header">
+        	<div class="pull-left">
+              <h2>#{msgs['campeonato-list.lbl.titulotela.campeonato']}</h2>
+            </div>
+            <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+		
 		<div class="widget">
+			
 			<div class="widget-header">
 				<div class="title">
-					<span class="fs1" data-icon="" aria-hidden="true"></span>
-					#{msgs['cadastrar_campeonato.lbl.legend.campeonato']}
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					#{msgs['campeonato-list.lbl.legend.campeonato']}
 				</div>
 			</div>
 			<div class="widget-body">
@@ -76,6 +82,7 @@
 	
 	<script>
 		addClassDatatable();
+		addClassSelectedMenu('menu_apostas');
 	</script>
 	
 	</ui:define>

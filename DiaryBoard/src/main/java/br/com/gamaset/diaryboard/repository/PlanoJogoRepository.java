@@ -1,5 +1,7 @@
 package br.com.gamaset.diaryboard.repository;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
@@ -20,6 +22,23 @@ public class PlanoJogoRepository extends JpaGenericDao<PlanoJogoEntity, Long>{
 		}catch(NoResultException nre){
 			return false;
 		}
+	}
+	
+	@Override
+	public List<PlanoJogoEntity> findAll() {
+		StringBuilder query = new StringBuilder();
+		query.append("FROM PlanoJogoEntity a ORDER BY a.dataCriacao DESC").append(_ESPACE);
+		
+		return (List<PlanoJogoEntity>) getEntityManager().createQuery(query.toString()).getResultList();
+		
+	}
+
+	public List<PlanoJogoEntity> findAllAtivos() {
+		StringBuilder query = new StringBuilder();
+		query.append("FROM PlanoJogoEntity a WHERE a.ativo = 1 ORDER BY a.dataCriacao DESC").append(_ESPACE);
+		
+		return (List<PlanoJogoEntity>) getEntityManager().createQuery(query.toString()).getSingleResult();
+		
 	}
 	
 }

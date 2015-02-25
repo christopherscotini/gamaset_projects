@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 
 import br.com.gamaset.diaryboard.model.EventoEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
-import br.com.gamaset.diaryboard.model.ResultadoEntityEnum;
+import br.com.gamaset.diaryboard.model.ApostaResultadoEnum;
 
 public class ProjectUtils {
 
@@ -14,12 +14,12 @@ public class ProjectUtils {
 		return evento.getDescTimeCasa()+" vs "+evento.getDescTimeVisitante();
 	}
 	
-	public static void calcularValoresAcompanhamento(PlanoJogoItemEntity p, ResultadoEntityEnum resultadoEntityEnum){
-		if(resultadoEntityEnum.equals(ResultadoEntityEnum.AINDA_POR_ACONTECER)){
+	public static void calcularValoresAcompanhamento(PlanoJogoItemEntity p, ApostaResultadoEnum resultadoEntityEnum){
+		if(resultadoEntityEnum.equals(ApostaResultadoEnum.AINDA_POR_ACONTECER)){
 			p.setVlrFinalDia(p.getVlrFinalDia().subtract(p.getVlrBetDia()));
 			p.setPercObjetivoConcluidoDia(p.getVlrFinalDia().divide(p.getVlrFinalDiaObjetivo(), MathContext.DECIMAL128).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN));
 		}else{
-			if(resultadoEntityEnum.equals(ResultadoEntityEnum.PERDEU)){
+			if(resultadoEntityEnum.equals(ApostaResultadoEnum.PERDEU)){
 				
 			}else{
 				//soma

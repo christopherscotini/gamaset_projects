@@ -5,33 +5,45 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.gamaset.diaryboard.model.ApostaEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
-import br.com.gamaset.diaryboard.model.ResultadoEntityEnum;
+import br.com.gamaset.diaryboard.model.ApostaResultadoEnum;
 import br.com.gamaset.diaryboard.repository.dao.JpaGenericDao;
 import br.com.gamaset.diaryboard.utils.ProjectUtils;
 
 public class PlanoJogoItemRepository extends JpaGenericDao<PlanoJogoItemEntity, Long>{
 
-	public List<PlanoJogoItemEntity> findByPlanoJogoId(PlanoJogoEntity entity) {
+	@Inject
+	private ApostaRepository repoAposta = null;
+	
+	public List<PlanoJogoItemEntity> findByPlanoJogoId(Long id) {
 		StringBuilder query = new StringBuilder();
 		query.append("SELECT p FROM PlanoJogoItemEntity p").append(_ESPACE);
-		query.append("WHERE p.planoJogo = :planoJogo");
+		query.append("WHERE p.planoJogo.id = :id");
 		
-		List<PlanoJogoItemEntity> returnzz = getEntityManager().createQuery(query.toString()).setParameter("planoJogo", entity).getResultList();
+		List<PlanoJogoItemEntity> returnzz = getEntityManager().createQuery(query.toString()).setParameter("id", id).getResultList();
 		
 		return returnzz;
 	}
 
-	public void atualizarPlanoJogoAcompanhamento(ApostaEntity aposta) {
+	public void atualizarPlanoJogoAcompanhamento(ApostaEntity aposta, boolean update) {
 		StringBuilder queryPlanos = new StringBuilder();
 		queryPlanos.append("SELECT p FROM PlanoJogoItemEntity p WHERE p.planoJogo.id = :idPlanoJogo AND p.id >= :idPlanoItem ORDER BY p.id ASC");
 		Long idPlano = aposta.getPlanoJogoItem().getPlanoJogo().getId();
 		Long idPlanoItem = aposta.getPlanoJogoItem().getId();
+		if(update){
+			idPlanoItem = (Long)getEntityManager().createQuery("SELECT p.planoJogoItem.id FROM ApostaEntity p WHERE p.id = :idAposta").setParameter("idAposta", aposta.getId()).getSingleResult();
+			if(idPlanoItem > aposta.getPlanoJogoItem().getId()){
+				idPlanoItem = aposta.getPlanoJogoItem().getId();
+			}
+			repoAposta.update(aposta);
+		}
+		
 		List<PlanoJogoItemEntity> planosItem = getEntityManager().createQuery(queryPlanos.toString()).setParameter("idPlanoJogo", idPlano).setParameter("idPlanoItem", idPlanoItem).getResultList();
 		
 		for (int i = 0; i < planosItem.size(); i++) {
@@ -56,7 +68,7 @@ public class PlanoJogoItemRepository extends JpaGenericDao<PlanoJogoItemEntity, 
 			for (int j = 0; j < apostas.size(); j++) {
 				ApostaEntity a = apostas.get(j);
 				BigDecimal lucroAposta = (a.getValorRetorno().subtract(a.getValorAposta()));
-				if(a.getResultado().equals(ResultadoEntityEnum.GANHOU)){
+				if(a.getResultado().equals(ApostaResultadoEnum.GANHOU)){
 					p.setVlrFinalDia(p.getVlrFinalDia().add(lucroAposta));
 					p.setVlrLucroDia(p.getVlrLucroDia().add(lucroAposta));
 				}else{
@@ -80,63 +92,7 @@ public class PlanoJogoItemRepository extends JpaGenericDao<PlanoJogoItemEntity, 
 	
 	}
 	
-	private void zerarValoresPlanoItem(PlanoJogoItemEntity p) {
-		p.setVlrLucroDia(BigDecimal.ZERO);
-		p.setPercLucroDia(BigDecimal.ZERO);
-		p.setPercLucroMeta(BigDecimal.ZERO);
-		p.setVlrTotalGanhoDia(BigDecimal.ZERO);
-		p.setVlrTotalPerdidoDia(BigDecimal.ZERO);
-		p.setVlrFinalDia(BigDecimal.ZERO);
-	}
 
-//	public void atualizarPlanoJogoAcompanhamento(ApostaEntity aposta) {
-//		StringBuilder q = new StringBuilder();
-//		q.append("SELECT p FROM PlanoJogoItemEntity p WHERE p.planoJogo.id = :idPlanoJogo AND p.id >= :idPlanoItem ORDER BY p.id ASC");
-//		Long idPlano = aposta.getPlanoJogoItem().getPlanoJogo().getId();
-//		Long idPlanoItem = aposta.getPlanoJogoItem().getId();
-//		List<PlanoJogoItemEntity> planos = getEntityManager().createQuery(q.toString()).setParameter("idPlanoJogo", idPlano).setParameter("idPlanoItem", idPlanoItem).getResultList();
-//		ApostaEntity apostaAnterior = null;
-//		try{
-//			apostaAnterior = (ApostaEntity) getEntityManager().createQuery("SELECT a FROM ApostaEntity a WHERE a.id = :id").setParameter("id", aposta.getId()).getSingleResult();
-//		}catch(NoResultException nre){}
-//		for (int i = 0; i < planos.size(); i++) {
-//			PlanoJogoItemEntity p = planos.get(i);
-//			if(apostaAnterior == null){
-//				if(aposta.getResultado().equals(ResultadoEntityEnum.AINDA_POR_ACONTECER) || aposta.getResultado().equals(ResultadoEntityEnum.PERDEU)){
-//					p.setVlrFinalDia(p.getVlrFinalDia().subtract(aposta.getValorAposta()));
-//				}else{
-//					p.setVlrFinalDia(p.getVlrFinalDia().add(aposta.getValorRetorno()));
-//				}
-//			}else{//CASO JA EXISTA
-//				if(apostaAnterior.getResultado().equals(ResultadoEntityEnum.AINDA_POR_ACONTECER)){
-//					if(aposta.getResultado().equals(ResultadoEntityEnum.GANHOU)){
-//						p.setVlrFinalDia(p.getVlrFinalDia().add(aposta.getValorRetorno()));
-//					}
-//				}else{
-//					if(apostaAnterior.getResultado().equals(ResultadoEntityEnum.GANHOU)){
-//						if(aposta.getResultado().equals(ResultadoEntityEnum.AINDA_POR_ACONTECER) || aposta.getResultado().equals(ResultadoEntityEnum.PERDEU)){
-//							p.setVlrFinalDia(p.getVlrFinalDia().subtract(aposta.getValorRetorno()));
-//						}else{
-//							p.setVlrFinalDia(p.getVlrFinalDia().subtract(apostaAnterior.getValorRetorno()));
-//							p.setVlrFinalDia(p.getVlrFinalDia().add(aposta.getValorRetorno()));
-//						}
-//					}else{
-//						if(aposta.getResultado().equals(ResultadoEntityEnum.GANHOU)){
-//							p.setVlrFinalDia(p.getVlrFinalDia().add(aposta.getValorAposta()));
-//						}
-//					}
-//				}
-//			}
-//			if(i==0){
-//				p.setVlrLucroDia(p.getVlrFinalDia().subtract(p.getVlrInicialDia()));
-//			}else{
-//				p.setVlrInicialDia(p.getVlrFinalDia());
-//			}
-//			p.setPercObjetivoConcluidoDia(p.getVlrFinalDia().divide(p.getVlrFinalDiaObjetivo(), MathContext.DECIMAL128).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN));
-//			this.update(p);
-//		}
-//	}
-	
 	public void atualizarPlanoJogoAcompanhamentoExclusao(ApostaEntity aposta) {
 		StringBuilder q = new StringBuilder();
 		q.append("SELECT p FROM PlanoJogoItemEntity p WHERE p.planoJogo.id = :idPlanoJogo AND p.id >= :idPlanoItem ORDER BY p.id ASC");
@@ -149,5 +105,8 @@ public class PlanoJogoItemRepository extends JpaGenericDao<PlanoJogoItemEntity, 
 		}
 	}
 	
+	public void excluirItensPorPlanoJogo(PlanoJogoEntity plano){
+		
+	}
 	
 }

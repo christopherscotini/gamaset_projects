@@ -7,7 +7,6 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.gamaset.diaryboard.dto.PlanoJogoDetalheDTO;
 import br.com.gamaset.diaryboard.exception.BusinessException;
-import br.com.gamaset.diaryboard.model.CampeonatoEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
 
@@ -37,13 +36,13 @@ public class PlanoJogoBean extends BeanModel{
 		return TELA_PLANOJOGO_LIST;
 	}
 	
-	public String navegarEditar(CampeonatoEntity selected){
+	public String navegarEditar(PlanoJogoEntity selected){
 		
 		return TELA_PLANOJOGO_EDIT;
 	}
 
-	public void navegarExcluir(CampeonatoEntity selected){
-
+	public void navegarExcluir(PlanoJogoEntity selected){
+		planoJogoService.excluirEntidade(selected);
 		iniciarTela();
 	}
 	
@@ -78,7 +77,7 @@ public class PlanoJogoBean extends BeanModel{
 	
 	public String navegarPlanoJogoAcompanhamento(PlanoJogoEntity selected){
 		planoJogoCadastrar = selected;
-		planoJogoCadastrar.setApostas(planoJogoItemService.buscarPorPlanoJogoId(planoJogoCadastrar));
+		planoJogoCadastrar.setApostas(planoJogoItemService.buscarPorPlanoJogoId(planoJogoCadastrar.getId()));
 		
 		return TELA_PLANOJOGO_ACOMPANHAMENTO;
 	}

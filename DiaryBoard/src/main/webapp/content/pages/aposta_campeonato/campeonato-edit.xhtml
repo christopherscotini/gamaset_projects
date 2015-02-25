@@ -8,25 +8,37 @@
 
 	<ui:define name="breadcrumb">
 		<li>
-			<a data-original-title="" href="#"> One </a>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
 		</li>
 		<li>
-			<a data-original-title="" href="#"> Two </a>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.campeonato']} </a>
 		</li>
 		<li>
-			<a data-original-title="" href="#"> Three </a>
+			<a data-original-title="" href="#"> #{msgs['campeonato-list.lbl.titulotela.campeonato']} </a>
 		</li>
-		<li>
-			<a data-original-title="" href="#"> Four </a>
-		</li>
+		<ui:fragment rendered="#{campeonatoBean.campeonatoCadastrar.id == null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['campeonato-edit.lbl.titulotela.cadastrar']} </a>
+			</li>
+		</ui:fragment>
+		<ui:fragment rendered="#{campeonatoBean.campeonatoCadastrar.id != null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['campeonato-edit.lbl.titulotela.editar']} </a>
+			</li>
+		</ui:fragment>
 	</ui:define>
 	
 	<ui:define name="content">
-	<h:form styleClass="form-horizontal no-margin" acceptcharset="ISO-8859-1" prependId="false">
+	<h:form styleClass="form-horizontal no-margin" acceptcharset="UTF-8" prependId="false">
 	
 		<div class="page-header">
         	<div class="pull-left">
-              <h2>#{msgs['cadastrar_campeonato.lbl.titulotela.cadastrar']}</h2>
+	        	<ui:fragment rendered="#{campeonatoBean.campeonatoCadastrar.id == null}">
+					<h2>#{msgs['campeonato-edit.lbl.titulotela.cadastrar']}</h2>
+				</ui:fragment>
+				<ui:fragment rendered="#{campeonatoBean.campeonatoCadastrar.id != null}">
+					<h2>#{msgs['campeonato-edit.lbl.titulotela.editar']}</h2>
+				</ui:fragment>
             </div>
             <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
         	<div class="clearfix"></div>
@@ -35,7 +47,7 @@
 			<div class="widget">
 	        	<div class="widget-header">
 	              <div class="title">
-	                <span class="fs1" aria-hidden="true" data-icon="Ã®â€¦â€�"></span>#{msgs['generico.lbl.formulario']}
+	                <span class="fs1" aria-hidden="true" data-icon=""></span>#{msgs['generico.lbl.formulario']}
 	              </div>
 	            </div>
 	            <div class="widget-body">
@@ -52,7 +64,7 @@
            			</div>
            			<div class="control-group">
 		              	<label class="control-label">
-		                 	 #{msgs['cadastrar_campeonato.lbl.descricao']}
+		                 	 #{msgs['campeonato-edit.lbl.descricao']}
 		               	</label>
 						<div class="controls controls-row">
 							<h:outputText id="input_descricao" value="#{campeonatoBean.campeonatoCadastrar.flag.nomeCompeticao}"  />
@@ -60,7 +72,7 @@
            			</div>
            			<div class="control-group">
 		              	<label class="control-label">
-		                 	 #{msgs['cadastrar_campeonato.lbl.sigla']}
+		                 	 #{msgs['campeonato-edit.lbl.sigla']}
 		               	</label>
 						<div class="controls controls-row">
 							<h:inputText value="#{campeonatoBean.campeonatoCadastrar.sigla}"  />
@@ -68,7 +80,7 @@
            			</div>
            			<div class="control-group">
 		              	<label class="control-label">
-		                 	 #{msgs['cadastrar_campeonato.lbl.urlcampeonato']}
+		                 	 #{msgs['campeonato-edit.lbl.urlcampeonato']}
 		               	</label>
 						<div class="controls controls-row">
 							<h:inputText value="#{campeonatoBean.campeonatoCadastrar.urlCompeticao}"  />
@@ -76,7 +88,7 @@
            			</div>
            			<div class="control-group">
 		              	<label class="control-label">
-		                 	 #{msgs['cadastrar_campeonato.lbl.flagacademia']}
+		                 	 #{msgs['campeonato-edit.lbl.flagacademia']}
 		               	</label>
 						<div class="controls controls-row">
 							<h:selectBooleanCheckbox value="#{campeonatoBean.campeonatoCadastrar.habilitadoAcademia}"  />
@@ -84,7 +96,7 @@
            			</div>
            			<div class="control-group">
 		              	<label class="control-label">
-		                 	 #{msgs['cadastrar_campeonato.lbl.flagprosoccer']}
+		                 	 #{msgs['campeonato-edit.lbl.flagprosoccer']}
 		               	</label>
 						<div class="controls controls-row">
 							<h:selectBooleanCheckbox value="#{campeonatoBean.campeonatoCadastrar.habilitadoProsoccer}"  />
@@ -98,6 +110,10 @@
 	        	</div>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_apostas');
+		</script>
 		
     </h:form>         
 	</ui:define>
