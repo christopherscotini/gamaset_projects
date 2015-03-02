@@ -11,16 +11,21 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.gamaset.diaryboard.business.bo.PlanoJogoService;
+import br.com.gamaset.diaryboard.business.exception.GenericErrorException;
 import br.com.gamaset.diaryboard.business.exception.NoDataFoundException;
 import br.com.gamaset.diaryboard.business.exception.NonUniqueResultDataException;
 import br.com.gamaset.diaryboard.business.exception.ValidationFormAbstractException;
+import br.com.gamaset.diaryboard.business.exception.ValidationFormInvalidException;
 import br.com.gamaset.diaryboard.dto.PlanoJogoDetalheDTO;
 import br.com.gamaset.diaryboard.model.ApostaEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoEntity;
 import br.com.gamaset.diaryboard.model.PlanoJogoItemEntity;
 import br.com.gamaset.diaryboard.repository.ApostaRepository;
+import br.com.gamaset.diaryboard.repository.CaixaApostaRepository;
 import br.com.gamaset.diaryboard.repository.PlanoJogoItemRepository;
 import br.com.gamaset.diaryboard.repository.PlanoJogoRepository;
+import br.com.gamaset.diaryboard.utils.DecimalUtils;
+import br.com.gamaset.diaryboard.view.converter.DecimalConverter;
 
 @Stateless
 public class PlanoJogoServiceImpl implements PlanoJogoService{
@@ -31,6 +36,8 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 	private PlanoJogoItemRepository repoItem= null;
 	@Inject
 	private ApostaRepository repoAposta= null;
+	@Inject
+	private CaixaApostaRepository repoCaixa= null;
 
 	@Override
 	public List<PlanoJogoEntity> listarTodos() {
@@ -61,6 +68,7 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 		validateForm(entidade);
 		entidade.setAtivo(true);
 		entidade = repo.insert(entidade);
+		
 		generateItensPlanoJogo(entidade);
 		
 		for (int i = 0; i < entidade.getApostas().size(); i++) {
@@ -93,10 +101,10 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 
 			e.setVlrLucroDia(BigDecimal.ZERO);
 			e.setPercObjetivoConcluidoDia(e.getVlrFinalDia().divide(e.getVlrFinalDiaObjetivo(), MathContext.DECIMAL128).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_EVEN));
-//			e.setPercLucroDia(percLucroDia);
-//			e.setPercLucroMeta(percLucroMeta);
-//			e.setVlrTotalGanhoDia(vlrTotalGanhoDia);
-//			e.setVlrTotalPerdidoDia(vlrTotalPerdidoDia);
+			e.setPercLucroDia(BigDecimal.ZERO);
+			e.setPercLucroMeta(BigDecimal.ZERO);
+			e.setVlrTotalGanhoDia(BigDecimal.ZERO);
+			e.setVlrTotalPerdidoDia(BigDecimal.ZERO);
 			entidade.getApostas().add(e);
 		}
 		
@@ -143,8 +151,18 @@ public class PlanoJogoServiceImpl implements PlanoJogoService{
 			throw new NonUniqueResultDataException("plano de jogo ["+entidade.getDescricao()+"]");
 		}
 		
+		if(entidade.getId() == null){
+			BigDecimal val = repoCaixa.getSaldoRestanteParaJogo();
+			if(entidade.getValorInvestimentoInicial().compareTo(val) > 0){
+				throw new GenericErrorException("Saldo não disponivel, valor máximo para investimento é: R$ "+DecimalUtils.format(val));
+			}
+		}
 		
 	}
 	
+	@Override
+	public PlanoJogoEntity buscarPorId(Long id) {
+		return repo.findById(id);
+	}
 
 }

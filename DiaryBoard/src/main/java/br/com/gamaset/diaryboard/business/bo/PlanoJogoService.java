@@ -11,4 +11,6 @@ public interface PlanoJogoService extends ServiceModel<PlanoJogoEntity>{
 	PlanoJogoDetalheDTO detalharPlanoJogo(PlanoJogoEntity planoJogoCadastrar);
 	
 	List<PlanoJogoEntity> listarTodosAtivos();
+
+	PlanoJogoEntity buscarPorId(Long id);
 }

@@ -41,7 +41,7 @@
 			</div>
 			<div class="widget-body">
 				<p:dataTable id="tablePlanosJogo" value="#{planoJogoBean.planoJogoCadastrar.apostas}" var="result" rows="30" 
-					paginator="true" paginatorPosition="bottom">
+					paginator="true" paginatorPosition="bottom" rowStyleClass="">
 					
 				    <p:column headerText="#{msgs['generico.tabelacoluna.descricao']}" sortBy="#{result.descricao}" styleClass="center-align-text" width="10%" >
 				        <h:outputText value="#{result.descricao}" style="margin-right:2px;" />
@@ -71,6 +71,14 @@
 				    <p:column headerText="#{msgs['generico.tabelacoluna.percentuallucrometa']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
 				        <h:outputText value="#{result.percLucroMeta}" converter="percentConverter" />
 				    </p:column>
+				    <p:column headerText="#STATUS" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <ui:fragment rendered="#{result.finalizado}">
+					        <span class="badge badge-success">Concluido</span>
+				        </ui:fragment>
+				        <ui:fragment rendered="#{!result.finalizado}">
+					        <span class="badge badge-warning">Em Andamento</span>
+				        </ui:fragment>
+				    </p:column>
 <!-- 				    <p:column headerText="#{msgs['generico.tabelacoluna.totalganho']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" > -->
 <!-- 				        <h:outputText value="R$" style="margin-right:2px;" /> -->
 <!-- 				        <h:outputText value="#{result.vlrTotalGanhoDia}" converter="decimalConverter" /> -->
@@ -84,7 +92,7 @@
 			</div>
 			
 			<div class="form-actions no-margin">
-				<h:commandButton action="#{planoJogoBean.navegarCadastrar()}" value="#{msgs['generico.btn_cadastrar']}" styleClass="btn btn-info pull-right" />
+				<h:commandButton action="#{planoJogoBean.navegarCadastrarAposta()}" value="#{msgs['planojogo_acompanhamento.btn_efetuaraposta']}" styleClass="btn btn-info pull-right" />
              <div class="clearfix" />
            </div>
 		</div>

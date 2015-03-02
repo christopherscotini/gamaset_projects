@@ -31,7 +31,9 @@
 	
 	<ui:define name="content">
 	<h:form styleClass="form-horizontal no-margin" acceptcharset="UTF-8" prependId="false" >
-		<h:messages showDetail="true" showSummary="true"/>
+		
+		<p:messages id="messagesGlobal" globalOnly="true" escape="true"/>
+		
 		<div class="page-header">
         	<div class="pull-left">
         		<ui:fragment rendered="#{planoJogoBean.planoJogoCadastrar.id == null}">
@@ -65,7 +67,7 @@
 		                 	 #{msgs['planojogo_edit.lbl.valorinvestimentoinicial']}
 		               	</label>
 						<div class="controls controls-row">
-							<h:inputText id="input_valorinvestimentoinicial" value="#{planoJogoBean.planoJogoCadastrar.valorInvestimentoInicial}" styleClass="currency"  converter="decimalConverter" />
+							<h:inputText id="input_valorinvestimentoinicial" value="#{planoJogoBean.planoJogoCadastrar.valorInvestimentoInicial}" styleClass="currency"  converter="decimalConverter" disabled="#{planoJogoBean.planoJogoCadastrar.id != null}" />
 						</div>
            			</div>
            			<div class="control-group">
@@ -73,7 +75,7 @@
 		                 	 #{msgs['planojogo_edit.lbl.numerodias']}
 		               	</label>
 		               	<div class="controls controls-row">
-							<h:inputText id="input_numerodias" value="#{planoJogoBean.planoJogoCadastrar.numDiasPlano}"  />
+							<h:inputText id="input_numerodias" value="#{planoJogoBean.planoJogoCadastrar.numDiasPlano}" disabled="#{planoJogoBean.planoJogoCadastrar.id != null}" />
 						</div>
            			</div>
            			<div class="control-group">
@@ -81,7 +83,7 @@
 		                 	 #{msgs['planojogo_edit.lbl.percentuallucromontantedia']}
 		               	</label>
 		               	<div class="controls controls-row">
-							<h:inputText id="input_percentuallucromontantedia" value="#{planoJogoBean.planoJogoCadastrar.percentualLucroMontanteDia}" styleClass="float"  converter="decimalConverter" />
+							<h:inputText id="input_percentuallucromontantedia" value="#{planoJogoBean.planoJogoCadastrar.percentualLucroMontanteDia}" styleClass="float"  converter="decimalConverter" disabled="#{planoJogoBean.planoJogoCadastrar.id != null}" />
 						</div>
            			</div>
            			<div class="control-group">
@@ -89,7 +91,7 @@
 		                 	 #{msgs['planojogo_edit.lbl.percentualmontateapostadia']}
 		               	</label>
 		               	<div class="controls controls-row">
-							<h:inputText id="input_percentualmontateapostadia" value="#{planoJogoBean.planoJogoCadastrar.percentualApostaMontanteDia}" styleClass="float"  converter="decimalConverter" />
+							<h:inputText id="input_percentualmontateapostadia" value="#{planoJogoBean.planoJogoCadastrar.percentualApostaMontanteDia}" styleClass="float"  converter="decimalConverter" disabled="#{planoJogoBean.planoJogoCadastrar.id != null}" />
 						</div>
            			</div>
            			<div class="control-group">
@@ -97,15 +99,26 @@
 		                 	 #{msgs['planojogo_edit.lbl.data']}
 		               	</label>
 						<div class="controls controls-row">
-							<h:inputText value="#{planoJogoBean.planoJogoCadastrar.dataCriacao}" type="date" >
+							<h:inputText value="#{planoJogoBean.planoJogoCadastrar.dataCriacao}" type="date" disabled="#{planoJogoBean.planoJogoCadastrar.id != null}" >
 								<f:convertDateTime pattern="yyyy-MM-dd" />
 							</h:inputText>
 						</div>
            			</div>
+           			<ui:fragment rendered="#{planoJogoBean.planoJogoCadastrar.id != null}">
+	           			<div class="control-group">
+			              	<label class="control-label">
+			                 	 #{msgs['planojogo_edit.lbl.status']}
+			               	</label>
+							<div class="controls controls-row">
+								<h:selectBooleanCheckbox id="checkstatus" value="#{planoJogoBean.planoJogoCadastrar.ativo}" disabled="#{!planoJogoBean.planoJogoCadastrar.ativo}" />
+							</div>
+	           			</div>
+           			</ui:fragment>
 	           	</div>
 	           
+	           
 	           	<div class="form-actions no-margin">
-					<h:commandButton action="#{planoJogoBean.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-info pull-right" style="margin-left:5px;"/>
+					<h:commandButton action="#{planoJogoBean.salvar()}" value="#{msgs['generico.btn_salvar']}" onclick="return validForm(#{planoJogoBean.planoJogoCadastrar.id}, '#{msgs['planojogo_edit.lbl.confirm']}')" styleClass="btn btn-info pull-right" style="margin-left:5px;"/>
 					<h:commandButton action="#{planoJogoBean.iniciarTela()}" value="#{msgs['generico.btn_voltar']}" styleClass="btn btn-info pull-right" />
 		        	<div class="clearfix" />
 	        	</div>
@@ -114,6 +127,17 @@
 		
 		<script type="text/javascript">
 			addClassSelectedMenu('menu_apostas');
+			function validForm(id, msg){
+				if(id){
+					var chk = document.getElementById('checkstatus').checked;
+					if(!chk){
+						return confirm(msg);
+					}
+				}else{
+					return true;
+				}
+			}
+			
 		</script>
 		
     </h:form>         

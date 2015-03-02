@@ -772,7 +772,7 @@ a.label:hover, a.badge:hover {
   background-color: #e53935; }
 
 .label-warning, .badge-warning {
-  background-color: #f3cf59; }
+  background-color: #f3cf59;color: gray; }
 
 .label-warning[href], .badge-warning[href] {
   background-color: #f1c841; }

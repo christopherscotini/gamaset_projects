@@ -21,6 +21,9 @@
 	
 	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
 	<h:form id="formMain">
+		
+		<p:messages id="messagesGlobal" globalOnly="true" escape="true"/>
+		
 		<div class="page-header">
         	<div class="pull-left">
               <h2>#{msgs['planojogo_list.lbl.titulotela.planojogo']}</h2>
@@ -75,7 +78,9 @@
 						<h:commandLink action="#{planoJogoBean.navegarPlanoJogoAcompanhamento(result)}" value="" style="margin-right:10px;" data-original-title="Expandir" >
 							<span data-icon="" ></span>
 						</h:commandLink>
-						
+						<h:commandLink action="#{planoJogoBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
+							<span data-icon=""></span>
+						</h:commandLink>
 						<h:commandLink action="#{planoJogoBean.navegarExcluir(result)}" style="margin-left:10px;" onclick="return confirm('Deseja realmente excluir esse campeonato?')" value="" >
 							<span data-icon=""></span>
 							<p:ajax update="@form" />

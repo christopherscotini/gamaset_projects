@@ -63,11 +63,7 @@ public abstract class BeanModel {
 	
 	
 	public BigDecimal getSaldoGeral(){
-		BigDecimal ret = BigDecimal.ZERO;
-//		List<PlanoJogoEntity>planos = planoJogoService.listarTodos();
-		
-		
-		return null;
+		return caixaApostasService.getSaldoDisponivel();
 	}
 	
 }

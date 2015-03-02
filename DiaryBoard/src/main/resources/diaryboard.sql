@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-02-25 18:10:37
+Date: 2015-03-02 18:28:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,7 +54,7 @@ CREATE TABLE `bandeira` (
   `BAND_DS_IMAGEM` varchar(255) DEFAULT NULL,
   `BAND_DS_URLIMAGEM` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`BAND_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bandeira
@@ -106,6 +106,8 @@ INSERT INTO `bandeira` VALUES ('217', 'Bielorrusia - Premier League', 'Bielorrus
 INSERT INTO `bandeira` VALUES ('218', 'Bulgária - A PFG Primeira Liga', 'Bulgária - A PFG Primeira Liga.gif', '/resources/images/flags/218.gif');
 INSERT INTO `bandeira` VALUES ('219', 'Bósnia - Premier League', 'Bósnia - Premier League.gif', '/resources/images/flags/219.gif');
 INSERT INTO `bandeira` VALUES ('220', 'Croácia - 1. HNL Primeira Liga', 'Croácia - 1. HNL Primeira Liga.gif', '/resources/images/flags/220.gif');
+INSERT INTO `bandeira` VALUES ('221', 'México - Primeira Liga', 'México - Primeira Liga.gif', '/resources/images/flags/129.gif');
+INSERT INTO `bandeira` VALUES ('222', 'Venezuela - Primeira Divisão', 'Venezuela - Primeira Divisão.gif', '/resources/images/flags/999.gif');
 
 -- ----------------------------
 -- Table structure for bet
@@ -135,6 +137,7 @@ CREATE TABLE `caixa_aposta` (
   `CAAP_DT_MOVIMENTACAO` datetime DEFAULT NULL,
   `CAAP_DS_MOVIMENTACAO` varchar(255) DEFAULT NULL,
   `CAAP_VL_MOVIMENTACAO` decimal(19,2) DEFAULT NULL,
+  `CAAP_VL_SALDO_PARA_JOGO` decimal(19,2) DEFAULT NULL,
   PRIMARY KEY (`CAAP_CD_ID_PK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -156,7 +159,7 @@ CREATE TABLE `campeonato` (
   PRIMARY KEY (`CAMP_CD_ID_PK`),
   KEY `FKD581E4D9DDFFDE98` (`BAND_DS_FLAG`),
   CONSTRAINT `FKD581E4D9DDFFDE98` FOREIGN KEY (`BAND_DS_FLAG`) REFERENCES `bandeira` (`BAND_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of campeonato
@@ -177,6 +180,9 @@ INSERT INTO `campeonato` VALUES ('14', 'BR1', '', '178', '1', '1');
 INSERT INTO `campeonato` VALUES ('15', 'DE1', 'https://www.academiadasapostas.com/stats/competition/alemanha-stats/9', '175', '1', '1');
 INSERT INTO `campeonato` VALUES ('16', 'ENP', 'https://www.academiadasapostas.com/stats/competition/inglaterra-stats/8', '198', '1', '1');
 INSERT INTO `campeonato` VALUES ('17', 'FR1', 'https://www.academiadasapostas.com/stats/competition/franca/16', '189', '1', '1');
+INSERT INTO `campeonato` VALUES ('18', 'VZ1', '', '222', '0', '0');
+INSERT INTO `campeonato` VALUES ('19', 'MX1', 'https://www.academiadasapostas.com/stats/competition/mexico/155', '221', '1', '1');
+INSERT INTO `campeonato` VALUES ('20', 'RS1', 'https://www.academiadasapostas.com/stats/competition/russia-stats/121/9827/25305', '211', '1', '1');
 
 -- ----------------------------
 -- Table structure for evento
@@ -210,16 +216,30 @@ CREATE TABLE `mercado_aposta` (
   PRIMARY KEY (`MEAP_CD_ID_PK`),
   KEY `FK33FFB59CDED8F71` (`MEAS_CD_ID_FK`),
   CONSTRAINT `FK33FFB59CDED8F71` FOREIGN KEY (`MEAS_CD_ID_FK`) REFERENCES `mercado_aposta_selecao` (`MEAS_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mercado_aposta
 -- ----------------------------
-INSERT INTO `mercado_aposta` VALUES ('1', 'Over 2.5 ', '2');
-INSERT INTO `mercado_aposta` VALUES ('2', 'Under 2.5', '2');
-INSERT INTO `mercado_aposta` VALUES ('3', 'Home Team', '1');
-INSERT INTO `mercado_aposta` VALUES ('4', 'Draw', '1');
-INSERT INTO `mercado_aposta` VALUES ('5', 'Away Team', '1');
+INSERT INTO `mercado_aposta` VALUES ('1', 'Time da Casa', '1');
+INSERT INTO `mercado_aposta` VALUES ('2', 'Empate', '1');
+INSERT INTO `mercado_aposta` VALUES ('3', 'Time Visitante', '1');
+INSERT INTO `mercado_aposta` VALUES ('5', 'Mais de 0.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('6', 'Menos de 0.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('7', 'Mais de 1.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('8', 'Menos de 1.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('9', 'Mais de 2.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('10', 'Menos de 2.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('11', 'Mais de 3.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('12', 'Menos de 3.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('13', 'Mais de 4.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('14', 'Menos de 4.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('15', 'Mais de 5.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('16', 'Menos de 5.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('17', 'Mais de 6.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('18', 'Menos de 6.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('19', 'Mais de 7.5', '2');
+INSERT INTO `mercado_aposta` VALUES ('20', 'Menos de 7.5', '2');
 
 -- ----------------------------
 -- Table structure for mercado_aposta_selecao
