@@ -36,8 +36,8 @@ public class ApostaBean extends BeanModel{
 	private List<PlanoJogoEntity> planoJogoList;
 	private PlanoJogoEntity planoJogoSelecionado;
 	private List<PlanoJogoItemEntity> planoJogoItemList;
-	
 	private BigDecimal valorApostaSugerido;
+	
 	
 	public ApostaBean() {
 
@@ -111,7 +111,8 @@ public class ApostaBean extends BeanModel{
 				apostaService.editarEntidade(apostaCadastrar);
 			}
 		}catch(BusinessException b){
-			System.out.println(b.getMessage());
+			FacesUtils.addErrorMessage(b.getMessage());
+			return "";
 		}
 		
 		return iniciarTela();

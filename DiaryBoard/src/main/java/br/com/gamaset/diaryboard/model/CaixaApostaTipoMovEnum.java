@@ -4,8 +4,8 @@ public enum CaixaApostaTipoMovEnum {
 	
 	DEPOSITO("Deposito"),
 	SAQUE("Saque"), 
-	ENTRADA_PLANO("Entrada atraves de Plano de Jogo"),
-	SAIDA_PLANO("Saida para Plano de Jogo");
+	ENTRADA_PLANO("Entrada atraves de Plano de Jogo"),//QUANDO SE ENCERRA UM PLANO (ADICIONA)
+	SAIDA_PLANO("Saida para iniciar Plano de Jogo");//QUANDO SE INICIA (SUBTRAI)
 	
 	private final String label;
 

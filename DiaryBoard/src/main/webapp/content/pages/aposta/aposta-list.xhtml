@@ -61,17 +61,17 @@
 					<p:column headerText="#{msgs['generico.tabelacoluna.tipster']}" sortBy="#{result.id}"  width="10%" >
 				        <h:outputText value="#{result.tipster.nome}" />
 				    </p:column>
-					<p:column headerText="#PLANO" sortBy="#{result.id}"  width="10%" >
+					<p:column headerText="#{msgs['generico.tabelacoluna.plano']}" sortBy="#{result.id}"  width="10%" >
 				        <h:outputText value="#{result.planoJogoItem.planoJogo.descricao} - #{result.planoJogoItem.descricao}" />
 				    </p:column>
-					<p:column headerText="#VL. APOSTA" sortBy="#{result.id}" width="8%" >
+					<p:column headerText="#{msgs['generico.tabelacoluna.valoraposta']}" sortBy="#{result.id}" width="8%" >
 						<h:outputText value="R$" style="margin-right:2px;" />
 				        <h:outputText value="#{result.valorAposta}" converter="decimalConverter" />
 				    </p:column>
-					<p:column headerText="#ODD" sortBy="#{result.id}" width="5%" styleClass="center-align-text" >
+					<p:column headerText="#{msgs['generico.tabelacoluna.odd']}" sortBy="#{result.id}" width="5%" styleClass="center-align-text" >
 				        <h:outputText value="#{result.bet.evento.odd}" />
 				    </p:column>
-					<p:column headerText="#RETORNO" sortBy="#{result.id}" width="8%" >
+					<p:column headerText="#{msgs['generico.tabelacoluna.valorretorno']}" sortBy="#{result.id}" width="8%" >
 						<h:outputText value="R$" style="margin-right:2px;" />
 				        <h:outputText value="#{result.valorRetorno}" converter="decimalConverter" />
 				    </p:column>
@@ -79,9 +79,11 @@
 				        <h:outputText value="#{result.resultado.label}" />
 				    </p:column>
 					<p:column headerText="#{msgs['generico.tabelacoluna.acoes']}"  width="10%" styleClass="center-align-text" >
-						<h:commandLink action="#{apostaBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
-							<span data-icon=""></span>
-						</h:commandLink>
+						<ui:fragment rendered="#{result.planoJogoItem.planoJogo.ativo}">
+							<h:commandLink action="#{apostaBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
+								<span data-icon=""></span>
+							</h:commandLink>
+						</ui:fragment>
 						<h:commandLink action="#{apostaBean.navegarExcluir(result)}" style="margin-left:10px;" onclick="return confirm('Deseja realmente excluir essa aposta?')" value="" >
 							<span data-icon=""></span>
 							<p:ajax update="@form" />

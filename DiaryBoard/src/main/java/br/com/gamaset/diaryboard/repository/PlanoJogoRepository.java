@@ -29,7 +29,11 @@ public class PlanoJogoRepository extends JpaGenericDao<PlanoJogoEntity, Long>{
 		StringBuilder query = new StringBuilder();
 		query.append("FROM PlanoJogoEntity a ORDER BY a.dataCriacao DESC").append(_ESPACE);
 		
-		return (List<PlanoJogoEntity>) getEntityManager().createQuery(query.toString()).getResultList();
+		try{
+			return (List<PlanoJogoEntity>) getEntityManager().createQuery(query.toString()).getResultList();
+		}catch(NoResultException nre){
+			return null;
+		}
 		
 	}
 
@@ -37,7 +41,11 @@ public class PlanoJogoRepository extends JpaGenericDao<PlanoJogoEntity, Long>{
 		StringBuilder query = new StringBuilder();
 		query.append("FROM PlanoJogoEntity a WHERE a.ativo = 1 ORDER BY a.dataCriacao DESC").append(_ESPACE);
 		
-		return (List<PlanoJogoEntity>) getEntityManager().createQuery(query.toString()).getSingleResult();
+		try{
+			return (List<PlanoJogoEntity>) getEntityManager().createQuery(query.toString()).getResultList();
+		}catch(NoResultException nre){
+			return null;
+		}
 		
 	}
 	

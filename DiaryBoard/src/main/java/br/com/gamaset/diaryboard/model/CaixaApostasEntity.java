@@ -30,6 +30,9 @@ public class CaixaApostasEntity implements Serializable {
 	@Column(name = "CAAP_VL_MOVIMENTACAO", scale=2)
 	private BigDecimal valorMovimentacao;
 
+	@Column(name = "CAAP_VL_SALDO_PARA_JOGO", scale=2)
+	private BigDecimal valorSaldoDisponivel;
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "CAAP_DS_MOVIMENTACAO", scale=2)
 	private CaixaApostaTipoMovEnum tipoMovimentacaoEnum;
@@ -91,5 +94,13 @@ public class CaixaApostasEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getValorSaldoDisponivel() {
+		return valorSaldoDisponivel;
+	}
+
+	public void setValorSaldoDisponivel(BigDecimal valorSaldoDisponivel) {
+		this.valorSaldoDisponivel = valorSaldoDisponivel;
 	}
 }

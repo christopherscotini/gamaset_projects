@@ -1,5 +1,6 @@
 package br.com.gamaset.diaryboard.view.bean;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +12,7 @@ import br.com.gamaset.diaryboard.exception.BusinessException;
 import br.com.gamaset.diaryboard.model.CaixaApostaTipoMovEnum;
 import br.com.gamaset.diaryboard.model.CaixaApostasEntity;
 import br.com.gamaset.diaryboard.utils.FacesUtils;
+import br.com.gamaset.diaryboard.utils.ProjectUtils;
 
 @ManagedBean
 @SessionScoped
@@ -48,7 +50,10 @@ public class CaixaApostasBean extends BeanModel{
 		caixaApostasCadastrar = new CaixaApostasEntity();
 		cboTipoMovimentacao = new ArrayList<CaixaApostaTipoMovEnum>();
 		cboTipoMovimentacao.add(CaixaApostaTipoMovEnum.DEPOSITO);
-		cboTipoMovimentacao.add(CaixaApostaTipoMovEnum.SAQUE);
+		BigDecimal val = caixaApostasService.verificarSaldoDisponivelParaInvestimento();
+		if(ProjectUtils.verificaBigDecimalNulo(val).compareTo(BigDecimal.ZERO) > 0){
+			cboTipoMovimentacao.add(CaixaApostaTipoMovEnum.SAQUE);
+		}
 		
 		return TELA_CAIXAAPOSTAS_EDIT;
 	}
