@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> #{msgs['generico.breadcumb.telainicial']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['palpite_list.breadcumb.palpite']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['palpite_list.breadcumb.palpite.listapalpites']} </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form id="form_content">
+			<h:messages showDetail="true" showSummary="true"/>
+			<div class="page-header">
+	        	<div class="pull-left">
+					<h2>#{msgs['palpite_list.breadcumb.palpite.listapalpites']}</h2>
+	            </div>
+	            <ui:include src="/template/navbar/_taskAndDateHeaderPage.xhtml" />
+	        	<div class="clearfix"></div>
+	        </div>
+		
+		
+			<div class="row-fluid">
+				<div class="control-group">
+					<div class="controls controls-row">
+		              	<label class="control-label">
+		                 	 #{msgs['palpite_edit.lbl.resultado']}
+		               	</label>
+						<h:selectOneMenu id="cbo_statusresultado" value="#{palpiteController.apostaResultadoFiltro}" styleClass="form-control" >
+	                   		<f:selectItems value="#{palpiteController.apostaResultadoList}" var="f" itemValue="#{f}" itemLabel="#{f.label}" />
+	                   	</h:selectOneMenu>
+	                   	<h:commandButton action="#{palpiteController.pesquisarPorResultado()}" 
+	                   		value="#{msgs['generico.btn_pesquisar']}" styleClass="btn btn-primary" />
+					</div>
+   				</div>
+				<div class="widget">
+					<div class="widget-header">
+						<div class="title">
+							<span class="fs1" data-icon="" aria-hidden="true"></span>
+							#{msgs['palpite_list.breadcumb.palpite.listapalpites']}
+						</div>
+					</div>
+					<div class="widget-body">
+					
+						<p:dataTable id="table_palpites" sortBy="#{result.dataEvento}" sortOrder="descending"
+								styleClass="" value="#{palpiteController.entities}" var="result" rows="20" 
+								paginator="true" paginatorPosition="bottom">
+								
+							<p:column headerText="#{msgs['generico.tabelacoluna.data']}" sortBy="#{result.dataEvento}"
+								styleClass="sorting_asc center-align-text" width="3%">
+						        <h:outputText value="#{result.dataEvento}" >
+						        	<f:convertDateTime pattern="dd-MM-yy"/>
+						        </h:outputText>
+						    </p:column>
+							<p:column headerText="#{msgs['generico.tabelacoluna.competicao']}" styleClass="" width="10%">
+								<h:graphicImage url="/#{result.competicao.urlImg}" height="40" width="40" />
+						        <h:outputText value="#{result.competicao.pais.descricao} - #{result.competicao.descricao}" />
+						    </p:column>
+							<p:column headerText="#{msgs['generico.tabelacoluna.timecasa']}" styleClass="" width="10%">
+								<h:graphicImage url="/#{result.timeCasa.urlImg}" height="40" width="40" />
+						        <h:outputText value="#{result.timeCasa.descricao}" />
+						    </p:column>
+							<p:column headerText="#{msgs['generico.tabelacoluna.timevisitante']}" width="10%">
+								<h:graphicImage url="/#{result.timeVisitante.urlImg}" height="40" width="40" />
+						        <h:outputText value="#{result.timeVisitante.descricao}" />
+						    </p:column>
+							<p:column headerText="#{msgs['generico.tabelacoluna.tipster']}" styleClass="center-align-text" width="5%">
+						        <h:outputText value="#{result.tipster.descricao}" />
+						    </p:column>
+							<p:column headerText="#{msgs['generico.tabelacoluna.mercado']}" styleClass="" width="5%">
+						        <h:outputText value="#{result.mercadoAposta.descricao}" />
+						    </p:column>
+							<p:column headerText="#{msgs['generico.tabelacoluna.odd']}" styleClass="center-align-text" width="3%">
+			        			<h:outputText value="#{result.valorOdd}" />
+						    </p:column>
+							<p:column headerText="#{msgs['generico.tabelacoluna.resultado']}" styleClass="center-align-text" width="5%">
+						        <h:outputText value="#{result.statusPalpite.label}" />
+						    </p:column>
+					    	<p:column headerText="#{msgs['generico.tabelacoluna.acoes']}"  width="5%" styleClass="center-align-text" >
+								<h:commandLink action="#{apostaBean.navegarCadastrarDePalpite(result)}" value="" styleClass="actions-icons" style="margin-right:10px;" >
+									<span class="icon-forward"></span>
+								</h:commandLink>
+								<h:commandLink action="#{palpiteController.navegarEditarPalpite(result)}" value="" styleClass="actions-icons" style="margin-right:10px;" >
+									<h:graphicImage alt="edit" url="/resources/img/edit-icon.png" />
+								</h:commandLink>
+								<h:commandLink action="#{palpiteController.navegarDeletarPalpite(result)}" style="margin-left:10px;" onclick="return confirm('Deseja realmente excluir essa aposta?')" value="" >
+									<h:graphicImage alt="trash" url="/resources/img/trash-icon.png" />
+									<p:ajax update="@form" />
+								</h:commandLink>
+						    </p:column>
+						</p:dataTable>						
+							
+					</div>
+					
+					<div class="form-actions no-margin">
+						<h:commandButton action="#{palpiteController.navegarInserirPalpite()}" value="#{msgs['generico.btn_cadastrar']}" styleClass="btn btn-primary pull-right" />
+		             <div class="clearfix" />
+		           </div>
+				</div>
+			</div>
+			
+		</h:form>
+		
+		<script type="text/javascript">
+			addClassDatatable();
+			addClassSelectedMenu('menu_palpite');
+		</script>
+		
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:loadBundle basename="br.com.gamaset.tradeline.view.bundle.Messages" var="msgs" />
+	<!-- Mian navigation start -->
+      <div id="mainnav" class="hidden-phone">
+        <h:form id="form_menu">
+	        <!-- User pic start -->
+	        <div class="user-profile-pic">
+	          <img src="#{facesContext.externalContext.requestContextPath}/resources/img/icon.png" alt="Tradeline"></img>
+	        </div>
+	        <!-- User pic end -->
+	
+	        <ul>
+	        
+	          <li id="menu_dashboard" class="active">
+	            <span id="menu_dashboard_arrow" class="current-arrow" ></span>
+	            <h:commandLink action="#{jogosDiaController.iniciarTela()}" >
+	              <div class="icon">
+	                <span class="fs1" aria-hidden="true" data-icon="&#xe0a2;"></span>
+	              </div>
+	              Dashboard
+	            </h:commandLink>
+	          </li>
+	          
+	          <li id="menu_apostas" class="">
+	            <span id="menu_apostas_arrow" class="current-arrow" ></span>
+	            <h:commandLink action="#{apostaBean.iniciarTela()}" >
+	              <div class="icon">
+	                <span class="fs1" aria-hidden="true" data-icon="&#xe0a2;"></span>
+	              </div>
+	              #{msgs['navbar.lbl.apostas']}
+	            </h:commandLink>
+	          </li>
+
+	          <li id="menu_palpites" >
+	            <span id="menu_palpites_arrow" class=""></span>
+	            <h:commandLink action="#{palpiteController.iniciarTela()}" >
+	              <div class="icon">
+	                <span class="fs1 icon-list" aria-hidden="true" data-icon=""></span>
+	              </div>
+	              #{msgs['navbar.lbl.palpites']}
+	            </h:commandLink>
+	          </li>
+
+	          <li id="menu_caixa" class="">
+	            <span id="menu_caixa_arrow" class="current-arrow" ></span>
+	            <h:commandLink action="#{caixaApostasBean.iniciarTela()}" >
+	              <div class="icon">
+	                <span class="fs1" aria-hidden="true" data-icon="&#xe0a2;"></span>
+	              </div>
+	              #{msgs['navbar.lbl.caixa']}
+	            </h:commandLink>
+	          </li>
+	          
+	          
+	          <li id="menu_configuracao">
+	            <span id="menu_configuracao_arrow" class=""></span>
+	              <a href="#">
+		              <div class="icon">
+		                <span class="fs1 icon-cog" aria-hidden="true" data-icon="" ></span>
+		              </div>
+		              #{msgs['navbar.lbl.configuracoes']}
+	              </a>
+	            <ul>
+	              <li>
+	                <h:commandLink action="#{mercadoApostaSelecaoController.iniciarTela()}" >#{msgs['navbar.lbl.configuracoes.mercadoapostaselecao']}</h:commandLink>
+	              </li>
+	              <li>
+	                <h:commandLink action="#{mercadoApostaController.iniciarTela()}" >#{msgs['navbar.lbl.configuracoes.mercadoaposta']}</h:commandLink>
+	              </li>
+	              <li>
+	                <h:commandLink action="#{cargaTimeController.iniciarTela()}" >#CARGA TIMES</h:commandLink>
+	              </li>
+	              <li>
+	                <h:commandLink action="#{cargaProsoccerController.iniciarTela()}" >#CARGA PROSOCCER</h:commandLink>
+	              </li>
+	              <li>
+	                <h:commandLink action="#{vincularTimesController.iniciarTela()}" >#VINCULAR TIMES</h:commandLink>
+	              </li>
+	            </ul>
+        	  </li>
+	          
+	        </ul>
+	     </h:form>
+      </div>
+      <!-- Mian navigation end -->
+	
+</ui:composition>

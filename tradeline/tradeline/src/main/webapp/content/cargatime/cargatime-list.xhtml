@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+<ui:define name="content">
+		<h:form id="form_content">
+			<!-- Dashboard wrapper start -->
+			<div class="dashboard-wrapper">
+	
+				<!-- Page title start -->
+				<div class="row page-title">
+					<h2>
+						#{msgs['palpite_list.titulotela.listapalpites']} <small>
+							<ul>
+								<li>#{msgs['generico.breadcumb.telainicial']}</li>
+								<li>/</li>
+								<li>#{msgs['palpite_list.breadcumb.palpite']}</li>
+								<li>/</li>
+								<li>#{msgs['palpite_list.breadcumb.palpite.listapalpites']}</li>
+							</ul>
+						</small>
+					</h2>
+				</div>
+				
+				
+				<!-- Row start -->
+		        <div class="row">
+	            	<div class="col-md-6">
+		            	<div class="col-md-12">
+		            		<h:inputText value="#{cargaTimeController.competicaoInput}" size="50" />
+		            		<h:selectOneMenu value="#{cargaTimeController.paisSelecionado}" styleClass="" converter="genericEntityConverter">
+	                    		<f:selectItems value="#{cargaTimeController.paisList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+	                    	</h:selectOneMenu>
+		            	</div>
+		            	<div class="col-md-4">
+		            		<h:commandButton action="#{cargaTimeController.lerTimesAsMelhoresApostas()}" value="#Ler Times As Melhores Apostas" />
+		            	</div>
+		            	<div class="col-md-4">
+		            		<h:commandButton action="#{cargaTimeController.lerTimesGoal()}" value="#Ler Times Goal" />
+		            	</div>
+		            	<div class="col-md-4">
+		            		<h:commandButton action="#{cargaTimeController.lerTimesGoalParaSistema()}" value="#Ler Times Goal > tabela SYS" />
+		            	</div>
+		            </div>
+	            </div>
+	            
+				<!-- Row start -->
+		        <div class="row">
+	            	<div class="col-md-12">
+			            <div class="widget">
+			              <div class="widget-header">
+			                <div class="title">
+			                  <span class="fs1" aria-hidden="true" data-icon="&#xe14a;"></span> #CARGA TIMES
+			                </div>
+			              </div>
+			              
+			            	<div class="col-md-6">
+				              <p:dataTable id="table_timesys" 
+								styleClass="" value="#{cargaTimeController.timeList}" var="result" rows="50" 
+								paginator="true" paginatorPosition="bottom">
+								
+									<p:column headerText="#IMG_TIME_SYS" styleClass="" width="10%">
+										<h:graphicImage value="/#{result.urlImg}" height="80" width="80" />
+								    </p:column>
+									<p:column headerText="#DS_TIME_SYS" styleClass="" width="90%">
+								        <h:outputText value="#{result.descricao}" />
+								    </p:column>
+								    
+								</p:dataTable>
+							</div>
+						</div>
+		            
+       				</div>
+	          	</div>
+		        <div class="row">
+		          <div class="col-md-12">
+			            <div class="widget-body right-align-text">
+			            	<h:commandButton action="#{cargaTimeController.salvar()}" value="#{msgs['generico.btn_cadastrar']}" styleClass="btn btn-primary" />
+		              	</div>	
+		          </div>
+		        </div>
+				
+			</div>
+			
+		</h:form>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_configuracao');
+			addClassTable('table_timesys')
+			
+		</script>
+		
+	</ui:define>
+	
+	
+</ui:composition>

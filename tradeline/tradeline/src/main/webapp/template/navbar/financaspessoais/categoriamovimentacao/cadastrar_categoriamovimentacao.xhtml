@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> One </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Two </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Three </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Four </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	<h:form styleClass="form-horizontal no-margin">
+	
+		<div class="page-header">
+        	<div class="pull-left">
+              <h2>#{msgs['cadastrar_categoriamovimentacao.lbl.titulotela.cadastrar']}</h2>
+            </div>
+            <ui:include src="/content/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+        <div class="row-fluid">
+			<div class="widget">
+	        	<div class="widget-header">
+	              <div class="title">
+	                <span class="fs1" aria-hidden="true" data-icon=""></span>#{msgs['generico.lbl.formulario']}
+	              </div>
+	            </div>
+	            <div class="widget-body">
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_categoriamovimentacao.lbl.descricao']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText value="#{categoriaMovimentacaoBean.categoriaCadastro.descricao}" pt:placeholder="Teste placeholder" />
+						</div>
+           			</div>
+	           	</div>
+	           
+	           	<div class="form-actions no-margin">
+					<h:commandButton action="#{categoriaMovimentacaoBean.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-info pull-right" />
+		        	<div class="clearfix" />
+	        	</div>
+			</div>
+		</div>
+		
+    </h:form>         
+	</ui:define>
+</ui:composition>

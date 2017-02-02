@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['aposta_list.lbl.titulotela.apostas']} </a>
+		</li>
+		<ui:fragment rendered="#{apostaBean.apostaCadastrar.id == null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['aposta_edit.lbl.titulotela.efetuaraposta']} </a>
+			</li>
+		</ui:fragment>
+		<ui:fragment rendered="#{apostaBean.apostaCadastrar.id != null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['aposta_edit.lbl.titulotela.alterar']} </a>
+			</li>
+		</ui:fragment>
+	</ui:define>
+	
+	<ui:define name="content">
+	<h:form styleClass="form-horizontal no-margin" acceptcharset="UTF-8" prependId="false" >
+		<h:messages showDetail="true" showSummary="true"/>
+		<div class="page-header">
+        	<div class="pull-left">
+        		<ui:fragment rendered="#{apostaBean.apostaCadastrar.id == null}">
+					<h2>#{msgs['aposta_edit.lbl.titulotela.efetuaraposta']}</h2>
+				</ui:fragment>
+				<ui:fragment rendered="#{apostaBean.apostaCadastrar.id != null}">
+					<h2>#{msgs['aposta_edit.lbl.titulotela.alterar']}</h2>
+				</ui:fragment>
+            </div>
+            <ui:include src="/template/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+        <div class="row-fluid">
+			<div class="widget">
+	        	<div class="widget-header">
+	              <div class="title">
+	                <span class="fs1" aria-hidden="true" data-icon=""></span>#{msgs['generico.lbl.tip']}
+	              </div>
+	            </div>
+	            <div class="widget-body">
+<!--            			<div class="control-group"> -->
+<!-- 		              	<label class="control-label"> -->
+<!-- 		                 	 #{msgs['aposta_edit.lbl.ticket']} -->
+<!-- 		               	</label> -->
+<!-- 						<div class="controls controls-row"> -->
+<!-- 							<h:inputText id="input_ticket" value="#{apostaBean.apostaCadastrar.ticket}" /> -->
+<!-- 						</div> -->
+<!--            			</div> -->
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.planojogo']}
+		               	</label>
+		               	<div class="controls controls-row">
+							<h:selectOneMenu value="#{apostaBean.planoJogoSelecionado}" converter="genericEntityConverter"  >
+								<f:selectItems value="#{apostaBean.planoJogoList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+								<p:ajax event="change" listener="#{apostaBean.onchangePlanojogoCombo()}" update="combo_planojogoitem" />
+							</h:selectOneMenu>
+						</div>
+		               	<div class="controls controls-row">
+							<h:selectOneMenu id="combo_planojogoitem" value="#{apostaBean.apostaCadastrar.planoJogoItem}" converter="genericEntityConverter"  >
+								<f:selectItems value="#{apostaBean.planoJogoItemList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao} - #{f.descStatus}" />
+								<p:ajax event="change" listener="#{apostaBean.onchangePlanojogoItemCombo()}" update="output_valorapostasugerido" />
+							</h:selectOneMenu>
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.competicao']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:selectOneMenu value="#{apostaBean.paisSelecionada}" styleClass="form-control" converter="genericEntityConverter">
+	                    		<f:selectItems value="#{apostaBean.paisList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+	                    		<p:ajax update="cbo_competicao cbo_times cbo_times2" listener="#{apostaBean.carregarComboCompeticao()}" />
+	                    	</h:selectOneMenu>
+							<h:selectOneMenu id="cbo_competicao" value="#{apostaBean.apostaCadastrar.bet.competicao}" styleClass="form-control" converter="genericEntityConverter">
+	                    		<f:selectItems value="#{apostaBean.competicaoList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+	                    		<p:ajax update="cbo_times cbo_times2" listener="#{apostaBean.carregarComboCompeticao()}" />
+	                    	</h:selectOneMenu>
+						</div>
+       				</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.evento']}
+		               	</label>
+						<div class="controls controls-row">
+	                    	<h:selectOneMenu id="cbo_times" value="#{apostaBean.apostaCadastrar.bet.evento.timeCasa}" styleClass="form-control" converter="genericEntityConverter">
+	                    		<f:selectItems value="#{apostaBean.timeList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+	                    	</h:selectOneMenu>
+	                    	<span>vs</span>
+	                    	<h:selectOneMenu id="cbo_times2" value="#{apostaBean.apostaCadastrar.bet.evento.timeVisitante}" styleClass="form-control" converter="genericEntityConverter">
+	                    		<f:selectItems value="#{apostaBean.timeList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+	                    	</h:selectOneMenu>
+						</div>
+       				</div>
+           			
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.mercado']}
+		               	</label>
+						<div class="controls controls-row">
+	                    	<h:selectOneMenu value="#{apostaBean.mercadoSelecaoSelecionado}" styleClass="form-control" converter="genericEntityConverter">
+	                    		<f:selectItems value="#{apostaBean.mercadoSelecaoList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+	                    		<p:ajax update="cbo_mercadoaposta" listener="#{apostaBean.carregarComboMercadoAposta()}" />
+	                    	</h:selectOneMenu>
+	                    	<h:selectOneMenu id="cbo_mercadoaposta" value="#{apostaBean.apostaCadastrar.bet.evento.mercado}" styleClass="form-control" converter="genericEntityConverter">
+	                    		<f:selectItems value="#{apostaBean.mercadoApostaList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+	                    	</h:selectOneMenu>
+						</div>
+      				</div>
+           			
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.data']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText value="#{apostaBean.apostaCadastrar.dataAposta}" type="date" >
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:inputText>
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.valoraposta']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText id="input_valoraposta" value="#{apostaBean.apostaCadastrar.valorAposta}"  styleClass="currency" converter="decimalConverter" >
+								<p:ajax event="blur" listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
+								<p:ajax event="focus"  listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
+							</h:inputText>
+							<h:outputText value="Valor de Aposta Sugerido: R$" style="margin-left: 5px;" />
+							<h:outputText id="output_valorapostasugerido" value="#{apostaBean.valorApostaSugerido}" style="margin-left: 5px;" converter="decimalConverter" />
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.odd']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText id="input_odd" value="#{apostaBean.apostaCadastrar.bet.evento.odd}" styleClass="float" disabled="true" >
+							</h:inputText>
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.retornopossivel']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText id="input_retornopossivel" value="#{apostaBean.apostaCadastrar.valorRetorno}" styleClass="currency"  converter="decimalConverter" >
+								<p:ajax event="blur" listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
+								<p:ajax event="focus"  listener="#{apostaBean.calculaValorOdd()}" update="input_odd"  />
+							</h:inputText>
+						</div>
+           			</div>
+           			<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['aposta_edit.lbl.statusaposta']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:selectOneMenu value="#{apostaBean.apostaCadastrar.resultado}" >
+								<f:selectItems value="#{apostaBean.apostaResultadoList}" var="f" itemValue="#{f}" itemLabel="#{f.label}" />
+							</h:selectOneMenu>
+						</div>
+           			</div>
+	           	</div>
+	           
+	           	<div class="form-actions no-margin">
+					<h:commandButton action="#{apostaBean.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-info pull-right" style="margin-left:5px;"/>
+					<h:commandButton action="#{apostaBean.iniciarTela()}" value="#{msgs['generico.btn_voltar']}" styleClass="btn btn-info pull-right" />
+		        	<div class="clearfix" />
+	        	</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_apostas');
+		</script>
+		
+    </h:form>         
+	</ui:define>
+</ui:composition>

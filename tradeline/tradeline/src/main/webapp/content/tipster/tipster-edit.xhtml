@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pl="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> #{msgs['generico.breadcumb.telainicial']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.configuracoes']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['tipster_list.lbl.titulotela.tipster']} </a>
+		</li>
+		<ui:fragment rendered="#{tipsterController.tipsterCadastrar.id == null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['tipster_edit.breadcumb.tipster.listatipster.cadastrartipster']} </a>
+			</li>
+		</ui:fragment>
+		<ui:fragment rendered="#{tipsterController.tipsterCadastrar.id != null}">
+			<li>
+				<a data-original-title="" href="#"> #{msgs['tipster_edit.breadcumb.tipster.listatipster.editartipster']} </a>
+			</li>
+		</ui:fragment>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form styleClass="form-horizontal no-margin" acceptcharset="UTF-8" prependId="false" >
+			<h:messages showDetail="true" showSummary="true"/>
+			<div class="page-header">
+	        	<div class="pull-left">
+	        		<ui:fragment rendered="#{palpiteController.palpiteCadastrar.id == null}">
+						<h2>#{msgs['tipster_edit.breadcumb.tipster.listatipster.cadastrartipster']}</h2>
+					</ui:fragment>
+					<ui:fragment rendered="#{tipsterController.tipsterCadastrar.id != null}">
+						<h2>#{msgs['tipster_edit.breadcumb.tipster.listatipster.editartipster']}</h2>
+					</ui:fragment>
+	            </div>
+	            <ui:include src="/template/navbar/_taskAndDateHeaderPage.xhtml" />
+	        	<div class="clearfix"></div>
+	        </div>
+	        <div class="row-fluid">
+				<div class="widget">
+		        	<div class="widget-header">
+		              <div class="title">
+		                <span class="fs1" aria-hidden="true" data-icon=""></span>#{msgs['mercadoaposta_edit.lbl.formulario']}
+		              </div>
+		            </div>
+		            <div class="widget-body">
+		            	<div class="control-group">
+			              	<label class="control-label">
+			                 	 #{msgs['tipster_edit.lbl.descricao']}
+			               	</label>
+							<div class="controls controls-row">
+				             	<h:inputText value="#{tipsterController.tipsterCadastrar.descricao}" styleClass="form-control"/>
+							</div>
+           				</div>
+           			</div>
+					
+					<div class="form-actions no-margin">
+						<h:commandButton action="#{tipsterController.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-info pull-right" style="margin-left:5px;"/>
+						<h:commandButton action="#{tipsterController.iniciarTela()}" value="#{msgs['generico.btn_voltar']}" styleClass="btn btn-info pull-right" />
+		        		<div class="clearfix" />
+	        		</div>
+				</div>
+			</div>
+		</h:form>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_config');
+		</script>
+		
+	</ui:define>
+</ui:composition>

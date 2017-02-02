@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+<ui:define name="content">
+		<h:form id="form_content">
+			<!-- Dashboard wrapper start -->
+			<div class="dashboard-wrapper">
+	
+				<!-- Page title start -->
+				<div class="row page-title">
+					<h2>
+						#VINCULAR TIMES <small>
+							<ul>
+								<li>#{msgs['generico.breadcumb.telainicial']}</li>
+								<li>/</li>
+								<li>#VINCULAR TIMES</li>
+							</ul>
+						</small>
+					</h2>
+				</div>
+				
+				<!-- Row start -->
+		        <div class="row">
+            		<h:selectOneMenu value="#{vincularTimesController.paisSelecionado}" styleClass="" converter="genericEntityConverter">
+                   		<f:selectItems value="#{vincularTimesController.paisList}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+                   	</h:selectOneMenu>
+                   	<h:commandButton action="#{vincularTimesController.filtrar()}" value="Filtrar" >
+                   	</h:commandButton>
+				</div>
+
+		        <div class="row">
+	            	<div class="col-md-12">
+			            <div class="widget">
+			              <div class="widget-header">
+			                <div class="title">
+			                  <span class="fs1" aria-hidden="true" data-icon="&#xe14a;"></span> #VINCULAR TIMES
+			                </div>
+			              </div>
+			              
+			            	<div class="col-md-4">
+			            	<span class="fs1" aria-hidden="true" data-icon="&#xe14a;"></span> #TIMES GOAL
+				              <p:dataTable id="table_timegoal" 
+								styleClass="" 
+								value="#{vincularTimesController.timesListGoal}" 
+								var="result" 
+								selection="#{vincularTimesController.timesGoalSelecionado}"
+								rowKey="#{result.id}"	>
+        							<p:column selectionMode="single" style="width:30px;text-align:center"/>
+									<p:column headerText="#ID_TIME_SYS" styleClass="" width="10%">
+								        <h:outputText value="#{result.id}" />
+								    </p:column>
+								    
+									<p:column headerText="#DS_TIME_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.descricao}" />
+								    </p:column>
+								    
+								    <p:column headerText="#DS_TIME_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.id}|#{result.descricao}|#{result.pais.id}" />
+								    </p:column>
+								    
+								</p:dataTable>
+								
+								
+							</div>
+			            	
+			            	<div class="col-md-4">
+			            		<span class="fs1" aria-hidden="true" data-icon="&#xe14a;"></span> #TIMES PRO
+				              <p:dataTable id="table_timepro" 
+								styleClass="" 
+								value="#{vincularTimesController.timesListProsoccer}" 
+								var="result" 
+								selection="#{vincularTimesController.timesProsoccerSelecionado}"
+								rowKey="#{result.id}"	>
+									<p:column selectionMode="single" style="width:30px;text-align:center"/>
+									<p:column headerText="#ID_TIME_SYS" styleClass="" width="10%">
+								        <h:outputText value="#{result.id}" />
+								    </p:column>
+								    
+									<p:column headerText="#DS_TIME_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.descricao}" />
+								    </p:column>
+								    
+								    <p:column headerText="#DS_TIME_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.id}|#{result.descricao}|#{result.pais.id}" />
+								    </p:column>
+								    
+								</p:dataTable>
+							</div>
+							
+							<div class="col-md-4">
+			                  <span class="fs1" aria-hidden="true" data-icon="&#xe14a;"></span> #TIMES SISTEMA
+				              <p:dataTable id="table_timesys" 
+								styleClass="" 
+								value="#{vincularTimesController.timesListSistema}" 
+								var="result" 
+								selection="#{vincularTimesController.timeSistemaSelecionado}"
+								rowKey="#{result.id}"	>
+        							<p:column selectionMode="single" style="width:30px;text-align:center"/>
+									<p:column headerText="#ID_TIME_SYS" styleClass="" width="10%" >
+								        <h:outputText value="#{result.id}" />
+								    </p:column>
+									<p:column headerText="#DS_TIME_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.descricao}" />
+								    </p:column>
+								    
+									<p:column headerText="#DS_TIME_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.id}|#{result.descricao}|#{result.pais.id}" />
+								    </p:column>
+								    
+								</p:dataTable>
+							</div>
+							
+						</div>
+		            
+       				</div>
+	          	</div>
+		        <div class="row">
+		          <div class="col-md-12">
+			            <div class="widget-body right-align-text">
+			            	<h:commandButton action="#{vincularTimesController.salvar()}" value="Salvar" />
+		              	</div>	
+		          </div>
+		        </div>
+				
+			</div>
+			
+		</h:form>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_configuracao');
+			addClassTable('table_timesys')
+			addClassTable('table_timegoal')
+			addClassTable('table_timepro')
+			
+			
+		</script>
+		
+	</ui:define>
+	
+	
+</ui:composition>

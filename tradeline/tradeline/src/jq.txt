@@ -1,0 +1,19 @@
+var countTotal = 0;
+		$("#form_content\\:table_timegoal table tbody tr td:nth-child(4)").each(function(){
+			var $table1 = $(this);
+			$("#form_content\\:table_timepro  table tbody tr td:nth-child(4)").each(function(){
+				var $table2 = $(this);
+				$("#form_content\\:table_timesys table tbody tr td:nth-child(4)").each(function(){
+					var split1 = $table1.text().split("|");//goal
+					var split2 = $table2.text().split("|");//pro
+					var split3 = $(this).text().split("|");//sys
+					if ((split1[1].toLowerCase() === split2[1].toLowerCase()) && (split1[1].toLowerCase() === split3[1].toLowerCase())){						
+					
+						console.log('INSERT INTO `tradeline`.`time_union`(`TIUN_CD_ID_PK`,`TIGO_CD_ID_FK`,`TIPR_CD_ID_FK`,`TIME_CD_ID_FK`,`PAIS_CD_ID_FK`) VALUES (null,'+split1[0]+','+split2[0]+','+split3[0]+','+split1[2]+');'  );
+											
+						countTotal++;
+					}
+				});
+			});		
+		});
+		console.log("Total de times iguais: " + countTotal);

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pl="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="content">
+		<h:form id="form_content" styleClass="form-horizontal">
+			<h:messages showDetail="true" showSummary="true"/>
+			
+			<!-- Dashboard wrapper start -->
+			<div class="dashboard-wrapper">
+	
+				<!-- Page title start -->
+				<div class="row page-title">
+					<h2>
+						<ui:fragment rendered="#{mercadoApostaController.mercadoApostaCadastrar.id != null}">#{msgs['mercadoaposta_edit.titulotela.editarmercadoaposta']} </ui:fragment>
+						<ui:fragment rendered="#{mercadoApostaController.mercadoApostaCadastrar.id == null}">#{msgs['mercadoaposta_edit.titulotela.cadastrarmercadoaposta']} </ui:fragment>
+						<small>
+							<ul>
+								<li>#{msgs['generico.breadcumb.telainicial']}</li>
+								<li>/</li>
+								<li>#{msgs['mercadoaposta_list.breadcumb.mercadoaposta']}</li>
+								<li>/</li>
+								<li>#{msgs['mercadoaposta_list.breadcumb.mercadoaposta.listamercadoaposta']}</li>
+								<li>/</li>
+								<ui:fragment rendered="#{mercadoApostaController.mercadoApostaCadastrar.id != null}"><li>#{msgs['mercadoaposta_edit.breadcumb.mercadoaposta.listamercadoaposta.editarmercadoaposta']}</li></ui:fragment> 
+								<ui:fragment rendered="#{mercadoApostaController.mercadoApostaCadastrar.id == null}"><li>#{msgs['mercadoaposta_edit.breadcumb.mercadoaposta.listamercadoaposta.cadastrarmercadoaposta']}</li></ui:fragment> 
+							</ul>
+						</small>
+					</h2>
+				</div>
+				
+				
+				<!-- Row start -->
+		        <div class="row">
+		          <div class="col-md-6">
+		            <div class="widget">
+		              <div class="widget-header">
+		                <div class="title">
+		                  <span class="fs1" aria-hidden="true" data-icon="&#xe04d;"></span> #{msgs['mercadoaposta_edit.lbl.formulario']}
+		                </div>
+		              </div>
+		              <div class="widget-body">
+		                  <div class="form-group">
+		                    <label class="col-lg-2 control-label">#{msgs['mercadoaposta_edit.lbl.descricao']}</label>
+		                    <div class="col-lg-10">
+		                    	<h:inputText value="#{mercadoApostaController.mercadoApostaCadastrar.descricao}" styleClass="form-control" pl:placeholder="#{msgs['mercadoaposta_edit.lbl.descricao']}" />
+		                    </div>
+		                  </div>
+		                  <div class="form-group">
+		                    <label class="col-lg-2 control-label">#{msgs['mercadoaposta_edit.lbl.mercadoselecao']}</label>
+		                    <div class="col-lg-10">
+		                    	<h:selectOneMenu value="#{mercadoApostaController.mercadoApostaCadastrar.selecao}" styleClass="form-control" converter="genericEntityConverter">
+		                    		<f:selectItems value="#{mercadoApostaController.listaMercadoSelecao}" var="f" itemValue="#{f}" itemLabel="#{f.descricao}" />
+		                    	</h:selectOneMenu>
+		                    </div>
+		                  </div>
+		                  <div class="form-group">
+		                    <div class="col-lg-offset-2 col-lg-10">
+		                    	<h:commandButton action="#{mercadoApostaController.iniciarTela()}" value="#{msgs['generico.btn_voltar']}" styleClass="btn btn-primary" />
+		                    	<h:commandButton action="#{mercadoApostaController.salvar()}" value="#{msgs['generico.btn_salvar']}" styleClass="btn btn-success" style="margin-left:5px;"/>
+		                    </div>
+		                  </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		        <!-- Row end -->
+				
+			</div>
+			
+			
+			<script type="text/javascript">
+				addClassSelectedMenu('menu_configuracao');
+			</script>
+		</h:form>
+		
+		
+	</ui:define>
+</ui:composition>

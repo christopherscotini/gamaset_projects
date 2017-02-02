@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas.planojogo']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['planojogo_list.lbl.titulotela.planojogo']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['planojogo_acompanhamento.lbl.titulotela.metaplanojogo']} </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+	<h:form id="formMain">
+		<div class="page-header">
+        	<div class="pull-left">
+              <h2>#{msgs['planojogo_acompanhamento.lbl.titulotela.metaplanojogo']} - #{planoJogoBean.planoJogoCadastrar.descricao}</h2>
+            </div>
+            <ui:include src="/template/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+        
+		<div class="widget">
+			<div class="widget-header">
+				<div class="title">
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					#{msgs['planojogo_acompanhamento.lbl.legend.metas']}
+				</div>
+			</div>
+			<div class="widget-body">
+				<p:dataTable id="tablePlanosJogo" value="#{planoJogoBean.planoJogoCadastrar.apostas}" var="result" rows="30" 
+					paginator="true" paginatorPosition="bottom">
+					
+				    <p:column headerText="#{msgs['generico.tabelacoluna.descricao']}" sortBy="#{result.descricao}" styleClass="center-align-text" width="10%" >
+				        <h:outputText value="#{result.descricao}" style="margin-right:2px;" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.betdia']}" sortBy="#{result.vlrBetDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.vlrBetDia}" converter="decimalConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.valorinicial']}" sortBy="#{result.vlrInicialDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.vlrInicialDia}" converter="decimalConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.valorfinal']}" sortBy="#{result.vlrFinalDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.vlrFinalDia}" converter="decimalConverter"/>
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentualobjetivo']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="#{result.percObjetivoConcluidoDia}" converter="percentConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.lucrodia']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.vlrLucroDia}" converter="decimalConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentuallucrodia']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="#{result.percLucroDia}" converter="percentConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.percentuallucrometa']}" sortBy="#{result.percObjetivoConcluidoDia}" styleClass="center-align-text" width="15%" >
+				        <h:outputText value="#{result.percLucroMeta}" converter="percentConverter" />
+				    </p:column>
+				    <p:column headerText="#{msgs['generico.tabelacoluna.status']}" sortBy="#{result.finalizado}" styleClass="center-align-text" width="15%" >
+				        <ui:fragment rendered="#{result.finalizado}">
+					        <span class="badge badge-success">Finalizado</span>
+					    </ui:fragment>
+				        <ui:fragment rendered="#{!result.finalizado}">
+					        <span class="badge badge-info">Aguardando</span>
+					    </ui:fragment>
+				    </p:column>
+				    
+				</p:dataTable>
+			</div>
+			
+			<div class="form-actions no-margin">
+				<h:commandButton action="#{planoJogoBean.navegarCadastrar()}" value="#{msgs['generico.btn_cadastrar']}" styleClass="btn btn-info pull-right" />
+             <div class="clearfix" />
+           </div>
+		</div>
+
+	</h:form>
+	
+	<script>
+		addClassDatatable();
+		addClassSelectedMenu('menu_apostas');
+	</script>
+	
+	</ui:define>
+</ui:composition>

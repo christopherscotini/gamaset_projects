@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> #{msgs['generico.breadcumb.telainicial']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #DASH </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['jogosdia_list.titulotela.jogosdia']} </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+		<h:form id="formMain">
+			<h:messages showDetail="true" showSummary="true"/>
+			<div class="page-header">
+	        	<div class="pull-left">
+	              <h2>#{msgs['jogosdia_list.titulotela.jogosdia']}</h2>
+	            </div>
+	            <ui:include src="/template/navbar/_taskAndDateHeaderPage.xhtml" />
+	        	<div class="clearfix"></div>
+	        </div>
+		
+		
+			<div class="row-fluid">
+			
+				<div class="widget">
+					<div class="widget-header">
+						<div class="title">
+							<span class="fs1" data-icon="" aria-hidden="true"></span>
+							#{msgs['jogosdia_list.legend.informacoes']}
+						</div>
+					</div>
+					<div class="widget-body">
+						<p:dataTable id="tableJogos" 
+							value="#{jogosDiaController.jogosDia.jogos}" var="result" rows="30" 
+							paginator="true" paginatorPosition="bottom" sortBy="#{result.status}">
+							
+							<p:column headerText="#{msgs['generico.tabelacoluna.data']}" sortBy="#{result.status}" styleClass="sorting_asc center-align-text" width="5%">
+							        <h:outputText value="#{result.status}" />
+							    </p:column>
+							    
+								<p:column headerText="#{msgs['generico.tabelacoluna.competicao']}" styleClass="" width="20%">
+									<div class="col-md-2">
+										<h:graphicImage url="/#{result.competicao.competicaoSistema.urlImg}" height="40" width="40" />
+									</div>
+				        			<h:outputText value="#{result.competicao.pais.descricao} - #{result.competicao.competicaoSistema.descricao}" />
+							    </p:column>
+								<p:column headerText="#{msgs['generico.tabelacoluna.timecasa']}" styleClass="center-align-text" width="30%">
+									<div class="row-fluid center-align-text">
+										<div class="span2">
+											<h:graphicImage url="/#{result.timeCasa.timeSistema.urlImg}" height="40" width="40" />
+										</div>
+										<div class="span2">
+									        <h:outputText value="#{result.timeCasa.timeSistema.descricao}" />
+										</div>
+										<div class="span1">
+									        <h:outputText value="#{result.placarTimeCasa}" />
+										</div>
+										<div class="span2">
+									        <h:outputText value="X" />
+										</div>
+										<div class="span1">
+									        <h:outputText value="#{result.placarTimeVisitante}" />
+										</div>
+										<div class="span2">
+									        <h:outputText value="#{result.timeVisitante.timeSistema.descricao}" />
+										</div>
+										<div class="span2">
+											<h:graphicImage url="/#{result.timeVisitante.timeSistema.urlImg}" height="40" width="40" />
+										</div>
+									</div>
+							    </p:column>
+								<p:column headerText="#PROSOCCER" styleClass="center-align-text" width="10%" style="font-style: bold;">
+							        <h:outputText value="#{result.jogoProsoccer.palpite}" /> 
+							    </p:column>
+								<p:column headerText="#ACADEMIA" styleClass="center-align-text" width="10%">
+							    </p:column>
+								<p:column headerText="#SOCCERSTATS" styleClass="center-align-text" width="10%">
+							    </p:column>
+								<p:column headerText="#{msgs['generico.tabelacoluna.odd']}" styleClass="center-align-text" width="5%">
+									<a href="http://www.goal.com#{result.urlDetalhePartidaGoal}" target="_blank" >Detalhes</a>
+							    </p:column>
+						    
+						</p:dataTable>
+					</div>
+					
+					<div class="form-actions no-margin">
+						<h:commandButton action="#{caixaApostasBean.navegarCadastrar()}" value="#{msgs['generico.btn_cadastrar']}" styleClass="btn btn-info pull-right" />
+		             <div class="clearfix" />
+		           </div>
+		           
+				</div>
+			</div>
+			
+			
+	
+		</h:form>
+	
+	<script>
+		addClassDatatable();
+		addClassSelectedMenu('menu_dashboard');
+	</script>
+	
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> One </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Two </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Three </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> Four </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	<f:loadBundle basename="br.com.gamaset.diaryboard.view.bundle.Messages" var="msgs" />
+	<h:form>
+		
+		<div class="widget">
+			<div class="widget-header">
+				<div class="title">
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					#{msgs['consultar_creditomovimentacao.lbl.legend.creditomovimentacao']}
+				</div>
+			</div>
+			<div class="widget-body">
+				<p:dataTable id="tableCreditos" 
+					styleClass="table table-condensed table-bordered no-margin" 
+					value="#{categoriaMovimentacaoBean.data}" var="result" rows="10" 
+					paginator="true" paginatorPosition="bottom">
+					
+					<p:column headerText="#{msgs['generico.tabelacoluna.id']}" sortBy="#{result.id}" styleClass="center-align-text" width="5%">
+				        <h:outputText value="#{result.id}" />
+				    </p:column>
+
+					<p:column headerText="#{msgs['generico.tabelacoluna.descricao']}" sortBy="#{result.descricao}" >
+				        <h:outputText value="#{result.descricao}" />
+				    </p:column>
+				    
+				</p:dataTable>
+			</div>
+			
+			<div class="form-actions no-margin">
+				<a class="btn btn-info pull-right" data-toggle="modal" role="button" href="#myModal" data-original-title=""> Default modal </a>
+             <div class="clearfix" />
+           </div>
+		</div>
+		
+            <div id="myModal" class="modal hide fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" style="display: none;">
+				<div class="modal-header">
+					<button class="close" aria-hidden="true" data-dismiss="modal" type="button"> × </button>
+					<h4 id="myModalLabel"> Modal header </h4>
+				</div>
+				<div class="modal-body">
+					<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_creditomovimento.lbl.descricao']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText value="#{creditosMovimentacaoBean.movimentacaoCadastro.descricao}" styleClass="span6" pt:placeholder="Teste placeholder" />
+						</div>
+           			</div>
+					<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_creditomovimento.lbl.categoria']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:selectOneMenu value="" styleClass="span6">
+								<f:selectItem itemLabel="Teste" itemValue=""/>
+							</h:selectOneMenu>
+						</div>
+           			</div>
+					<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_creditomovimento.lbl.valor']}
+		               	</label>
+						<div class="controls controls-row">
+							<h:inputText value="#{creditosMovimentacaoBean.movimentacaoCadastro.descricao}" styleClass="span6 currency" pt:placeholder="Teste placeholder" />
+						</div>
+           			</div>
+					<div class="control-group">
+		              	<label class="control-label">
+		                 	 #{msgs['cadastrar_creditomovimento.lbl.data']}
+		               	</label>
+						<div class="controls controls-row">
+							<p:calendar />
+							<h:inputText value="#{creditosMovimentacaoBean.movimentacaoCadastro.descricao}" styleClass="span6" pt:placeholder="Teste placeholder" />
+						</div>
+           			</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" aria-hidden="true" data-dismiss="modal"> Close </button>
+					<button class="btn btn-primary"> Save changes </button>
+				</div>
+           </div>
+
+	</h:form>
+	</ui:define>
+</ui:composition>

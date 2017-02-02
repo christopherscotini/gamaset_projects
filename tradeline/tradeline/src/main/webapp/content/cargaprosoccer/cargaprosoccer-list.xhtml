@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+<ui:define name="content">
+		<h:form id="form_content">
+			<!-- Dashboard wrapper start -->
+			<div class="dashboard-wrapper">
+	
+				<!-- Page title start -->
+				<div class="row page-title">
+					<h2>
+						#CARGA PROSOCCER <small>
+							<ul>
+								<li>#{msgs['generico.breadcumb.telainicial']}</li>
+								<li>/</li>
+								<li>#CARGA PROSOCCER</li>
+							</ul>
+						</small>
+					</h2>
+				</div>
+				
+				
+				<!-- Row start -->
+		        <div class="row">
+	            	<div class="col-md-6">
+		            	<div class="col-md-12">
+		            		<h:inputText value="#{cargaProsoccerController.urlInput}" size="50" />
+		            	</div>
+		            	<div class="col-md-4">
+		            		<h:commandButton action="#{cargaProsoccerController.lerCampeonatoProssocer()}" value="#Ler Competicao Modo Convencional" />
+		            	</div>
+		            	<div class="col-md-4">
+		            		<h:commandButton action="#{cargaProsoccerController.lerTimeProssocer()}" value="#Ler Times Modo Convencional" />
+		            	</div>
+		            </div>
+	            </div>
+	            
+				<!-- Row start -->
+		        <div class="row">
+	            	<div class="col-md-12">
+			            <div class="widget">
+			              <div class="widget-header">
+			                <div class="title">
+			                  <span class="fs1" aria-hidden="true" data-icon="&#xe14a;"></span> #CARGA PROSOCCER
+			                </div>
+			              </div>
+			              
+			            	<div class="col-md-6">
+				              <p:dataTable id="table_timesys" 
+								styleClass="" value="#{cargaProsoccerController.competicaoList}" var="result" rows="10" 
+								paginator="true" paginatorPosition="bottom">
+								
+									<p:column headerText="#DS_CAMPEONATO_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.descricao}" />
+								    </p:column>
+								    
+									<p:column headerText="#DS_TIME_SYS" styleClass="" width="50%">
+								        <h:outputText value="#{result.descricao}" />
+								    </p:column>
+								    
+								</p:dataTable>
+							</div>
+						</div>
+		            
+       				</div>
+	          	</div>
+		        <div class="row">
+		          <div class="col-md-12">
+			            <div class="widget-body right-align-text">
+		              	</div>	
+		          </div>
+		        </div>
+				
+			</div>
+			
+		</h:form>
+		
+		<script type="text/javascript">
+			addClassSelectedMenu('menu_configuracao');
+			addClassTable('table_timesys')
+			
+		</script>
+		
+	</ui:define>
+	
+	
+</ui:composition>

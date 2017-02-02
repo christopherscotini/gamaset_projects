@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/template_main.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="breadcrumb">
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['navbar.lbl.apostas']} </a>
+		</li>
+		<li>
+			<a data-original-title="" href="#"> #{msgs['aposta_list.lbl.titulotela.apostas']} </a>
+		</li>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+	<h:form id="formMain">
+	
+		<p:messages id="messagesGlobal" globalOnly="true" escape="true"/>
+		
+		<div class="page-header">
+        	<div class="pull-left">
+              <h2>#{msgs['aposta_list.lbl.titulotela.apostas']}</h2>
+            </div>
+            <ui:include src="/template/navbar/_taskAndDateHeaderPage.xhtml" />
+        	<div class="clearfix"></div>
+        </div>
+        
+		<div class="widget">
+			<div class="widget-header">
+				<div class="title">
+					<span class="fs1" data-icon="" aria-hidden="true"></span>
+					#{msgs['aposta_list.lbl.legend.apostas']}
+				</div>
+			</div>
+			<div class="widget-body">
+				<p:dataTable id="tableCampeonatos" value="#{apostaBean.entities}" var="result" rows="10" 
+					paginator="true" paginatorPosition="bottom">
+					
+					<p:column headerText="#{msgs['generico.tabelacoluna.data']}" sortBy="#{result.id}" styleClass="sorting_asc center-align-text" width="6%">
+				        <h:outputText value="#{result.dataAposta}" >
+				        	<f:convertDateTime pattern="dd-MM-yy"/>
+				        </h:outputText>
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.timecasa']}" styleClass="" width="15%">
+						<h:graphicImage url="/#{result.bet.evento.timeCasa.urlImg}" height="40" width="40" />
+				        <h:outputText value="#{result.bet.evento.timeCasa.descricao}" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.timevisitante']}" width="15%">
+						<h:graphicImage url="/#{result.bet.evento.timeVisitante.urlImg}" height="40" width="40" />
+				        <h:outputText value="#{result.bet.evento.timeVisitante.descricao}" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.competicao']}" sortBy="#{result.id}"  width="15%" >
+						<h:graphicImage value="/#{result.bet.competicao.urlImg}" height="40" width="40" />
+				        <h:outputText value="#{result.bet.competicao.descricao}" style="margin-left: 5px;" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.mercado']}" sortBy="#{result.id}"  width="15%" >
+				        <h:outputText value="#{result.bet.evento.mercado.selecao.descricao} - #{result.bet.evento.mercado.descricao}" />
+				    </p:column>
+					<p:column headerText="#PLANO" sortBy="#{result.id}"  width="15%" >
+				        <h:outputText value="#{result.planoJogoItem.planoJogo.descricao} - #{result.planoJogoItem.descricao}" />
+				    </p:column>
+					<p:column headerText="#STAKE" sortBy="#{result.id}" width="7%" >
+						<h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.valorAposta}" converter="decimalConverter" />
+				    </p:column>
+					<p:column headerText="#ODD" sortBy="#{result.id}" width="5%" styleClass="center-align-text" >
+				        <h:outputText value="#{result.bet.evento.odd}" />
+				    </p:column>
+					<p:column headerText="#RET" sortBy="#{result.id}" width="8%" >
+						<h:outputText value="R$" style="margin-right:2px;" />
+				        <h:outputText value="#{result.valorRetorno}" converter="decimalConverter" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.resultado']}" sortBy="#{result.id}"  width="9%" styleClass="center-align-text" >
+				        <h:outputText value="#{result.resultado.label}" />
+				    </p:column>
+					<p:column headerText="#{msgs['generico.tabelacoluna.acoes']}"  width="8%" styleClass="center-align-text" >
+						<h:commandLink action="#{apostaBean.navegarEditar(result)}" value="" style="margin-right:10px;" >
+							<span data-icon=""></span>
+						</h:commandLink>
+						<h:commandLink action="#{apostaBean.navegarExcluir(result)}" style="margin-left:10px;" onclick="return confirm('Deseja realmente excluir essa aposta?')" value="" >
+							<span data-icon=""></span>
+							<p:ajax update="@form" />
+						</h:commandLink>
+				    </p:column>
+				    
+				</p:dataTable>
+			</div>
+			
+			<div class="form-actions no-margin">
+				<h:commandButton action="#{apostaBean.navegarCadastrar()}" value="#{msgs['generico.btn_cadastrar']}" styleClass="btn btn-info pull-right" />
+             <div class="clearfix" />
+           </div>
+		</div>
+
+	</h:form>
+	
+	<script>
+		addClassDatatable();
+		addClassSelectedMenu('menu_apostas');
+	</script>
+	
+	</ui:define>
+</ui:composition>
