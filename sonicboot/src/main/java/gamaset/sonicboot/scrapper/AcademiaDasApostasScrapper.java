@@ -1,52 +1,58 @@
 package gamaset.sonicboot.scrapper;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
+import gamaset.sonicboot.service.objectpages.GameToday;
+import gamaset.sonicboot.service.objectpages.GamesTodayPage;
+
+@Component
 public class AcademiaDasApostasScrapper {
 	
-	public static void main(String[] args) {
-		AcademiaDasApostasScrapper scr = new AcademiaDasApostasScrapper();
-        scr.read();
-	}
 	
 	private String path = "https://www.academiadasapostas.com/";
 	
 	private Document doc;
 	
 	
-	public void read(){
+	public GamesTodayPage read(){
+		
+		GamesTodayPage games = new GamesTodayPage();
+
 		try{
 			
-			doc = Jsoup.connect(path).get();
+			InputStream input = getClass().getResourceAsStream("/html/academia.html");
+			doc = Jsoup.parse(input, "utf-8", "https://www.academiadasapostas.com");
+			
+			games.setGamesToday(new ArrayList<>());
 			
 			Element tableGames = doc.select("table[class=competition-today dskt]").first()
 									.select("tbody").first();
-			Element trGame = tableGames.select("tr[type=match]").first();
 			
-			String link = trGame.select("td[class=score]").first()
-					.select("a").first().attr("href");
+			Elements trGames = tableGames.select("tr[type=match]");
+			
+			for (Element trGame : trGames) {
+				GameToday game = new GameToday();
+				game.setHomeTeam(trGame.select("td[class^=team-a]").first().text());
+				game.setAwayTeam(trGame.select("td[class^=team-b]").first().text());
+				game.setLinkGame(trGame.select("td[class^=score]").first().select("a").first().attr("href"));
+				games.getGamesToday().add(game);
+			}
+			
 					
-			System.out.println(">> ".concat(link));
-			
-			doc = Jsoup.connect(link).post();
-			
-			Element tableLastResults = doc.select("div[id=ultimos_resultados]").first()
-					.select("table").first();
-			String test = tableLastResults.select("tr").first()
-					.select("span[class=stats-title]").first().text();
-			
-			System.out.println(">> ".concat(test));
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return games;
 
 	}
-	
 	
 }
